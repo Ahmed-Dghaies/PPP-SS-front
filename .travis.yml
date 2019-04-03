@@ -11,11 +11,7 @@ branches:
   only:
   - master
 
-addons:
-  sonarcloud:
-    organization: "ahmed-dghaies-github"
-    token:
-      secure: "a2406daccf20aa94fd8fd1ccb9fbb7369529e7ab" 
+
 
 before_script:
   - npm install -g @angular/cli
@@ -23,13 +19,12 @@ before_script:
 script:
 - ng lint
 - npm run test-headless
-- sonar-scanner
 - ng build --prod --base-href https://ahmed-dghaies.github.io/PPP-SS/
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GitHub_Token
-  local_dir: dist/PPP-SS
+  local_dir: dist/App
   on:
     branch: master
