@@ -15,7 +15,7 @@ addons:
   sonarcloud:
     organization: "ahmed-dghaies-github"
     token:
-      secure: "a9d1619f024c324624dd35072ca5fdf2173e81c7" 
+      secure: "a2406daccf20aa94fd8fd1ccb9fbb7369529e7ab" 
 
 before_script:
   - npm install -g @angular/cli
