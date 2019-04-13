@@ -19,6 +19,8 @@ addons:
 
 before_script:
   - npm install -g @angular/cli
+  - git remote rm origin
+  - git remote add origin https://user:${GITHUB_TOKEN}@github.com/Ahmed-Dghaies/PPP-SS-front.git
   
 script:
 - ng lint
@@ -26,7 +28,11 @@ script:
 - sonar-scanner
 - ng build --prod --base-href https://ahmed-dghaies.github.io/PPP-SS-front/
 - npm install -g angular-cli-ghpages
-- npx --dir dist/App --repo=https://GITHUB_TOKEN@github.com/Ahmed-Dghaies/PPP-SS-front.git --name="Ahmed-Dghaies" --email=dghaies.ahmed7@gmail.com
+- ngh --dir dist/App --repo=https://GITHUB_TOKEN@github.com/Ahmed-Dghaies/PPP-SS-front.git --name="Ahmed-Dghaies" --email=dghaies.ahmed7@gmail.com
+
+env:
+  global:
+    secure: encrypted-github-token
 
 deploy:
   provider: pages
