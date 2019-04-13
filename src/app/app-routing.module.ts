@@ -4,6 +4,7 @@ import { ParametersComponent } from './parameters/parameters.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: 'parameters',
     component: ParametersComponent,
-    /*canActivate: [AuthGuard]*/
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
