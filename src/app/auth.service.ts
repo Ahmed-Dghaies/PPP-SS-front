@@ -9,7 +9,7 @@ export class AuthService {
 
   private registredUrl = 'https://ppp-ss.herokuapp.com/api/register';
   private loginUrl = 'https://ppp-ss.herokuapp.com/api/login';
-  constructor(private http : HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   registerUser(user) {
     return this.http.post<any>(this.registredUrl, user);
