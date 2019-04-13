@@ -9,15 +9,14 @@ export class AuthService {
 
   private registredUrl = 'https://ppp-ss.herokuapp.com/api/register';
   private loginUrl = 'https://ppp-ss.herokuapp.com/api/login';
-  constructor(private http : HttpClient,
-    private _router: Router) { }
+  constructor(private http : HttpClient, private router: Router) { }
 
   registerUser(user) {
-    return this.http.post<any>(this.registredUrl,user);
+    return this.http.post<any>(this.registredUrl, user);
   }
 
   loginUser(user) {
-    return this.http.post<any>(this.loginUrl,user);
+    return this.http.post<any>(this.loginUrl, user);
   }
 
   loggedIn() {
@@ -30,6 +29,6 @@ export class AuthService {
 
   logoutUser() {
     localStorage.removeItem('token');
-    this._router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
 }
