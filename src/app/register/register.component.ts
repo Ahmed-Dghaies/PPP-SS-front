@@ -9,22 +9,21 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  registerUserData = {}
-  constructor(private _auth: AuthService, 
-    private _router: Router) { }
+  registerUserData = {};
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   registerUser() {
-    this._auth.registerUser(this.registerUserData)
+    this.auth.registerUser(this.registerUserData)
     .subscribe(
       res => {
-        console.log(res)
-        localStorage.setItem('token',res.token)
-        this._router.navigate(['/home'])
+        console.log(res);
+        localStorage.setItem('token',res.token);
+        this.router.navigate(['/home']);
       },
       err => console.log(err)
-    )
+    );
   }
 }
