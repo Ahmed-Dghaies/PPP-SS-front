@@ -25,6 +25,7 @@ script:
 - npm run test-headless
 - sonar-scanner
 - ng build --prod --base-href https://ahmed-dghaies.github.io/PPP-SS-front/
+- npm install -g angular-cli-ghpages
 - ngh
 
 deploy:
