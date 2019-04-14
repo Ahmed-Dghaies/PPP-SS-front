@@ -8,6 +8,7 @@ import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ParametersComponent } from './parameters/parameters.component';
 import { HomeComponent } from './home/home.component';
+import { CommonModule } from '@angular/common';  
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
@@ -24,7 +25,8 @@ import { TokenInterceptorService } from './token-interceptor.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule
   ],
   providers: [AuthService, AuthGuard, 
     {
