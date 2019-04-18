@@ -15,7 +15,7 @@ export class CardTypeEditComponent implements OnInit {
   cardType: any = {};
   angForm: FormGroup;
 
-  constructor(private route: ActivatedRoute,
+  constructor(
     private router: Router,
     private cardTypeService: CarteBonTypeService,
     @Inject(MAT_DIALOG_DATA) public data: any,

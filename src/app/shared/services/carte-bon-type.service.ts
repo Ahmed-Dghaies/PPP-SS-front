@@ -6,28 +6,27 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CarteBonTypeService {
 
-  private uri = 'https://ppp-ss.herokuapp.com/cardType'
+  private uri = 'https://ppp-ss.herokuapp.com/cardType';
 
-  constructor(private _http: HttpClient) { }
-
+  constructor(private http: HttpClient) { }
 
   addCardType(cardType) {
-    return this._http.post<any>(`${this.uri}/add`, cardType);
+    return this.http.post<any>(`${this.uri}/add`, cardType);
   }
 
   getCardTypes() {
-    return this._http.get(`${this.uri}/list`);
+    return this.http.get(`${this.uri}/list`);
   }
 
   editCardType(id) {
-    return this._http.get(`${this.uri}/edit/${id}`);
+    return this.http.get(`${this.uri}/edit/${id}`);
   }
 
   updateCardType(id, cardType) {
-    return this._http.put(`${this.uri}/update/${id}`, cardType);
+    return this.http.put(`${this.uri}/update/${id}`, cardType);
   }
 
   deleteBusiness(id) {
-    return this._http.delete(`${this.uri}/delete/${id}`);
+    return this.http.delete(`${this.uri}/delete/${id}`);
   }
 }

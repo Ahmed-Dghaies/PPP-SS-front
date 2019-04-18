@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CarteBonTypeService } from '../../shared/services/carte-bon-type.service';
-import { Router, ActivatedRoute } from '@angular/router'
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CardType } from '../../shared/models/cardType.model';
 
@@ -14,12 +12,12 @@ export class ParametersComponent implements OnInit {
   cardType = {cardCode: '', cardDescription: '' };
   cardTypes: CardType[];
   angForm: FormGroup;
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
     this.createForm();
   }
 
   createForm() {
-    this.angForm = this._formBuilder.group({
+    this.angForm = this.formBuilder.group({
       cardCode: ['', Validators.required],
       cardDescription: ['', Validators.required]
     });
