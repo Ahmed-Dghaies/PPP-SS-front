@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ParametersComponent } from './parameters/parameters.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { AuthGuard } from './auth.guard';
+import { ParametersComponent } from './Components/parameters/parameters.component';
+import { RegisterComponent } from './Components/Authentification/register/register.component';
+import { LoginComponent } from './Components/Authentification/login/login.component';
+import { HomeComponent } from './Components/home/home.component';
+import { AuthGuard } from './shared/Guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    /*canActivate: [AuthGuard]*/
+    canActivate: [AuthGuard]
   }
 ];
 

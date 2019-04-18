@@ -1,0 +1,25 @@
+<mat-toolbar>
+  <span>Ajouter type carte bon</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="angForm" class="normal-form" (submit)="addCardType()">
+  <mat-grid-list cols="1" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input formControlName="cardCode" matInput placeholder="Code carte Bon*" >
+          <mat-error>code carte bon is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="cardDescription" matInput placeholder="Description*" >
+          <mat-error>description carte bon is required.</mat-error>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid" >Ajouter type</button>
+          <button mat-raised-button color="warn" (click)="onClear()">Reset</button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
