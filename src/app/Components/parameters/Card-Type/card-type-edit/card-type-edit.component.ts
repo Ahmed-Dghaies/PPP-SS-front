@@ -12,16 +12,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class CardTypeEditComponent implements OnInit {
 
-  cardType: any ={}
+  cardType: any = {};
   angForm: FormGroup;
 
-  
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private _cardTypeService: CarteBonTypeService,
+    private cardTypeService: CarteBonTypeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CardTypeEditComponent>
-    ) {
+  ) {
     this.createForm();
   }
 
@@ -35,11 +34,11 @@ export class CardTypeEditComponent implements OnInit {
   }
 
   updateCardType() {
-      this._cardTypeService.updateCardType(this.data.dataKey._id,this.angForm.value)
+    this.cardTypeService.updateCardType(this.data.dataKey._id, this.angForm.value)
       .subscribe(res => {
         this.router.navigate(['parameters']);
       });
-      this.onClose();
+    this.onClose();
   }
 
   onClose() {
@@ -52,10 +51,10 @@ export class CardTypeEditComponent implements OnInit {
   }
 
   ngOnInit() {
-        this._cardTypeService.editCardType(this.data.dataKey._id).subscribe(res => {
-          this.angForm.setValue(res);
-      });
-    console.log()
+    this.cardTypeService.editCardType(this.data.dataKey._id).subscribe(res => {
+      this.angForm.setValue(res);
+    });
+    console.log();
   }
 
 }

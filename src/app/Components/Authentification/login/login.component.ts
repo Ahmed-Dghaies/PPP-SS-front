@@ -9,26 +9,26 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginUserData = {email: '', password: ''}
-  constructor(private _auth: AuthService,
-    private _route: Router) { }
+  loginUserData = {email: '', password: ''};
+  constructor(private auth: AuthService,
+    private route: Router) { }
 
   ngOnInit() {
-    if (this._auth.loggedIn()) {
-      this._route.navigate(['/home'])
+    if (this.auth.loggedIn()) {
+      this.route.navigate(['/home']);
     }
   }
 
   loginUser() {
-    this._auth.loginUser(this.loginUserData)
+    this.auth.loginUser(this.loginUserData)
     .subscribe (
       res => {
-        console.log(res)
-        localStorage.setItem('token',res.token)
-        this._route.navigate(['/home'])
+        console.log(res);
+        localStorage.setItem('token',res.token);
+        this.route.navigate(['/home']);
       },
       err => console.log(err)
-    )
+    );
   }
 
 }

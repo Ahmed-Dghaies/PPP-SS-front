@@ -5,7 +5,7 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 import { CardTypeAddComponent } from '../card-type-add/card-type-add.component';
 import { CardTypeEditComponent } from '../card-type-edit/card-type-edit.component';
-import { NotificationService } from '../../../../shared/services/notification.service'
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 
 @Component({
@@ -24,13 +24,13 @@ export class CardTypeGetComponent implements OnInit {
   searchKey: string;
 
   constructor(
-    private _cardTypeService: CarteBonTypeService,
+    private cardTypeService: CarteBonTypeService,
     private dialog: MatDialog,
     private notificationService: NotificationService
   ) { }
 
   getCardTypes() {
-    return this._cardTypeService.getCardTypes();
+    return this.cardTypeService.getCardTypes();
   }
 
   onDelete(cardType) {
@@ -38,11 +38,11 @@ export class CardTypeGetComponent implements OnInit {
   }
 
   deleteCardType(id) {
-    this._cardTypeService.deleteBusiness(id).subscribe(res => {
+    this.cardTypeService.deleteBusiness(id).subscribe(res => {
       this.notificationService.warn(':: Deleted');
       this.ngOnInit();
     },
-      err => console.log(err))
+      err => console.log(err));
   }
 
   onSearchClear() {

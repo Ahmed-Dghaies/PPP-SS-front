@@ -19,7 +19,7 @@ import * as Material from '@angular/material';
     Material.MatGridListModule,
     Material.MatSnackBarModule
   ],
-  exports:[
+  exports: [
     Material.MatButtonModule,
     Material.MatCheckboxModule,
     Material.MatTableModule,
