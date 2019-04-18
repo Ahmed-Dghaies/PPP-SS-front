@@ -46,7 +46,7 @@ export class CardTypeGetComponent implements OnInit {
   }
 
   onSearchClear() {
-    this.searchKey = "";
+    this.searchKey = '';
     this.applyFilter();
   }
 
@@ -58,7 +58,7 @@ export class CardTypeGetComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%";
+    dialogConfig.width = '100%';
     this.dialog.open(CardTypeAddComponent, { panelClass: 'full-width-dialog' })
       .afterClosed()
       .subscribe(result => {
@@ -80,7 +80,7 @@ export class CardTypeGetComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "100%";
+    dialogConfig.width = '100%';
     this.dialog.open(CardTypeEditComponent, {
       panelClass: 'full-width-dialog',
       data: {

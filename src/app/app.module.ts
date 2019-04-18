@@ -18,8 +18,9 @@ import { CarteBonTypeService } from './shared/services/carte-bon-type.service';
 import { CardTypeAddComponent } from './Components/Parameters/Card-Type/card-type-add/card-type-add.component';
 import { CardTypeGetComponent } from './Components/Parameters/Card-Type/card-type-get/card-type-get.component';
 import { CardTypeEditComponent } from './Components/Parameters/Card-Type/card-type-edit/card-type-edit.component';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './Components/material/material.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,7 @@ import { MaterialModule } from './Components/material/material.module';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  entryComponents: [CardTypeAddComponent,CardTypeEditComponent],
+  entryComponents: [CardTypeAddComponent, CardTypeEditComponent],
   providers: [AuthService, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
