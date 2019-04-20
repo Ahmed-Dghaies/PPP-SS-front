@@ -5,17 +5,17 @@
     <mat-icon>clear</mat-icon>
   </button>
 </mat-toolbar>
-<form [formGroup]="angForm" class="normal-form">
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
   <mat-grid-list cols="1" rowHeight="300px">
     <mat-grid-tile>
       <div class="controles-container">
-        <input type="hidden" formControlName="_id">
+        <input type="hidden" >
         <mat-form-field>
-          <input formControlName="cardCode" matInput placeholder="Code carte Bon*">
+          <input matInput placeholder="Code carte Bon*" required type="text" name="cardCode" [(ngModel)]="cardType.cardCode">
           <mat-error>code carte bon is required.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="cardDescription" matInput placeholder="Description*">
+          <input matInput placeholder="Description*" required type="text" name="cardDescription" [(ngModel)]="cardType.cardDescription">
           <mat-error>description carte bon is required.</mat-error>
         </mat-form-field>
         <div class="button-row">

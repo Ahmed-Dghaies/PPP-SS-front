@@ -1,4 +1,11 @@
 export class CardType {
-  cardCode: string;
-  cardDescription: string;
+  
+  constructor() {
+    this.cardCode = '';
+    this.cardDescription = '';
+}
+
+  public _id?: string;
+  public cardCode: string;
+  public cardDescription: string;
 }

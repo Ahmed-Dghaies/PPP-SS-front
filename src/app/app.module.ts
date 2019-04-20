@@ -15,16 +15,17 @@ import { TokenInterceptorService } from './shared/services/token-interceptor.ser
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CarteBonTypeService } from './shared/services/carte-bon-type.service';
-import { CardTypeAddComponent } from './Components/parameters/Card-Type/card-type-add/card-type-add.component';
-import { CardTypeGetComponent } from './Components/parameters/Card-Type/card-type-get/card-type-get.component';
-import { CardTypeEditComponent } from './Components/parameters/Card-Type/card-type-edit/card-type-edit.component';
+import { CardTypeAddComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component';
+import { CardTypeEditComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-edit/card-type-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './Components/material/material.module';
 import { ClientListComponent } from './Components/parameters/client/client-list/client-list.component';
 import { MoreDetailsComponent } from './Components/parameters/client/client-list/more-details/more-details.component';
 import { AddClientComponent } from './Components/parameters/client/client-list/add-client/add-client.component';
-import { ConfirmDeleteComponent } from './Components/parameters/client/client-list/confirm-delete/confirm-delete.component';
+import { ConfirmDeleteComponent } from './Components/Shared/confirm-delete/confirm-delete.component';
 import { UpdateClientComponent } from './Components/parameters/client/client-list/update-client/update-client.component';
+import { CardTypeListComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-list.component';
+
 
 @NgModule({
   declarations: [
@@ -34,13 +35,13 @@ import { UpdateClientComponent } from './Components/parameters/client/client-lis
     ParametersComponent,
     HomeComponent,
     CardTypeAddComponent,
-    CardTypeGetComponent,
     CardTypeEditComponent,
     ClientListComponent,
     MoreDetailsComponent,
     AddClientComponent,
     ConfirmDeleteComponent,
     UpdateClientComponent,
+    CardTypeListComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@ import { ClientService } from 'src/app/shared/services/client.service';
 import { MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { MoreDetailsComponent } from './more-details/more-details.component';
 import { AddClientComponent } from './add-client/add-client.component';
-import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { ConfirmDeleteComponent } from '../../../Shared/confirm-delete/confirm-delete.component';
 import { Client } from 'src/app/shared/models/client.model';
 import { UpdateClientComponent } from './update-client/update-client.component';
 
@@ -44,10 +44,10 @@ export class ClientListComponent implements OnInit {
     });
   }
 
-  deleteClientDialog(id: string): void {
+  deleteClientDialog(id: string, msg: string): void {
 
     this.dialog.open(ConfirmDeleteComponent, {
-      data: { id }
+      data: { id, msg }
     });
   }
 
