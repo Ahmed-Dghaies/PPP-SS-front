@@ -21,7 +21,7 @@
         <div class="button-row">
           <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid"
             (click)="updateCardType()">Modifier type</button>
-          <button mat-raised-button color="warn" (click)="onClear()">Reset</button>
+          <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
         </div>
       </div>
     </mat-grid-tile>
