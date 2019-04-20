@@ -11,8 +11,8 @@ import { CarteBonTypeService } from 'src/app/shared/services/carte-bon-type.serv
 })
 export class ConfirmDeleteComponent implements OnInit {
 
-  private id: string;
-  private msg: string;
+  public id: string;
+  public msg: string;
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDeleteComponent>,
