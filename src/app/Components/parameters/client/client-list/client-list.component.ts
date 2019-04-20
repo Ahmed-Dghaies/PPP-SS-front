@@ -14,8 +14,8 @@ import { UpdateClientComponent } from './update-client/update-client.component';
 })
 export class ClientListComponent implements OnInit {
 
-  private displayedColumns: string[];
-  private search: string;
+  public displayedColumns: string[];
+  public search: string;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

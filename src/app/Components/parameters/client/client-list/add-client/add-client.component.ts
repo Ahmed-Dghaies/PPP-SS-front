@@ -12,7 +12,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class AddClientComponent implements OnInit {
 
-  private client: Client;
+  public client: Client;
 
   constructor(private dialogMat: MatDialogRef<AddClientComponent>,
               private clientService: ClientService,

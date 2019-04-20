@@ -9,7 +9,7 @@ import { Client } from 'src/app/shared/models/client.model';
 })
 export class MoreDetailsComponent implements OnInit {
 
-  private client: Client;
+  public client: Client;
 
   constructor(public dialogRef: MatDialogRef<MoreDetailsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
