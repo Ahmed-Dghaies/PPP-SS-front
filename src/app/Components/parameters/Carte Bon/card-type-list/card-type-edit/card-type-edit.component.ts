@@ -20,8 +20,8 @@ export class CardTypeEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cardTypeService: CarteBonTypeService,
     private notifservice: NotificationService) {
-this.cardType = data.cardType;
-}
+    this.cardType = data.cardType;
+  }
 
   updateCardType(): void {
     this.cardTypeService.updateCardType(this.cardType._id, this.cardType)

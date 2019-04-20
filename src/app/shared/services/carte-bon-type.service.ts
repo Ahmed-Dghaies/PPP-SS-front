@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
-import { CardType } from '../models/cardType.model'
+import { CardType } from '../models/cardType.model';
 
 @Injectable({
   providedIn: 'root'

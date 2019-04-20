@@ -28,10 +28,12 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   delete() {
-    if (this.msg === 'client')
-      this.deleteClient()
-    else if (this.msg === 'type carte bon')
-      this.deleteCardType()
+    if (this.msg === 'client') {
+      this.deleteClient();
+    }
+    else if (this.msg === 'type carte bon') {
+      this.deleteCardType();
+    }
   }
 
   annuler(): void {

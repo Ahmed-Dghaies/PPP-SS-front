@@ -9,11 +9,11 @@ describe('CardTypeAddComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        
+
       ],
-      declarations: [ CardTypeAddComponent ]
+      declarations: [CardTypeAddComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
