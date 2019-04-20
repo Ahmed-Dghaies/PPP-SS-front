@@ -1,0 +1,23 @@
+<div mat-dialog-content>
+    <mat-list>
+        <mat-list-item><h4>Email : </h4>&nbsp;&nbsp;{{client.email}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Type : </h4>&nbsp;&nbsp;{{client.type}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Ville : </h4>&nbsp;&nbsp;{{client.address.city}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Region : </h4>&nbsp;&nbsp;{{client.region}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Code Postal : </h4>&nbsp;&nbsp;{{client.address.postal}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Téléphone : </h4>&nbsp;&nbsp;{{client.phone}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Fax : </h4>&nbsp;&nbsp;{{client.fax}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><h4>Plafond Crédit : </h4>&nbsp;&nbsp;{{client.plafondCredit}}</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+</div>

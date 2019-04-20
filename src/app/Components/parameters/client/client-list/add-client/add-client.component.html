@@ -1,0 +1,115 @@
+<mat-toolbar>
+  <span>Ajouter Client</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list cols="2" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Matricule Fiscale" required type="text" name="matFisc"
+            [(ngModel)]="client.matFisc">
+          <mat-error>Matricule Fiscale est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom" required type="text" name="name" [(ngModel)]="client.name">
+          <mat-error>Nom est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Email" required email type="email" name="email" [(ngModel)]="client.email"
+            #email="ngModel">
+          <mat-error *ngIf="email.errors?.required">Email est obligatoire</mat-error>
+          <mat-error *ngIf="email.errors?.email">Email Invalide</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Type" required type="text" name="type" [(ngModel)]="client.type">
+          <mat-error>Type est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Select an option</mat-label>
+          <mat-select required [(ngModel)]="client.state" name="state">
+            <mat-option>None</mat-option>
+            <mat-option value="actif">Actif</mat-option>
+            <mat-option value="non actif">Non Actif</mat-option>
+          </mat-select>
+
+          <mat-error>Etat est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Téléphone" required type="number" maxlength="8" name="phone"
+            [(ngModel)]="client.phone">
+          <mat-error>Téléphone est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Fax" required type="number" maxlength="8" name="fax" [(ngModel)]="client.fax">
+          <mat-error>Fax est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Plafond Crédit" required type="number" min="0" name="plafondCredit"
+            [(ngModel)]="client.plafondCredit">
+          <mat-error>Plafond Crédit est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Ville" required type="text" name="city" [(ngModel)]="client.address.city">
+          <mat-error>Ville est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Code Postal" required type="number" min="0" maxlength="5" name="postal"
+            [(ngModel)]="client.address.postal">
+          <mat-error>Code Postal est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <mat-grid-list cols="1" rowHeight="100px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Region" required type="text" name="region" [(ngModel)]="client.region">
+          <mat-error>Region est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addClient()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

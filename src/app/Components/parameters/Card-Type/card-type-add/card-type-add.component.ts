@@ -13,7 +13,7 @@ export class CardTypeAddComponent implements OnInit {
   angForm: FormGroup;
 
   constructor(
-    private CardTypeService: CarteBonTypeService,
+    private cardTypeService: CarteBonTypeService,
     public dialogRef: MatDialogRef<CardTypeAddComponent>) {
     this.createForm();
   }
@@ -26,7 +26,7 @@ export class CardTypeAddComponent implements OnInit {
   }
 
   addCardType() {
-    this.CardTypeService.addCardType(this.angForm.value)
+    this.cardTypeService.addCardType(this.angForm.value)
       .subscribe(
         res => {
           this.angForm.reset();
@@ -46,7 +46,7 @@ export class CardTypeAddComponent implements OnInit {
   }
 
   getCardTypes() {
-    return this.CardTypeService.getCardTypes();
+    return this.cardTypeService.getCardTypes();
   }
 
   ngOnInit() {
