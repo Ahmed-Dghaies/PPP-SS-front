@@ -19,7 +19,8 @@ export class CardTypeListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public cardTypeService: CarteBonTypeService, private dialog: MatDialog) {
+  constructor(public cardTypeService: CarteBonTypeService,
+              private dialog: MatDialog) {
     this.displayedColumns = ['cardCode', 'cardDescription', 'actions'];
   }
 

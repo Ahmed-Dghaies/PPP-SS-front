@@ -13,14 +13,19 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 export class AddClientComponent implements OnInit {
 
   public client: Client;
+  public width: number;
 
   constructor(private dialogMat: MatDialogRef<AddClientComponent>,
               private clientService: ClientService,
               private notifService: NotificationService) {
     this.client = new Client();
+    this.width = 2;
   }
 
   ngOnInit() {
+    if ( document.body.clientWidth < 400 ) {
+      this.width = 1;
+    }
   }
 
   onClose(): void {
