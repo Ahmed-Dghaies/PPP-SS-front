@@ -20,7 +20,7 @@ export class ClientListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private clientService: ClientService, private dialog: MatDialog) {
+  constructor(public clientService: ClientService, private dialog: MatDialog) {
     this.displayedColumns = ['name', 'matFisc', 'state', 'actions'];
   }
 
