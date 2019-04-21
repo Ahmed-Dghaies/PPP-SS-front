@@ -24,7 +24,7 @@ export class UpdateClientComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (document.body.clientWidth < 400) {
+    if (document.body.clientWidth < 600) {
       this.width = 1;
     }
   }
