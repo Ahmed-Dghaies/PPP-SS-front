@@ -27,6 +27,7 @@ import { UpdateClientComponent } from './Components/parameters/client/client-lis
 import { CardTypeListComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-list.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
