@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   public displayedColumns: string[];
 
-  constructor(private sessionService: SessionService) {
+  constructor(public sessionService: SessionService) {
     this.displayedColumns = ['date', 'poste', 'description', 'state'];
   }
 

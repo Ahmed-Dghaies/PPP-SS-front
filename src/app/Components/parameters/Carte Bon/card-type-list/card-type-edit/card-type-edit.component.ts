@@ -16,7 +16,8 @@ export class CardTypeEditComponent implements OnInit {
 
   public cardType: CardType;
 
-  constructor(public dialogRef: MatDialogRef<CardTypeEditComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<CardTypeEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cardTypeService: CarteBonTypeService,
     private notifservice: NotificationService) {
