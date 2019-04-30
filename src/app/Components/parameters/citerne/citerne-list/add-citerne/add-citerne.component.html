@@ -1,0 +1,51 @@
+<mat-toolbar>
+  <span>Ajouter Citerne</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="identifiant" required type="text" name="identifiant"
+            [(ngModel)]="citerne.identifiant">
+          <mat-error>L'identifiant du citerne est obligatoire!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="capacite" required type="text" name="capacite" [(ngModel)]="citerne.capacite">
+          <mat-error>La capacité du citerne est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Selectiooner un type</mat-label>
+          <mat-select required [(ngModel)]="citerne.type" name="type">
+            <mat-option value="essence">Essence</mat-option>
+            <mat-option value="diesel">Diesel</mat-option>
+          </mat-select>
+
+          <mat-error>Type est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+    </mat-grid-list>
+
+    
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addCiterne()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Annuler</button>
+    </div>
+  </div>
+</form>
+
