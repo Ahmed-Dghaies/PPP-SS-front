@@ -25,6 +25,8 @@ import { AddClientComponent } from './Components/parameters/client/client-list/a
 import { ConfirmDeleteComponent } from './Components/Shared/confirm-delete/confirm-delete.component';
 import { UpdateClientComponent } from './Components/parameters/client/client-list/update-client/update-client.component';
 import { CardTypeListComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-list.component';
+import { AddCiterneComponent } from './Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component';
+import { CiterneListComponent } from './Components/parameters/citerne/citerne-list/citerne-list.component';
 
 
 
@@ -43,6 +45,8 @@ import { CardTypeListComponent } from './Components/parameters/Carte Bon/card-ty
     ConfirmDeleteComponent,
     UpdateClientComponent,
     CardTypeListComponent,
+    AddCiterneComponent,
+    CiterneListComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,8 @@ import { CardTypeListComponent } from './Components/parameters/Carte Bon/card-ty
     MoreDetailsComponent,
     AddClientComponent,
     ConfirmDeleteComponent,
-    UpdateClientComponent
+    UpdateClientComponent,
+    AddCiterneComponent
   ],
   providers: [AuthService, AuthGuard,
     {
