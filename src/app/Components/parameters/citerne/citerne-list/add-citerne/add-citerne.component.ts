@@ -39,7 +39,9 @@ export class AddCiterneComponent implements OnInit {
   }
 
   addCiterne(): void {
-    this.citerneService.addCiterne(this.citerne).subscribe(res => {
+    this.citerne.contenu =  0;
+    console.log(this.citerne);
+      this.citerneService.addCiterne(this.citerne).subscribe(res => {
       this.citerneService.getCiternesList();
       this.dialogMat.close();
       this.notifService.success('Citerne ajouter avec succés');

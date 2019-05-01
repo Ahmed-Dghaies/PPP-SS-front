@@ -6,7 +6,7 @@ export class Citerne {
         this.type ='';
         
         }
-    
+    public _id?: string;
     public identifiant: string;
     public capacite : number;
     public contenu :  number;

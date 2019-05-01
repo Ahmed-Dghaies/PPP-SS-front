@@ -21,21 +21,13 @@ export class CiterneListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
 
   constructor(public citerneService: CiterneService, private dialog: MatDialog) { 
-    this.displayedColumns = ['identifiant', 'capacite', 'type'];
+    this.displayedColumns = ['identifiant', 'capacite', 'type','contenu'];
   }
 
   ngOnInit() {
     this.citerneService.getCiternesList(this.sort, this.paginator);
   }
 
-  /*seeMoreDialog(citerne): void {
-    this.dialog.open(MoreDetailsComponent, {
-      panelClass: 'full-width-dialog',
-      height: '500px',
-      data: { client }
-    });
-
-  }*/
 
   addCiterneDialog(): void {
     this.dialog.open(AddCiterneComponent, {
