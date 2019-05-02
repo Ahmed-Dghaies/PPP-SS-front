@@ -1,36 +1,48 @@
-<div class="mat-elevation-z8 mt-3">
-  <mat-table [dataSource]="sessionService.sessionMatTab" matSort>
-    <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef >Date</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="poste">
-      <mat-header-cell *matHeaderCellDef>Poste</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.poste}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.state}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="loading">
-      <mat-footer-cell *matFooterCellDef colspan="6">
-        Loading data ...
-      </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="noData">
-      <mat-footer-cell *matFooterCellDef colspan="6">
-        No data.
-      </mat-footer-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':sessionService.sessionMatTab!=null}"></mat-footer-row>
-    <mat-footer-row *matFooterRowDef="['noData']"
-      [ngClass]="{'hide':!(sessionService.sessionMatTab!=null && sessionService.sessionMatTab.data.length==0)}">
-    </mat-footer-row>
-  </mat-table>
+<div class="margin-param">
+  <mat-toolbar color="primary">
+    <span>Journée et poste</span>
+  </mat-toolbar>
+  <div class="mat-elevation-z8 mt-3">
+    <mat-table [dataSource]="sessionService.sessionMatTab" matSort>
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="poste">
+        <mat-header-cell *matHeaderCellDef>Poste</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.poste}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.state}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data ...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':sessionService.sessionMatTab!=null}">
+      </mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']"
+        [ngClass]="{'hide':!(sessionService.sessionMatTab!=null && sessionService.sessionMatTab.data.length==0)}">
+      </mat-footer-row>
+    </mat-table>
+  </div>
+</div>
+<div class="margin-param">
+  <mat-toolbar color="primary">
+    <span>Relevé des indexes poste</span>
+  </mat-toolbar>
+  <app-releve-index-list></app-releve-index-list>
 </div>

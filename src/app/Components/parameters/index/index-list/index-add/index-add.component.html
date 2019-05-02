@@ -1,0 +1,61 @@
+<mat-toolbar>
+  <span>Ajouter Index</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Reference" required type="text" name="reference" [(ngModel)]="index.reference">
+          <mat-error>Reference is required.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Valeur Index" required type="number" name="valeurIndex"
+            [(ngModel)]="index.valeurIndex">
+          <mat-error>Valeur Index is required.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Type carburant" required type="text" name="carburant"
+            [(ngModel)]="index.carburant">
+          <mat-error>Type carburant is required.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Citerne" required type="text" name="citerne" [(ngModel)]="index.citerne">
+          <mat-error>Citerne is required.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Distributeur" required type="text" name="distributeur"
+            [(ngModel)]="index.distributeur">
+          <mat-error>Distributeur is required.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addIndex()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

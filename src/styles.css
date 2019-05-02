@@ -92,3 +92,8 @@ snack-bar-container.success {
     font-size: 18px !important;
     font-weight: bold;
   }
+
+  .margin-param{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,34 @@
+<mat-toolbar>
+    <span>Modifier relevé index</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form mat-dialog-content class="normal-form" #angForm="ngForm">
+    <mat-grid-list cols="1" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <input type="hidden" >
+          <mat-form-field>
+              <input matInput placeholder="Reference index" required type="text" name="reference"
+                [(ngModel)]="releveIndex.reference">
+              <mat-error>Reference index is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Départ index" required type="number" name="depart" [(ngModel)]="releveIndex.depart">
+              <mat-error>Départ index is required.</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Arrivé index" required type="number" name="arrive" [(ngModel)]="releveIndex.arrive">
+              <mat-error>Arrivé index is required.</mat-error>
+            </mat-form-field>
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid"
+              (click)="updateReleveIndex()">Modifier type</button>
+            <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>

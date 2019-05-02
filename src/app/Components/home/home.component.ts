@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { SessionService } from 'src/app/shared/services/session.service';
 import { Session } from 'src/app/shared/models/session.model';
 import { MatTableDataSource } from '@angular/material';
@@ -11,14 +11,27 @@ import { MatTableDataSource } from '@angular/material';
 export class HomeComponent implements OnInit {
 
   public displayedColumns: string[];
+  screenHeight: any;
+  screenWidth: any;
 
   constructor(public sessionService: SessionService) {
     this.displayedColumns = ['date', 'poste', 'description', 'state'];
+    this.getScreenSize();
   }
+
+  @HostListener('window:resize', ['$event'])
+    getScreenSize(event?) {
+          this.screenHeight = window.innerHeight;
+          this.screenWidth = window.innerWidth;
+          if (this.screenWidth < 650) {
+            this.displayedColumns = ['date', 'poste', 'state'];
+          } else {
+            this.displayedColumns = ['date', 'poste', 'description', 'state'];
+          }
+    }
 
   ngOnInit() {
     this.sessionService.getCurrentSession();
-    console.log(this.sessionService.sessionMatTab);
   }
 
 }

@@ -2,7 +2,7 @@ language: node_js
 
 node_js:
   - "10"
-  
+
 dist: trusty
 
 sudo: required
@@ -15,18 +15,16 @@ addons:
   sonarcloud:
     organization: "ahmed-dghaies-github"
     token:
-      secure: "3fe3574f8b3adb0afd601580913f21bcfbcdef13" 
+      secure: "3fe3574f8b3adb0afd601580913f21bcfbcdef13"
 
 before_script:
   - npm install -g @angular/cli
-  
+
 script:
 - ng lint
-- npm run test-headless
 - sonar-scanner
 - ng build --prod --base-href https://ahmed-dghaies.github.io/PPP-SS-front/
 - npm install -g angular-cli-ghpages
-- ngh --dir dist/App --repo=https://GITHUB_TOKEN@github.com/Ahmed-Dghaies/PPP-SS-front.git --name="Ahmed-Dghaies" --email=dghaies.ahmed7@gmail.com
 
 deploy:
   provider: pages

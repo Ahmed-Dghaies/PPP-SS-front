@@ -1,0 +1,8 @@
+mat-footer-row {
+  font-weight: bold;
+}
+
+.detailsButton {
+  background: lightgray;
+  min-width: 90px;
+}

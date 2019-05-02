@@ -18,7 +18,7 @@ import { CarteBonTypeService } from './shared/services/carte-bon-type.service';
 import { CardTypeAddComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component';
 import { CardTypeEditComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-edit/card-type-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './Components/material/material.module';
+import { MaterialModule } from './material/material.module';
 import { ClientListComponent } from './Components/parameters/client/client-list/client-list.component';
 import { MoreDetailsComponent } from './Components/parameters/client/client-list/more-details/more-details.component';
 import { AddClientComponent } from './Components/parameters/client/client-list/add-client/add-client.component';
@@ -27,8 +27,13 @@ import { UpdateClientComponent } from './Components/parameters/client/client-lis
 import { CardTypeListComponent } from './Components/parameters/Carte Bon/card-type-list/card-type-list.component';
 import { AddCiterneComponent } from './Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component';
 import { CiterneListComponent } from './Components/parameters/citerne/citerne-list/citerne-list.component';
-
-
+import { UpdateCiterneComponent } from './Components/parameters/citerne/citerne-list/update-citerne/update-citerne.component';
+import { ReleveIndexListComponent } from './Components/home/Recette/releveIndex-list/releveIndex-list.component';
+import { ReleveIndexAddComponent } from './Components/home/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component';
+import { ReleveIndexEditComponent } from './Components/home/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component';
+import { IndexListComponent } from './Components/parameters/index/index-list/index-list.component';
+import { IndexAddComponent } from './Components/parameters/index/index-list/index-add/index-add.component';
+import { IndexEditComponent } from './Components/parameters/index/index-list/index-edit/index-edit.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,14 @@ import { CiterneListComponent } from './Components/parameters/citerne/citerne-li
     UpdateClientComponent,
     CardTypeListComponent,
     AddCiterneComponent,
-    CiterneListComponent
+    CiterneListComponent,
+    UpdateCiterneComponent,
+    ReleveIndexListComponent,
+    ReleveIndexAddComponent,
+    ReleveIndexEditComponent,
+    IndexListComponent,
+    IndexAddComponent,
+    IndexEditComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +78,11 @@ import { CiterneListComponent } from './Components/parameters/citerne/citerne-li
     AddClientComponent,
     ConfirmDeleteComponent,
     UpdateClientComponent,
-    AddCiterneComponent
+    AddCiterneComponent,
+    ReleveIndexAddComponent,
+    ReleveIndexEditComponent,
+    IndexAddComponent,
+    IndexEditComponent
   ],
   providers: [AuthService, AuthGuard,
     {
