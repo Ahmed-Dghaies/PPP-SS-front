@@ -15,7 +15,8 @@ export class UpdateCiterneComponent implements OnInit {
   public citerne: Citerne;
   public width: number;
 
-  constructor(public dialogRef: MatDialogRef<UpdateCiterneComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<UpdateCiterneComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private citerneService: CiterneService,
     private notifservice: NotificationService) {

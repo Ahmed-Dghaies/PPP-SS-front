@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { IndexVM } from '../models/view_models/indexVM.model';
+import { IndexVM } from '../models/view_models/IndexVM.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

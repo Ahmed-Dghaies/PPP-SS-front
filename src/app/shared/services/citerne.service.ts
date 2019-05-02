@@ -18,9 +18,9 @@ export class CiterneService {
   constructor(private http: HttpClient) {
     this.citernes = [];
     this.citernesMatTab = new MatTableDataSource(this.citernes);
-   }
+  }
 
-   // get citernes list
+  // get citernes list
   getCiternesList(sort?: MatSort, paginator?: MatPaginator): void {
     this.http.get<Citerne[]>(`${this.uri}/list`).subscribe(res => {
       const key = 'citernes';
@@ -42,8 +42,8 @@ export class CiterneService {
   }
 
 
-   // add new citerne
-   addCiterne(citerne: Citerne): Observable<any> {
+  // add new citerne
+  addCiterne(citerne: Citerne): Observable<any> {
     const request = { citerne };
     return this.http.post(`${this.uri}/add`, request);
   }
@@ -67,5 +67,5 @@ export class CiterneService {
 
 
 
-   
+
 }

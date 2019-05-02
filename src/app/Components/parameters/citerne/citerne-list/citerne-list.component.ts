@@ -18,10 +18,10 @@ export class CiterneListComponent implements OnInit {
   public search: string;
 
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public citerneService: CiterneService, private dialog: MatDialog) { 
-    this.displayedColumns = ['identifiant', 'capacite', 'type','contenu'];
+  constructor(public citerneService: CiterneService, private dialog: MatDialog) {
+    this.displayedColumns = ['identifiant', 'capacite', 'type', 'contenu'];
   }
 
   ngOnInit() {
