@@ -27,7 +27,7 @@
       "@ComCiterne/*": ["app/Components/parameters/citerne/citerne-list/*"],
       "@ComClient/*": ["app/Components/parameters/client/client-list/*"],
       "@ComShared/*": ["app/Components/Shared/*"],
-      "@ComCarburant/*": ["app/Components/parameters/prixCarburant/prix-Carburant-list/*"]
+      "@ComCarburant/*": ["app/Components/parameters/prixCarburant/prix-carburant-list/*"]
     }
   }
 }

@@ -24,7 +24,7 @@ export class ReleveIndexAddComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ReleveIndexAddComponent>,
-    private releveIndexService: ReleveIndexService,
+    public releveIndexService: ReleveIndexService,
     private indexService: IndexService,
     private carburantService: PrixCarburantService,
     private notifService: NotificationService) {
