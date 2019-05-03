@@ -1,4 +1,4 @@
-import { IndexVM } from './view_models/indexVM.model';
+import { IndexVM } from './view_models/IndexVM.model';
 
 export class Recette {
   constructor() {
