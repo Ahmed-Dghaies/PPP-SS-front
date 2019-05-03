@@ -11,9 +11,9 @@
       <div class="controles-container">
         <mat-form-field>
           <mat-label>Reference</mat-label>
-          <mat-select>
+          <mat-select required name="reference" [(ngModel)]="releveIndex.reference">
             <mat-option>None</mat-option>
-            <mat-option *ngFor="let name of list" required [value]="name" [(ngModel)]="releveIndex.reference">{{name}}
+            <mat-option *ngFor="let name of releveIndexService.list"  [value]="name" >{{name}}
             </mat-option>
           </mat-select>
           <mat-error>Reference index is required.</mat-error>

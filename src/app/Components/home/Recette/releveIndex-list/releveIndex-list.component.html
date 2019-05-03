@@ -44,7 +44,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="updateReleveIndexDialog(row)">
+        <button mat-icon-button color="primary" (click)="updateReleveIndexDialog(row)">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="deleteReleveIndexDialog(row._id, 'relevé index')">

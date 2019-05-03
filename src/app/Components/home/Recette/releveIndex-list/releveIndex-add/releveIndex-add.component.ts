@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ReleveIndex } from 'src/app/shared/models/ReleveIndex.model';
+import { ReleveIndex } from 'app/shared/models/ReleveIndex.model';
 import { MatDialogRef, MatSort, MatPaginator } from '@angular/material';
-import { ReleveIndexService } from 'src/app/shared/services/releveIndex.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
+import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
-import { IndexService } from 'src/app/shared/services/index.service';
+import { IndexService } from 'app/shared/services/index.service';
+import { Index } from 'app/shared/models/Index.model';
+import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
+import { Carburant } from 'app/shared/models/carburant';
 
 @Component({
   selector: 'app-releve-index-add',
@@ -14,7 +17,7 @@ import { IndexService } from 'src/app/shared/services/index.service';
 export class ReleveIndexAddComponent implements OnInit {
 
   public releveIndex: ReleveIndex;
-  public list: string[];
+  public carburant: string;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,30 +26,34 @@ export class ReleveIndexAddComponent implements OnInit {
     private dialogRef: MatDialogRef<ReleveIndexAddComponent>,
     private releveIndexService: ReleveIndexService,
     private indexService: IndexService,
+    private carburantService: PrixCarburantService,
     private notifService: NotificationService) {
-    this.list = ['13-G', '45-G'];
+    this.carburant = '';
     this.releveIndex = new ReleveIndex();
-    this.indexService.getIndexList();
-    this.getNamesList();
   }
 
   addReleveIndex() {
-    this.releveIndexService.addReleveIndex(this.releveIndex)
-      .subscribe(
-        res => {
-          this.releveIndexService.getReleveIndexsList();
-          this.dialogRef.close();
-          this.notifService.success('relevé index ajouter avec succés');
-        },
-        err => console.log(err)
-      );
-  }
-
-  getNamesList() {
-    let i;
-    for (i = 0; i < this.indexService.indexs.length; i++) {
-      this.list.push(this.indexService.indexs[i].reference);
-    }
+    this.indexService.getCarburant(this.releveIndex.reference).subscribe((indexData: Index) => {
+      this.carburant = indexData.carburant;
+      this.carburantService.getPrix(this.carburant).subscribe((carburantData: Carburant) => {
+        this.releveIndex.prix = carburantData.prix;
+        this.releveIndexService.addReleveIndex(this.releveIndex)
+          .subscribe(
+            res => {
+              this.releveIndexService.getReleveIndexsList();
+              this.dialogRef.close();
+              this.notifService.success('relevé index ajouter avec succés');
+            },
+            err => console.log(err)
+          );
+      },
+        err => {
+          console.log(err);
+        });
+    },
+      err => {
+        console.log(err);
+      });
   }
 
   onClose() {
@@ -58,6 +65,7 @@ export class ReleveIndexAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.releveIndexService.getIndexsNames();
   }
 
 }

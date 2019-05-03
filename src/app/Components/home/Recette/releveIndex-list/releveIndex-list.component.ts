@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatSort, MatPaginator, MatDialog } from '@angular/material';
-import { ReleveIndexService } from 'src/app/shared/services/releveIndex.service';
+import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
 import { ReleveIndexAddComponent } from './releveIndex-add/releveIndex-add.component';
-import { ConfirmDeleteComponent } from 'src/app/Components/Shared/confirm-delete/confirm-delete.component';
+import { ConfirmDeleteComponent } from 'app/Components/Shared/confirm-delete/confirm-delete.component';
 import { ReleveIndexEditComponent } from './releveIndex-edit/releveIndex-edit.component';
-import { ReleveIndex } from 'src/app/shared/models/ReleveIndex.model';
+import { ReleveIndex } from 'app/shared/models/ReleveIndex.model';
 
 @Component({
   selector: 'app-releve-index-list',
@@ -25,7 +25,6 @@ export class ReleveIndexListComponent implements OnInit {
   constructor(
     public releveIndexService: ReleveIndexService,
     private dialog: MatDialog) {
-    this.displayedColumns = ['reference', 'depart', 'arrive', 'quantite', 'prix', 'prevue', 'actions'];
     this.getScreenSize();
   }
 

@@ -27,23 +27,39 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Type carburant" required type="text" name="carburant"
-            [(ngModel)]="index.carburant">
+          <mat-label>Type carburant</mat-label>
+          <mat-select required name="carburant" [(ngModel)]="index.carburant">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let name of carburantList" [value]="name" >
+              {{name}}
+            </mat-option>
+          </mat-select>
           <mat-error>Type carburant is required.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Citerne" required type="text" name="citerne" [(ngModel)]="index.citerne">
+          <mat-label>Citerne</mat-label>
+          <mat-select required name="citerne" [(ngModel)]="index.citerne">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let name of citerneList" [value]="name" >
+              {{name}}
+            </mat-option>
+          </mat-select>
           <mat-error>Citerne is required.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Distributeur" required type="text" name="distributeur"
-            [(ngModel)]="index.distributeur">
+          <mat-label>Distributeur</mat-label>
+          <mat-select required name="distributeur" [(ngModel)]="index.distributeur">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let name of distributeurList" [value]="name" >
+              {{name}}
+            </mat-option>
+          </mat-select>
           <mat-error>Distributeur is required.</mat-error>
         </mat-form-field>
       </mat-grid-tile>

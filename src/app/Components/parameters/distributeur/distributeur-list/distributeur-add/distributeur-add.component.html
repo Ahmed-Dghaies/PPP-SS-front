@@ -1,0 +1,41 @@
+<mat-toolbar>
+  <span>Ajouter Distributeur</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<form mat-dialog-content class="normal-form" #angForm="ngForm" (submit)="addDistributeur()">
+  <mat-grid-list [cols]="width" rowHeight="100px">
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Reference" required type="text" name="reference"
+          [(ngModel)]="distributeur.reference">
+        <mat-error>code carte bon is required.</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Libellé" required type="text" name="libelle" [(ngModel)]="distributeur.libelle">
+        <mat-error>Libellé carte bon is required.</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="N Immatriculation" type="number" name="numImmatriculation"
+          [(ngModel)]="distributeur.numImmatriculation">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Année fabrication" type="number" name="anneeFabrication"
+          [(ngModel)]="distributeur.anneeFabrication">
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid">Ajouter
+    </button>
+    <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+  </div>
+</form>

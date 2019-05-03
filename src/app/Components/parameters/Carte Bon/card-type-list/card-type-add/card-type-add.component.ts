@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
-import { CarteBonTypeService } from 'src/app/shared/services/carte-bon-type.service';
+import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
 import { MatDialogRef } from '@angular/material';
-import { CardType } from 'src/app/shared/models/cardType.model';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { CardType } from 'app/shared/models/cardType.model';
+import { NotificationService } from 'app/shared/services/notification.service';
 
 @Component({
   selector: 'app-card-type-add',

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CarteBonTypeService } from 'src/app/shared/services/carte-bon-type.service';
+import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
 import { MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { CardTypeAddComponent } from './card-type-add/card-type-add.component';
 import { ConfirmDeleteComponent } from '../../../Shared/confirm-delete/confirm-delete.component';
-import { CardType } from 'src/app/shared/models/cardType.model';
+import { CardType } from 'app/shared/models/cardType.model';
 import { CardTypeEditComponent } from './card-type-edit/card-type-edit.component';
 
 @Component({

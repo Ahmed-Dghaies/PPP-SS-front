@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ReleveIndex } from 'src/app/shared/models/ReleveIndex.model';
+import { ReleveIndex } from 'app/shared/models/ReleveIndex.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ReleveIndexService } from 'src/app/shared/services/releveIndex.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
+import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
 import { CarteBonTypeService } from '../../../../../shared/services/carte-bon-type.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { CardType } from 'src/app/shared/models/cardType.model';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { CardType } from 'app/shared/models/cardType.model';
+import { NotificationService } from 'app/shared/services/notification.service';
 
 
 @Component({

@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ClientService } from 'src/app/shared/services/client.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
-import { CarteBonTypeService } from 'src/app/shared/services/carte-bon-type.service';
-import { ReleveIndexService } from 'src/app/shared/services/releveIndex.service';
-import { IndexService } from 'src/app/shared/services/index.service';
+import { ClientService } from 'app/shared/services/client.service';
+import { NotificationService } from 'app/shared/services/notification.service';
+import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
+import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
+import { IndexService } from 'app/shared/services/index.service';
+import { CiterneService } from 'app/shared/services/citerne.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -23,6 +24,7 @@ export class ConfirmDeleteComponent implements OnInit {
     private cardTypeService: CarteBonTypeService,
     private releveIndexService: ReleveIndexService,
     private indexService: IndexService,
+    private citerneService: CiterneService,
     private notifService: NotificationService) {
     this.id = data.id;
     this.msg = data.msg;
@@ -40,11 +42,24 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteReleveIndex();
     } else if (this.msg === 'index') {
       this.deleteIndex();
+    } else if (this.msg === 'citerne') {
+      this.deleteCiterne();
     }
   }
 
   annuler(): void {
     this.dialogRef.close();
+  }
+
+  deleteCiterne(): void {
+    this.citerneService.deleteCiterne(this.id).subscribe(res => {
+      this.citerneService.getCiternesList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
   }
 
   deleteReleveIndex(): void {

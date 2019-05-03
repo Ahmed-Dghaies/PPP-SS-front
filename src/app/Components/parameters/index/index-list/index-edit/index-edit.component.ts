@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Index } from 'src/app/shared/models/Index.model';
+import { Index } from 'app/shared/models/Index.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { IndexService } from 'src/app/shared/services/index.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { IndexService } from 'app/shared/services/index.service';
+import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

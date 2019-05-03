@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -17,6 +16,18 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+
+    "baseUrl": "src",
+    "paths": {
+      "@ComIndex/*": ["app/Components/parameters/index/index-list/*"],
+      "@ComDistributeur/*": ["app/Components/parameters/distributeur/distributeur-list/*"],
+      "@ComReleveIndex/*": ["app/Components/home/Recette/releveIndex-list/*"],
+      "@ComCardType/*": ["app/Components/parameters/Carte Bon/card-type-list/*"],
+      "@ComCiterne/*": ["app/Components/parameters/citerne/citerne-list/*"],
+      "@ComClient/*": ["app/Components/parameters/client/client-list/*"],
+      "@ComShared/*": ["app/Components/Shared/*"],
+      "@ComCarburant/*": ["app/Components/parameters/prixCarburant/prix-Carburant-list/*"]
+    }
   }
 }

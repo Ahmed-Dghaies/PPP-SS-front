@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { SessionService } from 'src/app/shared/services/session.service';
-import { Session } from 'src/app/shared/models/session.model';
+import { SessionService } from 'app/shared/services/session.service';
+import { Session } from 'app/shared/models/session.model';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({

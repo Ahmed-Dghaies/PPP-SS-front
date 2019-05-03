@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Citerne } from 'src/app/shared/models/citerne.model';
+import { Citerne } from 'app/shared/models/citerne.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CiterneService } from 'src/app/shared/services/citerne.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { CiterneService } from 'app/shared/services/citerne.service';
+import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

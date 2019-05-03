@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Session } from 'src/app/shared/models/session.model';
+import { Session } from 'app/shared/models/session.model';
 import { MatTableDataSource } from '@angular/material';
 
 @Injectable({

@@ -4,8 +4,8 @@ import { MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { AddCiterneComponent } from './add-citerne/add-citerne.component';
 import { ConfirmDeleteComponent } from '../../../Shared/confirm-delete/confirm-delete.component';
 import { UpdateCiterneComponent } from './update-citerne/update-citerne.component';
-import { Citerne } from 'src/app/shared/models/citerne.model';
-import { CiterneService } from 'src/app/shared/services/citerne.service';
+import { Citerne } from 'app/shared/models/citerne.model';
+import { CiterneService } from 'app/shared/services/citerne.service';
 
 @Component({
   selector: 'app-citerne-list',
@@ -21,7 +21,7 @@ export class CiterneListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public citerneService: CiterneService, private dialog: MatDialog) {
-    this.displayedColumns = ['identifiant', 'capacite', 'type', 'contenu'];
+    this.displayedColumns = ['identifiant', 'capacite', 'type', 'contenu', 'actions'];
   }
 
   ngOnInit() {

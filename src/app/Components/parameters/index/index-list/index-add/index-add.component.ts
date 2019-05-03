@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Index } from 'src/app/shared/models/Index.model';
+import { Index } from 'app/shared/models/Index.model';
 import { MatDialogRef } from '@angular/material';
-import { IndexService } from 'src/app/shared/services/index.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { IndexService } from 'app/shared/services/index.service';
+import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { CiterneService } from 'app/shared/services/citerne.service';
+import { DistributeurService } from 'app/shared/services/distributeur.service';
+import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
 
 @Component({
   selector: 'app-index-add',
@@ -14,13 +17,51 @@ export class IndexAddComponent implements OnInit {
 
   public index: Index;
   public width: number;
+  public citerneList: string[];
+  public distributeurList: string[];
+  public carburantList: string[];
 
   constructor(
     private dialogRef: MatDialogRef<IndexAddComponent>,
     private indexService: IndexService,
+    private citerneService: CiterneService,
+    private carburantService: PrixCarburantService,
+    private distributeurService: DistributeurService,
     private notifService: NotificationService) {
     this.index = new Index();
     this.width = 2;
+    this.citerneList = [];
+    this.distributeurList = [];
+    this.carburantList = [];
+    this.citerneService.getCiternesList();
+    this.getCiterneNamesList();
+    this.distributeurService.getDistributeursList();
+    this.getDistributeurNamesList();
+    this.carburantService.getCarburantList();
+    this.getCarburantNamesList();
+  }
+
+  getCiterneNamesList() {
+    let i;
+    for (i = 0; i < this.citerneService.citernes.length; i++) {
+      this.citerneList.push(this.citerneService.citernes[i].identifiant);
+    }
+  }
+
+  getCarburantNamesList() {
+    let i;
+    for (i = 0; i < this.carburantService.carburants.length; i++) {
+      if (!this.carburantList.includes(this.carburantService.carburants[i].carburant)) {
+        this.carburantList.push(this.carburantService.carburants[i].carburant);
+      }
+    }
+  }
+
+  getDistributeurNamesList() {
+    let i;
+    for (i = 0; i < this.distributeurService.distributeurs.length; i++) {
+      this.distributeurList.push(this.distributeurService.distributeurs[i].reference);
+    }
   }
 
   addIndex() {
@@ -47,6 +88,9 @@ export class IndexAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (document.body.clientWidth < 600) {
+      this.width = 1;
+    }
   }
 
 }

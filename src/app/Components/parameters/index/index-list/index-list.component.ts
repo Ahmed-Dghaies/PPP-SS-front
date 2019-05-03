@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MatSort, MatPaginator, MatDialog } from '@angular/material';
-import { IndexService } from 'src/app/shared/services/index.service';
+import { IndexService } from 'app/shared/services/index.service';
 import { IndexAddComponent } from './index-add/index-add.component';
-import { ConfirmDeleteComponent } from 'src/app/Components/Shared/confirm-delete/confirm-delete.component';
-import { Index } from 'src/app/shared/models/Index.model';
+import { ConfirmDeleteComponent } from 'app/Components/Shared/confirm-delete/confirm-delete.component';
+import { Index } from 'app/shared/models/Index.model';
 import { IndexEditComponent } from './index-edit/index-edit.component';
 
 @Component({
@@ -15,13 +15,27 @@ export class IndexListComponent implements OnInit {
 
   public displayedColumns: string[];
   public search: string;
+  screenHeight: any;
+  screenWidth: any;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public indexService: IndexService,
-              private dialog: MatDialog) {
-    this.displayedColumns = ['reference', 'valeurIndex', 'dernierDate', 'carburant', 'citerne', 'distributeur', 'actions'];
+  constructor(
+    public indexService: IndexService,
+    private dialog: MatDialog) {
+    this.getScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.displayedColumns =  ['reference', 'valeurIndex', 'carburant', 'actions'];
+    } else {
+      this.displayedColumns =  ['reference', 'valeurIndex', 'dernierDate', 'carburant', 'citerne', 'distributeur', 'actions'];
+    }
   }
 
   ngOnInit() {
@@ -44,7 +58,7 @@ export class IndexListComponent implements OnInit {
   updateIndexDialog(index: Index): void {
     this.dialog.open(IndexEditComponent, {
       panelClass: 'full-width-dialog',
-      data: { index : Object.assign({}, index) }
+      data: { index: Object.assign({}, index) }
     });
   }
 

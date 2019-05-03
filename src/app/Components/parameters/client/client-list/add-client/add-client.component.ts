@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from 'src/app/shared/models/client.model';
+import { Client } from 'app/shared/models/client.model';
 import { MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
-import { ClientService } from 'src/app/shared/services/client.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { ClientService } from 'app/shared/services/client.service';
+import { NotificationService } from 'app/shared/services/notification.service';
 
 @Component({
   selector: 'app-add-client',

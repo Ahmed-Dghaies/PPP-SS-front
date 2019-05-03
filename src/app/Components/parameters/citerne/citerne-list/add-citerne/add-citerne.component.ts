@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Citerne } from 'src/app/shared/models/citerne.model';
+import { Citerne } from 'app/shared/models/citerne.model';
 import { MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
-import { NotificationService } from 'src/app/shared/services/notification.service';
-import { CiterneService } from 'src/app/shared/services/citerne.service';
+import { NotificationService } from 'app/shared/services/notification.service';
+import { CiterneService } from 'app/shared/services/citerne.service';
 
 
 

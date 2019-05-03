@@ -206,11 +206,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
-/* harmony import */ var src_app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
-/* harmony import */ var src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
-/* harmony import */ var src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
+/* harmony import */ var app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
+/* harmony import */ var app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
+/* harmony import */ var app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
+/* harmony import */ var app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
+
 
 
 
@@ -220,13 +222,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ConfirmDeleteComponent = /** @class */ (function () {
-    function ConfirmDeleteComponent(dialogRef, data, clientService, cardTypeService, releveIndexService, indexService, notifService) {
+    function ConfirmDeleteComponent(dialogRef, data, clientService, cardTypeService, releveIndexService, indexService, citerneService, notifService) {
         this.dialogRef = dialogRef;
         this.data = data;
         this.clientService = clientService;
         this.cardTypeService = cardTypeService;
         this.releveIndexService = releveIndexService;
         this.indexService = indexService;
+        this.citerneService = citerneService;
         this.notifService = notifService;
         this.id = data.id;
         this.msg = data.msg;
@@ -246,9 +249,22 @@ var ConfirmDeleteComponent = /** @class */ (function () {
         else if (this.msg === 'index') {
             this.deleteIndex();
         }
+        else if (this.msg === 'citerne') {
+            this.deleteCiterne();
+        }
     };
     ConfirmDeleteComponent.prototype.annuler = function () {
         this.dialogRef.close();
+    };
+    ConfirmDeleteComponent.prototype.deleteCiterne = function () {
+        var _this = this;
+        this.citerneService.deleteCiterne(this.id).subscribe(function (res) {
+            _this.citerneService.getCiternesList();
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
     };
     ConfirmDeleteComponent.prototype.deleteReleveIndex = function () {
         var _this = this;
@@ -297,11 +313,12 @@ var ConfirmDeleteComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./confirm-delete.component.css */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"],
-            src_app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_5__["CarteBonTypeService"],
-            src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_6__["ReleveIndexService"],
-            src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_7__["IndexService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"],
+            app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_5__["CarteBonTypeService"],
+            app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_6__["ReleveIndexService"],
+            app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_7__["IndexService"],
+            app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_8__["CiterneService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], ConfirmDeleteComponent);
     return ConfirmDeleteComponent;
 }());
@@ -328,7 +345,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n  <span>Ajouter relevé index</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\" (submit)=\"addReleveIndex()\">\n  <mat-grid-list cols=\"1\" rowHeight=\"300px\">\n    <mat-grid-tile>\n      <div class=\"controles-container\">\n        <mat-form-field>\n          <mat-label>Reference</mat-label>\n          <mat-select>\n            <mat-option>None</mat-option>\n            <mat-option *ngFor=\"let name of list\" required [value]=\"name\" [(ngModel)]=\"releveIndex.reference\">{{name}}\n            </mat-option>\n          </mat-select>\n          <mat-error>Reference index is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Départ index\" required type=\"number\" name=\"depart\"\n            [(ngModel)]=\"releveIndex.depart\">\n          <mat-error>Départ index is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Arrivé index\" required type=\"number\" name=\"arrive\"\n            [(ngModel)]=\"releveIndex.arrive\">\n          <mat-error>Arrivé index is required.</mat-error>\n        </mat-form-field>\n        <div class=\"button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\"\n            [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter Relevé index</button>\n          <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</form>\n"
+module.exports = "<mat-toolbar>\n  <span>Ajouter relevé index</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\" (submit)=\"addReleveIndex()\">\n  <mat-grid-list cols=\"1\" rowHeight=\"300px\">\n    <mat-grid-tile>\n      <div class=\"controles-container\">\n        <mat-form-field>\n          <mat-label>Reference</mat-label>\n          <mat-select required name=\"reference\" [(ngModel)]=\"releveIndex.reference\">\n            <mat-option>None</mat-option>\n            <mat-option *ngFor=\"let name of releveIndexService.list\"  [value]=\"name\" >{{name}}\n            </mat-option>\n          </mat-select>\n          <mat-error>Reference index is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Départ index\" required type=\"number\" name=\"depart\"\n            [(ngModel)]=\"releveIndex.depart\">\n          <mat-error>Départ index is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Arrivé index\" required type=\"number\" name=\"arrive\"\n            [(ngModel)]=\"releveIndex.arrive\">\n          <mat-error>Arrivé index is required.</mat-error>\n        </mat-form-field>\n        <div class=\"button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\"\n            [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter Relevé index</button>\n          <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</form>\n"
 
 /***/ }),
 
@@ -344,12 +361,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReleveIndexAddComponent", function() { return ReleveIndexAddComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_models_ReleveIndex_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/models/ReleveIndex.model */ "./src/app/shared/models/ReleveIndex.model.ts");
+/* harmony import */ var app_shared_models_ReleveIndex_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/ReleveIndex.model */ "./src/app/shared/models/ReleveIndex.model.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
-/* harmony import */ var src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
-
+/* harmony import */ var app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -357,15 +372,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ReleveIndexAddComponent = /** @class */ (function () {
-    function ReleveIndexAddComponent(dialogRef, releveIndexService, indexService, notifService) {
+    function ReleveIndexAddComponent(dialogRef, releveIndexService, notifService) {
         this.dialogRef = dialogRef;
         this.releveIndexService = releveIndexService;
-        this.indexService = indexService;
         this.notifService = notifService;
-        this.list = ['13-G', '45-G'];
-        this.releveIndex = new src_app_shared_models_ReleveIndex_model__WEBPACK_IMPORTED_MODULE_2__["ReleveIndex"]();
-        this.indexService.getIndexList();
-        this.getNamesList();
+        this.releveIndex = new app_shared_models_ReleveIndex_model__WEBPACK_IMPORTED_MODULE_2__["ReleveIndex"]();
     }
     ReleveIndexAddComponent.prototype.addReleveIndex = function () {
         var _this = this;
@@ -376,12 +387,6 @@ var ReleveIndexAddComponent = /** @class */ (function () {
             _this.notifService.success('relevé index ajouter avec succés');
         }, function (err) { return console.log(err); });
     };
-    ReleveIndexAddComponent.prototype.getNamesList = function () {
-        var i;
-        for (i = 0; i < this.indexService.indexs.length; i++) {
-            this.list.push(this.indexService.indexs[i].reference);
-        }
-    };
     ReleveIndexAddComponent.prototype.onClose = function () {
         this.dialogRef.close();
     };
@@ -389,6 +394,7 @@ var ReleveIndexAddComponent = /** @class */ (function () {
         form.reset();
     };
     ReleveIndexAddComponent.prototype.ngOnInit = function () {
+        this.releveIndexService.getIndexsNames();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSort"]),
@@ -405,9 +411,8 @@ var ReleveIndexAddComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./releveIndex-add.component.css */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
-            src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_4__["ReleveIndexService"],
-            src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_6__["IndexService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+            app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_4__["ReleveIndexService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
     ], ReleveIndexAddComponent);
     return ReleveIndexAddComponent;
 }());
@@ -451,8 +456,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -492,8 +497,8 @@ var ReleveIndexEditComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./releveIndex-edit.component.css */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__["ReleveIndexService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__["ReleveIndexService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], ReleveIndexEditComponent);
     return ReleveIndexEditComponent;
 }());
@@ -520,7 +525,7 @@ module.exports = "mat-footer-row {\r\n  font-weight: bold;\r\n}\r\n\r\n.detailsB
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addReleveIndexDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"releveIndexService.releveIndexsMatTab\" matSort>\n    <ng-container matColumnDef=\"reference\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Reference</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.reference}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette Carburant</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"depart\">\n      <mat-header-cell *matHeaderCellDef>Départ</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.depart}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"arrive\">\n      <mat-header-cell *matHeaderCellDef>Arrivé</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.arrive}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"quantite\">\n      <mat-header-cell *matHeaderCellDef>Quantité</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.quantite}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"prix\">\n      <mat-header-cell *matHeaderCellDef>Prix</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.prix}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"prevue\">\n      <mat-header-cell *matHeaderCellDef>Somme prévue</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.prevue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button (click)=\"updateReleveIndexDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\" (click)=\"deleteReleveIndexDialog(row._id, 'relevé index')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef><button mat-raised-button class=\"detailsButton\" (click)=\"addReleveIndexDialog()\">\n        <mat-icon>add</mat-icon>Détails\n      </button></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\" [ngClass]=\"{'hide':releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0}\"></mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':releveIndexService.releveIndexsMatTab!=null}\"></mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\" [ngClass]=\"{'hide':!(releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0)}\"></mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"10\" showFirstLastButtons></mat-paginator>\n</div>\n"
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addReleveIndexDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"releveIndexService.releveIndexsMatTab\" matSort>\n    <ng-container matColumnDef=\"reference\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Reference</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.reference}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette Carburant</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"depart\">\n      <mat-header-cell *matHeaderCellDef>Départ</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.depart}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"arrive\">\n      <mat-header-cell *matHeaderCellDef>Arrivé</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.arrive}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"quantite\">\n      <mat-header-cell *matHeaderCellDef>Quantité</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.quantite}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"prix\">\n      <mat-header-cell *matHeaderCellDef>Prix</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.prix}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"prevue\">\n      <mat-header-cell *matHeaderCellDef>Somme prévue</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.prevue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button color=\"primary\" (click)=\"updateReleveIndexDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\" (click)=\"deleteReleveIndexDialog(row._id, 'relevé index')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef><button mat-raised-button class=\"detailsButton\" (click)=\"addReleveIndexDialog()\">\n        <mat-icon>add</mat-icon>Détails\n      </button></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\" [ngClass]=\"{'hide':releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0}\"></mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':releveIndexService.releveIndexsMatTab!=null}\"></mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\" [ngClass]=\"{'hide':!(releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0)}\"></mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"10\" showFirstLastButtons></mat-paginator>\n</div>\n"
 
 /***/ }),
 
@@ -537,9 +542,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
+/* harmony import */ var app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/releveIndex.service */ "./src/app/shared/services/releveIndex.service.ts");
 /* harmony import */ var _releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./releveIndex-add/releveIndex-add.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component.ts");
-/* harmony import */ var src_app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Components/Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/Components/Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
 /* harmony import */ var _releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./releveIndex-edit/releveIndex-edit.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component.ts");
 
 
@@ -552,7 +557,6 @@ var ReleveIndexListComponent = /** @class */ (function () {
     function ReleveIndexListComponent(releveIndexService, dialog) {
         this.releveIndexService = releveIndexService;
         this.dialog = dialog;
-        this.displayedColumns = ['reference', 'depart', 'arrive', 'quantite', 'prix', 'prevue', 'actions'];
         this.getScreenSize();
     }
     ReleveIndexListComponent.prototype.getScreenSize = function (event) {
@@ -577,7 +581,7 @@ var ReleveIndexListComponent = /** @class */ (function () {
         return this.releveIndexService.releveIndexs.map(function (t) { return t.prevue; }).reduce(function (acc, value) { return acc + value; }, 0);
     };
     ReleveIndexListComponent.prototype.deleteReleveIndexDialog = function (id, msg) {
-        this.dialog.open(src_app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
+        this.dialog.open(app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
             data: { id: id, msg: msg }
         });
     };
@@ -614,7 +618,7 @@ var ReleveIndexListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./releveIndex-list.component.html */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-list.component.html"),
             styles: [__webpack_require__(/*! ./releveIndex-list.component.css */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__["ReleveIndexService"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_releveIndex_service__WEBPACK_IMPORTED_MODULE_3__["ReleveIndexService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
     ], ReleveIndexListComponent);
     return ReleveIndexListComponent;
@@ -658,7 +662,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
 
 
 
@@ -693,7 +697,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/Components/home/home.component.html"),
             styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/Components/home/home.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -720,7 +724,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n  <span>Ajouter type carte bon</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\"><mat-icon>clear</mat-icon></button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\" (submit)=\"addCardType()\">\n  <mat-grid-list cols=\"1\" rowHeight=\"300px\">\n    <mat-grid-tile>\n      <div class=\"controles-container\">\n        <mat-form-field>\n          <input matInput placeholder=\"Code carte Bon*\" required type=\"text\" name=\"cardCode\" [(ngModel)]=\"cardType.cardCode\">\n          <mat-error>code carte bon is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Description*\" required type=\"text\" name=\"cardDescription\" [(ngModel)]=\"cardType.cardDescription\">\n          <mat-error>description carte bon is required.</mat-error>\n        </mat-form-field>\n        <div class=\"button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"angForm.pristine || angForm.invalid\" >Ajouter type</button>\n          <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</form>"
+module.exports = "<mat-toolbar>\n  <span>Ajouter type carte bon</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\"><mat-icon>clear</mat-icon></button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\" (submit)=\"addCardType()\">\n  <mat-grid-list cols=\"1\" rowHeight=\"300px\">\n    <mat-grid-tile>\n      <div class=\"controles-container\">\n        <mat-form-field>\n          <input matInput placeholder=\"Code carte Bon\" required type=\"text\" name=\"cardCode\" [(ngModel)]=\"cardType.cardCode\">\n          <mat-error>code carte bon is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Description\" required type=\"text\" name=\"cardDescription\" [(ngModel)]=\"cardType.cardDescription\">\n          <mat-error>description carte bon is required.</mat-error>\n        </mat-form-field>\n        <div class=\"button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"angForm.pristine || angForm.invalid\" >Ajouter type</button>\n          <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</form>\n"
 
 /***/ }),
 
@@ -736,10 +740,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardTypeAddComponent", function() { return CardTypeAddComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
+/* harmony import */ var app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_models_cardType_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/models/cardType.model */ "./src/app/shared/models/cardType.model.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_models_cardType_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/models/cardType.model */ "./src/app/shared/models/cardType.model.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -751,7 +755,7 @@ var CardTypeAddComponent = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this.cardTypeService = cardTypeService;
         this.notifService = notifService;
-        this.cardType = new src_app_shared_models_cardType_model__WEBPACK_IMPORTED_MODULE_4__["CardType"]();
+        this.cardType = new app_shared_models_cardType_model__WEBPACK_IMPORTED_MODULE_4__["CardType"]();
     }
     CardTypeAddComponent.prototype.addCardType = function () {
         var _this = this;
@@ -777,8 +781,8 @@ var CardTypeAddComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./card-type-add.component.css */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
-            src_app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__["CarteBonTypeService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+            app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__["CarteBonTypeService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
     ], CardTypeAddComponent);
     return CardTypeAddComponent;
 }());
@@ -823,7 +827,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -864,7 +868,7 @@ var CardTypeEditComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"], Object, _shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__["CarteBonTypeService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], CardTypeEditComponent);
     return CardTypeEditComponent;
 }());
@@ -891,7 +895,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addCardTypeDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"cardTypeService.cardTypesMatTab\" matSort>\n    <ng-container matColumnDef=\"cardCode\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardCode}}</mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"cardDescription\">\n      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardDescription}}</mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n          <button mat-icon-button (click)=\"updateCardTypeDialog(row)\">\n              <mat-icon>edit</mat-icon>\n          </button>\n          <button mat-icon-button color=\"warn\" (click)=\"deleteCardTypeDialog(row._id, 'type carte bon')\">\n              <mat-icon>delete_outline</mat-icon>\n          </button>\n      </mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n          Loading data ...\n      </mat-footer-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n          No data.\n      </mat-footer-cell>\n  </ng-container>\n  <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n  <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':cardTypeService.cardTypesMatTab!=null}\"></mat-footer-row>\n  <mat-footer-row *matFooterRowDef=\"['noData']\" [ngClass]=\"{'hide':!(cardTypeService.cardTypesMatTab!=null && cardTypeService.cardTypesMatTab.data.length==0)}\">\n  </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addCardTypeDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"cardTypeService.cardTypesMatTab\" matSort>\n    <ng-container matColumnDef=\"cardCode\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardCode}}</mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"cardDescription\">\n      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardDescription}}</mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n          <button mat-icon-button color=\"primary\" (click)=\"updateCardTypeDialog(row)\">\n              <mat-icon>edit</mat-icon>\n          </button>\n          <button mat-icon-button color=\"warn\" (click)=\"deleteCardTypeDialog(row._id, 'type carte bon')\">\n              <mat-icon>delete_outline</mat-icon>\n          </button>\n      </mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n          Loading data ...\n      </mat-footer-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n          No data.\n      </mat-footer-cell>\n  </ng-container>\n  <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n  <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':cardTypeService.cardTypesMatTab!=null}\"></mat-footer-row>\n  <mat-footer-row *matFooterRowDef=\"['noData']\" [ngClass]=\"{'hide':!(cardTypeService.cardTypesMatTab!=null && cardTypeService.cardTypesMatTab.data.length==0)}\">\n  </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
 
 /***/ }),
 
@@ -907,7 +911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardTypeListComponent", function() { return CardTypeListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
+/* harmony import */ var app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./card-type-add/card-type-add.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component.ts");
 /* harmony import */ var _Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
@@ -965,7 +969,7 @@ var CardTypeListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./card-type-list.component.html */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-list.component.html"),
             styles: [__webpack_require__(/*! ./card-type-list.component.css */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__["CarteBonTypeService"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_2__["CarteBonTypeService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
     ], CardTypeListComponent);
     return CardTypeListComponent;
@@ -1009,10 +1013,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddCiterneComponent", function() { return AddCiterneComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_models_citerne_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/models/citerne.model */ "./src/app/shared/models/citerne.model.ts");
+/* harmony import */ var app_shared_models_citerne_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/citerne.model */ "./src/app/shared/models/citerne.model.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
-/* harmony import */ var src_app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
 
 
 
@@ -1024,7 +1028,7 @@ var AddCiterneComponent = /** @class */ (function () {
         this.dialogMat = dialogMat;
         this.citerneService = citerneService;
         this.notifService = notifService;
-        this.citerne = new src_app_shared_models_citerne_model__WEBPACK_IMPORTED_MODULE_2__["Citerne"]();
+        this.citerne = new app_shared_models_citerne_model__WEBPACK_IMPORTED_MODULE_2__["Citerne"]();
         this.width = 2;
     }
     AddCiterneComponent.prototype.ngOnInit = function () {
@@ -1057,8 +1061,8 @@ var AddCiterneComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./add-citerne.component.css */ "./src/app/Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
-            src_app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_5__["CiterneService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+            app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_5__["CiterneService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], AddCiterneComponent);
     return AddCiterneComponent;
 }());
@@ -1105,7 +1109,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./add-citerne/add-citerne.component */ "./src/app/Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component.ts");
 /* harmony import */ var _Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
 /* harmony import */ var _update_citerne_update_citerne_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./update-citerne/update-citerne.component */ "./src/app/Components/parameters/citerne/citerne-list/update-citerne/update-citerne.component.ts");
-/* harmony import */ var src_app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
+/* harmony import */ var app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
 
 
 
@@ -1117,7 +1121,7 @@ var CiterneListComponent = /** @class */ (function () {
     function CiterneListComponent(citerneService, dialog) {
         this.citerneService = citerneService;
         this.dialog = dialog;
-        this.displayedColumns = ['identifiant', 'capacite', 'type', 'contenu'];
+        this.displayedColumns = ['identifiant', 'capacite', 'type', 'contenu', 'actions'];
     }
     CiterneListComponent.prototype.ngOnInit = function () {
         this.citerneService.getCiternesList(this.sort, this.paginator);
@@ -1159,7 +1163,7 @@ var CiterneListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./citerne-list.component.html */ "./src/app/Components/parameters/citerne/citerne-list/citerne-list.component.html"),
             styles: [__webpack_require__(/*! ./citerne-list.component.css */ "./src/app/Components/parameters/citerne/citerne-list/citerne-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_6__["CiterneService"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_6__["CiterneService"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
     ], CiterneListComponent);
     return CiterneListComponent;
 }());
@@ -1203,8 +1207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -1247,8 +1251,8 @@ var UpdateCiterneComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./update-citerne.component.css */ "./src/app/Components/parameters/citerne/citerne-list/update-citerne/update-citerne.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, src_app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_3__["CiterneService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_3__["CiterneService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], UpdateCiterneComponent);
     return UpdateCiterneComponent;
 }());
@@ -1291,10 +1295,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddClientComponent", function() { return AddClientComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_models_client_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/models/client.model */ "./src/app/shared/models/client.model.ts");
+/* harmony import */ var app_shared_models_client_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/client.model */ "./src/app/shared/models/client.model.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -1306,7 +1310,7 @@ var AddClientComponent = /** @class */ (function () {
         this.dialogMat = dialogMat;
         this.clientService = clientService;
         this.notifService = notifService;
-        this.client = new src_app_shared_models_client_model__WEBPACK_IMPORTED_MODULE_2__["Client"]();
+        this.client = new app_shared_models_client_model__WEBPACK_IMPORTED_MODULE_2__["Client"]();
         this.width = 2;
     }
     AddClientComponent.prototype.ngOnInit = function () {
@@ -1337,8 +1341,8 @@ var AddClientComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./add-client.component.css */ "./src/app/Components/parameters/client/client-list/add-client/add-client.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
-            src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+            app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_4__["ClientService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
     ], AddClientComponent);
     return AddClientComponent;
 }());
@@ -1381,7 +1385,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientListComponent", function() { return ClientListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
+/* harmony import */ var app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _more_details_more_details_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./more-details/more-details.component */ "./src/app/Components/parameters/client/client-list/more-details/more-details.component.ts");
 /* harmony import */ var _add_client_add_client_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./add-client/add-client.component */ "./src/app/Components/parameters/client/client-list/add-client/add-client.component.ts");
@@ -1448,7 +1452,7 @@ var ClientListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./client-list.component.html */ "./src/app/Components/parameters/client/client-list/client-list.component.html"),
             styles: [__webpack_require__(/*! ./client-list.component.css */ "./src/app/Components/parameters/client/client-list/client-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_2__["ClientService"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_2__["ClientService"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
     ], ClientListComponent);
     return ClientListComponent;
 }());
@@ -1557,8 +1561,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/client.service */ "./src/app/shared/services/client.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -1601,10 +1605,316 @@ var UpdateClientComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./update-client.component.css */ "./src/app/Components/parameters/client/client-list/update-client/update-client.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, src_app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], UpdateClientComponent);
     return UpdateClientComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.css":
+/*!**********************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.css ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9kaXN0cmlidXRldXIvZGlzdHJpYnV0ZXVyLWxpc3QvZGlzdHJpYnV0ZXVyLWFkZC9kaXN0cmlidXRldXItYWRkLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n  <span>Ajouter Distributeur</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\" (submit)=\"addDistributeur()\">\n  <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput placeholder=\"Reference\" required type=\"text\" name=\"reference\"\n          [(ngModel)]=\"distributeur.reference\">\n        <mat-error>code carte bon is required.</mat-error>\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput placeholder=\"Libellé\" required type=\"text\" name=\"libelle\" [(ngModel)]=\"distributeur.libelle\">\n        <mat-error>Libellé carte bon is required.</mat-error>\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput placeholder=\"N Immatriculation\" type=\"number\" name=\"numImmatriculation\"\n          [(ngModel)]=\"distributeur.numImmatriculation\">\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput placeholder=\"Année fabrication\" type=\"number\" name=\"anneeFabrication\"\n          [(ngModel)]=\"distributeur.anneeFabrication\">\n      </mat-form-field>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"button-row\">\n    <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n    </button>\n    <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n  </div>\n</form>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.ts":
+/*!*********************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.ts ***!
+  \*********************************************************************************************************************/
+/*! exports provided: DistributeurAddComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DistributeurAddComponent", function() { return DistributeurAddComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_models_distributeur_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/distributeur.model */ "./src/app/shared/models/distributeur.model.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/distributeur.service */ "./src/app/shared/services/distributeur.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+
+
+
+
+
+
+var DistributeurAddComponent = /** @class */ (function () {
+    function DistributeurAddComponent(dialogRef, distributeurService, notifService) {
+        this.dialogRef = dialogRef;
+        this.distributeurService = distributeurService;
+        this.notifService = notifService;
+        this.distributeur = new app_shared_models_distributeur_model__WEBPACK_IMPORTED_MODULE_2__["Distributeur"]();
+        this.getScreenSize();
+    }
+    DistributeurAddComponent.prototype.addDistributeur = function () {
+        var _this = this;
+        this.distributeurService.addDistributeur(this.distributeur)
+            .subscribe(function (res) {
+            _this.distributeurService.getDistributeursList();
+            _this.dialogRef.close();
+            _this.notifService.success('Distributeur ajouter avec succés');
+        }, function (err) { return console.log(err); });
+    };
+    DistributeurAddComponent.prototype.onClose = function () {
+        this.dialogRef.close();
+    };
+    DistributeurAddComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    DistributeurAddComponent.prototype.getScreenSize = function (event) {
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+        if (this.screenWidth < 650) {
+            this.width = 1;
+        }
+        else {
+            this.width = 2;
+        }
+    };
+    DistributeurAddComponent.prototype.ngOnInit = function () {
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:resize', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DistributeurAddComponent.prototype, "getScreenSize", null);
+    DistributeurAddComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-distributeur-add',
+            template: __webpack_require__(/*! ./distributeur-add.component.html */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.html"),
+            styles: [__webpack_require__(/*! ./distributeur-add.component.css */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
+            app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_4__["DistributeurService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+    ], DistributeurAddComponent);
+    return DistributeurAddComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.css":
+/*!************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.css ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9kaXN0cmlidXRldXIvZGlzdHJpYnV0ZXVyLWxpc3QvZGlzdHJpYnV0ZXVyLWVkaXQvZGlzdHJpYnV0ZXVyLWVkaXQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.html":
+/*!*************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.html ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n  <span>Modifier distributeur</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n  <mat-grid-list cols=\"1\" rowHeight=\"300px\">\n    <mat-grid-tile>\n      <div class=\"controles-container\">\n        <input type=\"hidden\">\n        <mat-form-field>\n          <input matInput placeholder=\"Reference\" required type=\"text\" name=\"reference\"\n            [(ngModel)]=\"distributeur.cardCode\">\n          <mat-error>code carte bon is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Libellé\" required type=\"text\" name=\"libelle\" [(ngModel)]=\"distributeur.libelle\">\n          <mat-error>Libellé carte bon is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"N Immatriculation\" type=\"number\" name=\"numImmatriculation\"\n            [(ngModel)]=\"distributeur.numImmatriculation\">\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Année fabrication\" type=\"number\" name=\"anneeFabrication\"\n            [(ngModel)]=\"distributeur.anneeFabrication\">\n        </mat-form-field>\n        <div class=\"button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"angForm.pristine || angForm.invalid\"\n            (click)=\"updateDistributeur()\">Modifier type</button>\n          <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</form>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.ts":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.ts ***!
+  \***********************************************************************************************************************/
+/*! exports provided: DistributeurEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DistributeurEditComponent", function() { return DistributeurEditComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/distributeur.service */ "./src/app/shared/services/distributeur.service.ts");
+
+
+
+
+
+var DistributeurEditComponent = /** @class */ (function () {
+    function DistributeurEditComponent(dialogRef, data, distributeurService, notifservice) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.distributeurService = distributeurService;
+        this.notifservice = notifservice;
+        this.distributeur = data.distributeur;
+    }
+    DistributeurEditComponent.prototype.updateDistributeur = function () {
+        var _this = this;
+        this.distributeurService.updateDistributeur(this.distributeur._id, this.distributeur)
+            .subscribe(function (res) {
+            _this.distributeurService.getDistributeursList();
+            _this.dialogRef.close();
+            _this.notifservice.success('Distributeur modifié avec succés');
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    DistributeurEditComponent.prototype.onClose = function () {
+        this.dialogRef.close();
+    };
+    DistributeurEditComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    DistributeurEditComponent.prototype.ngOnInit = function () {
+    };
+    DistributeurEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-distributeur-edit',
+            template: __webpack_require__(/*! ./distributeur-edit.component.html */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.html"),
+            styles: [__webpack_require__(/*! ./distributeur-edit.component.css */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"], Object, app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_4__["DistributeurService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_2__["NotificationService"]])
+    ], DistributeurEditComponent);
+    return DistributeurEditComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.css":
+/*!******************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.css ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9kaXN0cmlidXRldXIvZGlzdHJpYnV0ZXVyLWxpc3QvZGlzdHJpYnV0ZXVyLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.html":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.html ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"search-div\">\n    <button mat-raised-button (click)=\"addDistributeurDialog()\">\n      <mat-icon>add</mat-icon>Ajouter\n    </button>\n    <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n      <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n      <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n        <mat-icon>close</mat-icon>\n      </button>\n    </mat-form-field>\n  </div>\n  <div class=\"mat-elevation-z8\">\n    <mat-table [dataSource]=\"distributeurService.distributeursMatTab\" matSort>\n      <ng-container matColumnDef=\"reference\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header>Reference</mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">{{element.reference}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"libelle\">\n        <mat-header-cell *matHeaderCellDef>Libellé</mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">{{element.libelle}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"numImmatriculation\">\n        <mat-header-cell *matHeaderCellDef>N Immatriculation</mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">{{element.numImmatriculation}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"anneeFabrication\">\n        <mat-header-cell *matHeaderCellDef>Année fabrication</mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">{{element.anneeFabrication}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n        <mat-header-cell *matHeaderCellDef></mat-header-cell>\n        <mat-cell *matCellDef=\"let row\">\n            <button mat-icon-button color=\"primary\" (click)=\"updateDistributeurDialog(row)\">\n                <mat-icon>edit</mat-icon>\n            </button>\n            <button mat-icon-button color=\"warn\" (click)=\"deleteDistributeurDialog(row._id, 'distributeur')\">\n                <mat-icon>delete_outline</mat-icon>\n            </button>\n        </mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n        <mat-footer-cell *matFooterCellDef colspan=\"6\">\n            Loading data ...\n        </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n        <mat-footer-cell *matFooterCellDef colspan=\"6\">\n            No data.\n        </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':distributeurService.distributeursMatTab!=null}\"></mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\" [ngClass]=\"{'hide':!(distributeurService.distributeursMatTab!=null && distributeurService.distributeursMatTab.data.length==0)}\">\n    </mat-footer-row>\n    </mat-table>\n    <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n  </div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.ts":
+/*!*****************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.ts ***!
+  \*****************************************************************************************************/
+/*! exports provided: DistributeurListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DistributeurListComponent", function() { return DistributeurListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/distributeur.service */ "./src/app/shared/services/distributeur.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _distributeur_add_distributeur_add_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./distributeur-add/distributeur-add.component */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.ts");
+/* harmony import */ var app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/Components/Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var _distributeur_edit_distributeur_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./distributeur-edit/distributeur-edit.component */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.ts");
+
+
+
+
+
+
+
+var DistributeurListComponent = /** @class */ (function () {
+    function DistributeurListComponent(distributeurService, dialog) {
+        this.distributeurService = distributeurService;
+        this.dialog = dialog;
+        this.getScreenSize();
+    }
+    DistributeurListComponent.prototype.getScreenSize = function (event) {
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+        if (this.screenWidth < 650) {
+            this.displayedColumns = ['reference', 'libelle', 'actions'];
+        }
+        else {
+            this.displayedColumns = ['reference', 'libelle', 'numImmatriculation', 'anneeFabrication', 'actions'];
+        }
+    };
+    DistributeurListComponent.prototype.ngOnInit = function () {
+        this.distributeurService.getDistributeursList(this.sort, this.paginator);
+    };
+    DistributeurListComponent.prototype.addDistributeurDialog = function () {
+        this.dialog.open(_distributeur_add_distributeur_add_component__WEBPACK_IMPORTED_MODULE_4__["DistributeurAddComponent"], {
+            panelClass: 'full-width-dialog'
+        });
+    };
+    DistributeurListComponent.prototype.deleteDistributeurDialog = function (id, msg) {
+        this.dialog.open(app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
+            data: { id: id, msg: msg }
+        });
+    };
+    DistributeurListComponent.prototype.updatedistributeurDialog = function (distributeur) {
+        this.dialog.open(_distributeur_edit_distributeur_edit_component__WEBPACK_IMPORTED_MODULE_6__["DistributeurEditComponent"], {
+            panelClass: 'full-width-dialog',
+            data: { distributeur: Object.assign({}, distributeur) }
+        });
+    };
+    DistributeurListComponent.prototype.filter = function () {
+        this.distributeurService.distributeursMatTab.filter = this.search.trim().toLowerCase();
+    };
+    DistributeurListComponent.prototype.clearSearch = function () {
+        this.search = '';
+        this.filter();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSort"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSort"])
+    ], DistributeurListComponent.prototype, "sort", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"])
+    ], DistributeurListComponent.prototype, "paginator", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:resize', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], DistributeurListComponent.prototype, "getScreenSize", null);
+    DistributeurListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-distributeur-list',
+            template: __webpack_require__(/*! ./distributeur-list.component.html */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.html"),
+            styles: [__webpack_require__(/*! ./distributeur-list.component.css */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_2__["DistributeurService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
+    ], DistributeurListComponent);
+    return DistributeurListComponent;
 }());
 
 
@@ -1629,7 +1939,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n  <span>Ajouter Index</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n  <div>\n    <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Reference\" required type=\"text\" name=\"reference\" [(ngModel)]=\"index.reference\">\n          <mat-error>Reference is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Valeur Index\" required type=\"number\" name=\"valeurIndex\"\n            [(ngModel)]=\"index.valeurIndex\">\n          <mat-error>Valeur Index is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Type carburant\" required type=\"text\" name=\"carburant\"\n            [(ngModel)]=\"index.carburant\">\n          <mat-error>Type carburant is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Citerne\" required type=\"text\" name=\"citerne\" [(ngModel)]=\"index.citerne\">\n          <mat-error>Citerne is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Distributeur\" required type=\"text\" name=\"distributeur\"\n            [(ngModel)]=\"index.distributeur\">\n          <mat-error>Distributeur is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n\n    <div class=\"button-row\">\n      <button mat-raised-button color=\"primary\" (click)=\"addIndex()\"\n        [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n      </button>\n      <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n    </div>\n  </div>\n</form>\n"
+module.exports = "<mat-toolbar>\n  <span>Ajouter Index</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n  <div>\n    <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Reference\" required type=\"text\" name=\"reference\" [(ngModel)]=\"index.reference\">\n          <mat-error>Reference is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Valeur Index\" required type=\"number\" name=\"valeurIndex\"\n            [(ngModel)]=\"index.valeurIndex\">\n          <mat-error>Valeur Index is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Type carburant\" required type=\"text\" name=\"carburant\"\n            [(ngModel)]=\"index.carburant\">\n          <mat-error>Type carburant is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <mat-label>Citerne</mat-label>\n          <mat-select required name=\"citerne\" [(ngModel)]=\"index.citerne\">\n            <mat-option>None</mat-option>\n            <mat-option *ngFor=\"let name of citerneList\" [value]=\"name\" >\n              {{name}}\n            </mat-option>\n          </mat-select>\n          <mat-error>Citerne is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <mat-label>Distributeur</mat-label>\n          <mat-select required name=\"distributeur\" [(ngModel)]=\"index.distributeur\">\n            <mat-option>None</mat-option>\n            <mat-option *ngFor=\"let name of distributeurList\" [value]=\"name\" >\n              {{name}}\n            </mat-option>\n          </mat-select>\n          <mat-error>Distributeur is required.</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n\n    <div class=\"button-row\">\n      <button mat-raised-button color=\"primary\" (click)=\"addIndex()\"\n        [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n      </button>\n      <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n    </div>\n  </div>\n</form>\n"
 
 /***/ }),
 
@@ -1645,10 +1955,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IndexAddComponent", function() { return IndexAddComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_shared_models_Index_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/models/Index.model */ "./src/app/shared/models/Index.model.ts");
+/* harmony import */ var app_shared_models_Index_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/Index.model */ "./src/app/shared/models/Index.model.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/citerne.service */ "./src/app/shared/services/citerne.service.ts");
+/* harmony import */ var app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/distributeur.service */ "./src/app/shared/services/distributeur.service.ts");
+
+
 
 
 
@@ -1656,13 +1970,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var IndexAddComponent = /** @class */ (function () {
-    function IndexAddComponent(dialogRef, indexService, notifService) {
+    function IndexAddComponent(dialogRef, indexService, citerneService, distributeurService, notifService) {
         this.dialogRef = dialogRef;
         this.indexService = indexService;
+        this.citerneService = citerneService;
+        this.distributeurService = distributeurService;
         this.notifService = notifService;
-        this.index = new src_app_shared_models_Index_model__WEBPACK_IMPORTED_MODULE_2__["Index"]();
+        this.index = new app_shared_models_Index_model__WEBPACK_IMPORTED_MODULE_2__["Index"]();
         this.width = 2;
+        this.citerneList = [];
+        this.distributeurList = [];
+        this.citerneService.getCiternesList();
+        this.getCiterneNamesList();
+        this.distributeurService.getDistributeursList();
+        this.getDistributeurNamesList();
     }
+    IndexAddComponent.prototype.getCiterneNamesList = function () {
+        var i;
+        for (i = 0; i < this.citerneService.citernes.length; i++) {
+            this.citerneList.push(this.citerneService.citernes[i].identifiant);
+        }
+    };
+    IndexAddComponent.prototype.getDistributeurNamesList = function () {
+        var i;
+        for (i = 0; i < this.distributeurService.distributeurs.length; i++) {
+            this.distributeurList.push(this.distributeurService.distributeurs[i].reference);
+        }
+    };
     IndexAddComponent.prototype.addIndex = function () {
         var _this = this;
         var datetime = new Date();
@@ -1682,6 +2016,9 @@ var IndexAddComponent = /** @class */ (function () {
         form.reset();
     };
     IndexAddComponent.prototype.ngOnInit = function () {
+        if (document.body.clientWidth < 600) {
+            this.width = 1;
+        }
     };
     IndexAddComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1690,8 +2027,10 @@ var IndexAddComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./index-add.component.css */ "./src/app/Components/parameters/index/index-list/index-add/index-add.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
-            src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_4__["IndexService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+            app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_4__["IndexService"],
+            app_shared_services_citerne_service__WEBPACK_IMPORTED_MODULE_6__["CiterneService"],
+            app_shared_services_distributeur_service__WEBPACK_IMPORTED_MODULE_7__["DistributeurService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
     ], IndexAddComponent);
     return IndexAddComponent;
 }());
@@ -1735,8 +2074,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
-/* harmony import */ var src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
 
 
 
@@ -1777,8 +2116,8 @@ var IndexEditComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./index-edit.component.css */ "./src/app/Components/parameters/index/index-list/index-edit/index-edit.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__["IndexService"],
-            src_app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__["IndexService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
     ], IndexEditComponent);
     return IndexEditComponent;
 }());
@@ -1805,7 +2144,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addIndexDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"indexService.indexsMatTab\" matSort>\n    <ng-container matColumnDef=\"reference\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Reference</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.reference}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"valeurIndex\">\n      <mat-header-cell *matHeaderCellDef>Valeur index</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.valeurIndex}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"dernierDate\">\n      <mat-header-cell *matHeaderCellDef>Dernier date</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.dernierDate}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"carburant\">\n      <mat-header-cell *matHeaderCellDef>Carburant</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.carburant}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"citerne\">\n      <mat-header-cell *matHeaderCellDef>Citerne</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.citerne}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"distributeur\">\n      <mat-header-cell *matHeaderCellDef>Distributeur</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.distributeur}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button (click)=\"updateIndexDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\" (click)=\"deleteIndexDialog(row._id, 'index')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':indexService.indexsMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(indexService.indexsMatTab!=null && indexService.indexsMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addIndexDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"indexService.indexsMatTab\" matSort>\n    <ng-container matColumnDef=\"reference\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Reference</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.reference}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"valeurIndex\">\n      <mat-header-cell *matHeaderCellDef>Valeur index</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.valeurIndex}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"dernierDate\">\n      <mat-header-cell *matHeaderCellDef>Dernier date</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.dernierDate}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"carburant\">\n      <mat-header-cell *matHeaderCellDef>Carburant</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.carburant}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"citerne\">\n      <mat-header-cell *matHeaderCellDef>Citerne</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.citerne}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"distributeur\">\n      <mat-header-cell *matHeaderCellDef>Distributeur</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.distributeur}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button color=\"primary\" (click)=\"updateIndexDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\" (click)=\"deleteIndexDialog(row._id, 'index')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':indexService.indexsMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(indexService.indexsMatTab!=null && indexService.indexsMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
 
 /***/ }),
 
@@ -1822,9 +2161,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
+/* harmony import */ var app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/index.service */ "./src/app/shared/services/index.service.ts");
 /* harmony import */ var _index_add_index_add_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-add/index-add.component */ "./src/app/Components/parameters/index/index-list/index-add/index-add.component.ts");
-/* harmony import */ var src_app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Components/Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/Components/Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
 /* harmony import */ var _index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-edit/index-edit.component */ "./src/app/Components/parameters/index/index-list/index-edit/index-edit.component.ts");
 
 
@@ -1837,8 +2176,18 @@ var IndexListComponent = /** @class */ (function () {
     function IndexListComponent(indexService, dialog) {
         this.indexService = indexService;
         this.dialog = dialog;
-        this.displayedColumns = ['reference', 'valeurIndex', 'dernierDate', 'carburant', 'citerne', 'distributeur', 'actions'];
+        this.getScreenSize();
     }
+    IndexListComponent.prototype.getScreenSize = function (event) {
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+        if (this.screenWidth < 650) {
+            this.displayedColumns = ['reference', 'valeurIndex', 'carburant', 'actions'];
+        }
+        else {
+            this.displayedColumns = ['reference', 'valeurIndex', 'dernierDate', 'carburant', 'citerne', 'distributeur', 'actions'];
+        }
+    };
     IndexListComponent.prototype.ngOnInit = function () {
         this.indexService.getIndexList(this.sort, this.paginator);
     };
@@ -1848,7 +2197,7 @@ var IndexListComponent = /** @class */ (function () {
         });
     };
     IndexListComponent.prototype.deleteIndexDialog = function (id, msg) {
-        this.dialog.open(src_app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
+        this.dialog.open(app_Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
             data: { id: id, msg: msg }
         });
     };
@@ -1873,13 +2222,19 @@ var IndexListComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"]),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"])
     ], IndexListComponent.prototype, "paginator", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:resize', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], IndexListComponent.prototype, "getScreenSize", null);
     IndexListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-index-list',
             template: __webpack_require__(/*! ./index-list.component.html */ "./src/app/Components/parameters/index/index-list/index-list.component.html"),
             styles: [__webpack_require__(/*! ./index-list.component.css */ "./src/app/Components/parameters/index/index-list/index-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__["IndexService"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_index_service__WEBPACK_IMPORTED_MODULE_3__["IndexService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
     ], IndexListComponent);
     return IndexListComponent;
@@ -1907,7 +2262,7 @@ module.exports = "\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"margin-param\">\r\n    <mat-toolbar color=\"primary\">\r\n        <span>Carte Bon Types</span>\r\n    </mat-toolbar>\r\n    <app-card-type-list></app-card-type-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n    <mat-toolbar color=\"primary\">\r\n        <span>Clients</span>\r\n    </mat-toolbar>\r\n    <app-client-list></app-client-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n    <mat-toolbar color=\"primary\">\r\n        <span>Citernes</span>\r\n    </mat-toolbar>\r\n    <app-citerne-list></app-citerne-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n  <mat-toolbar color=\"primary\">\r\n      <span>Indexs</span>\r\n  </mat-toolbar>\r\n  <app-index-list></app-index-list>\r\n</div>\r\n"
+module.exports = "<div class=\"margin-param\">\r\n  <mat-toolbar color=\"primary\">\r\n    <span>Carte Bon Types</span>\r\n  </mat-toolbar>\r\n  <app-card-type-list></app-card-type-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n  <mat-toolbar color=\"primary\">\r\n    <span>Clients</span>\r\n  </mat-toolbar>\r\n  <app-client-list></app-client-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n  <mat-toolbar color=\"primary\">\r\n    <span>Citernes</span>\r\n  </mat-toolbar>\r\n  <app-citerne-list></app-citerne-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n  <mat-toolbar color=\"primary\">\r\n    <span>Indexs</span>\r\n  </mat-toolbar>\r\n  <app-index-list></app-index-list>\r\n</div>\r\n<div class=\"margin-param\">\r\n  <mat-toolbar color=\"primary\">\r\n    <span>Distributeur</span>\r\n  </mat-toolbar>\r\n  <app-distributeur-list></app-distributeur-list>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1950,6 +2305,185 @@ var ParametersComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
     ], ParametersComponent);
     return ParametersComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.css":
+/*!*****************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.css ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9wcml4Q2FyYnVyYW50L3ByaXgtQ2FyYnVyYW50LWxpc3QvcHJpeC1jYXJidXJhbnQtYWRkL3ByaXgtY2FyYnVyYW50LWFkZC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.html":
+/*!******************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.html ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n  <span>Ajouter prix carburant</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\"><mat-icon>clear</mat-icon></button>\n</mat-toolbar>\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\" (submit)=\"addCarburant()\">\n  <mat-grid-list cols=\"1\" rowHeight=\"300px\">\n    <mat-grid-tile>\n      <div class=\"controles-container\">\n        <mat-form-field>\n          <input matInput placeholder=\"Carburant\" required type=\"text\" name=\"carburant\" [(ngModel)]=\"carburant.carburant\">\n          <mat-error>carburant is required.</mat-error>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput placeholder=\"Prix\" required type=\"number\" name=\"prix\" [(ngModel)]=\"carburant.prix\">\n          <mat-error>prix Carburant is required.</mat-error>\n        </mat-form-field>\n        <div class=\"button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\" [disabled]=\"angForm.pristine || angForm.invalid\" >Ajouter Prix</button>\n          <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</form>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.ts":
+/*!****************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.ts ***!
+  \****************************************************************************************************************************/
+/*! exports provided: PrixCarburantAddComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrixCarburantAddComponent", function() { return PrixCarburantAddComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_models_carburant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/carburant */ "./src/app/shared/models/carburant.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_prix_carburant_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/prix-carburant.service */ "./src/app/shared/services/prix-carburant.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+
+
+
+
+
+
+var PrixCarburantAddComponent = /** @class */ (function () {
+    function PrixCarburantAddComponent(dialogRef, carburantService, notifService) {
+        this.dialogRef = dialogRef;
+        this.carburantService = carburantService;
+        this.notifService = notifService;
+        this.carburant = new app_shared_models_carburant__WEBPACK_IMPORTED_MODULE_2__["Carburant"]();
+    }
+    PrixCarburantAddComponent.prototype.addcarburant = function () {
+        var _this = this;
+        this.carburantService.addCarburant(this.carburant)
+            .subscribe(function (res) {
+            _this.carburantService.getCarburantList();
+            _this.dialogRef.close();
+            _this.notifService.success('Carburant ajouter avec succés');
+        }, function (err) { return console.log(err); });
+    };
+    PrixCarburantAddComponent.prototype.onClose = function () {
+        this.dialogRef.close();
+    };
+    PrixCarburantAddComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    PrixCarburantAddComponent.prototype.ngOnInit = function () {
+    };
+    PrixCarburantAddComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-prix-carburant-add',
+            template: __webpack_require__(/*! ./prix-carburant-add.component.html */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.html"),
+            styles: [__webpack_require__(/*! ./prix-carburant-add.component.css */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
+            app_shared_services_prix_carburant_service__WEBPACK_IMPORTED_MODULE_4__["PrixCarburantService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+    ], PrixCarburantAddComponent);
+    return PrixCarburantAddComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.css":
+/*!***********************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.css ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9wcml4Q2FyYnVyYW50L3ByaXgtQ2FyYnVyYW50LWxpc3QvcHJpeC1jYXJidXJhbnQtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.html":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.html ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addCarburantDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"carburantService.carburantsMatTab\" matSort>\n    <ng-container matColumnDef=\"carburant\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Carburant</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.carburant}}</mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"carburant\">\n      <mat-header-cell *matHeaderCellDef>Prix</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.prix}}</mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"identifiantPrix\">\n    <mat-header-cell *matHeaderCellDef>Identifiant prix</mat-header-cell>\n    <mat-cell *matCellDef=\"let element\">{{element.identifiantPrix}}</mat-cell>\n</ng-container>\n  <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n          <button mat-icon-button color=\"primary\" (click)=\"updateCarburantDialog(row)\">\n              <mat-icon>edit</mat-icon>\n          </button>\n          <button mat-icon-button color=\"warn\" (click)=\"deleteCarburantDialog(row._id, 'carburant')\">\n              <mat-icon>delete_outline</mat-icon>\n          </button>\n      </mat-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n          Loading data ...\n      </mat-footer-cell>\n  </ng-container>\n  <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n          No data.\n      </mat-footer-cell>\n  </ng-container>\n  <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n  <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n  <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':carburantService.carburantsMatTab!=null}\"></mat-footer-row>\n  <mat-footer-row *matFooterRowDef=\"['noData']\" [ngClass]=\"{'hide':!(carburantService.carburantsMatTab!=null && carburantService.carburantsMatTab.data.length==0)}\">\n  </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.ts":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.ts ***!
+  \**********************************************************************************************************/
+/*! exports provided: PrixCarburantListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrixCarburantListComponent", function() { return PrixCarburantListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_prix_carburant_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/prix-carburant.service */ "./src/app/shared/services/prix-carburant.service.ts");
+/* harmony import */ var _prix_carburant_add_prix_carburant_add_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./prix-carburant-add/prix-carburant-add.component */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.ts");
+/* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+
+
+
+
+
+
+var PrixCarburantListComponent = /** @class */ (function () {
+    function PrixCarburantListComponent(carburantService, dialog) {
+        this.carburantService = carburantService;
+        this.dialog = dialog;
+        this.displayedColumns = ['carburant', 'prix', 'identifiantPrix', 'actions'];
+    }
+    PrixCarburantListComponent.prototype.ngOnInit = function () {
+        this.carburantService.getCarburantList(this.sort, this.paginator);
+    };
+    PrixCarburantListComponent.prototype.addCarburantDialog = function () {
+        this.dialog.open(_prix_carburant_add_prix_carburant_add_component__WEBPACK_IMPORTED_MODULE_4__["PrixCarburantAddComponent"], {
+            panelClass: 'full-width-dialog'
+        });
+    };
+    PrixCarburantListComponent.prototype.deleteCarburantDialog = function (id, msg) {
+        this.dialog.open(_ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
+            data: { id: id, msg: msg }
+        });
+    };
+    PrixCarburantListComponent.prototype.filter = function () {
+        this.carburantService.carburantsMatTab.filter = this.search.trim().toLowerCase();
+    };
+    PrixCarburantListComponent.prototype.clearSearch = function () {
+        this.search = '';
+        this.filter();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"])
+    ], PrixCarburantListComponent.prototype, "sort", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"])
+    ], PrixCarburantListComponent.prototype, "paginator", void 0);
+    PrixCarburantListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-prix-carburant-list',
+            template: __webpack_require__(/*! ./prix-carburant-list.component.html */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.html"),
+            styles: [__webpack_require__(/*! ./prix-carburant-list.component.css */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_prix_carburant_service__WEBPACK_IMPORTED_MODULE_3__["PrixCarburantService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
+    ], PrixCarburantListComponent);
+    return PrixCarburantListComponent;
 }());
 
 
@@ -2134,25 +2668,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_token_interceptor_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./shared/services/token-interceptor.service */ "./src/app/shared/services/token-interceptor.service.ts");
 /* harmony import */ var ng2_slim_loading_bar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ng2-slim-loading-bar */ "./node_modules/ng2-slim-loading-bar/index.js");
 /* harmony import */ var _shared_services_carte_bon_type_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shared/services/carte-bon-type.service */ "./src/app/shared/services/carte-bon-type.service.ts");
-/* harmony import */ var _Components_parameters_Carte_Bon_card_type_list_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component.ts");
-/* harmony import */ var _Components_parameters_Carte_Bon_card_type_list_card_type_edit_card_type_edit_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Components/parameters/Carte Bon/card-type-list/card-type-edit/card-type-edit.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-edit/card-type-edit.component.ts");
+/* harmony import */ var _ComCardType_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ComCardType/card-type-add/card-type-add.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-add/card-type-add.component.ts");
+/* harmony import */ var _ComCardType_card_type_edit_card_type_edit_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ComCardType/card-type-edit/card-type-edit.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-edit/card-type-edit.component.ts");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var _material_material_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./material/material.module */ "./src/app/material/material.module.ts");
-/* harmony import */ var _Components_parameters_client_client_list_client_list_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Components/parameters/client/client-list/client-list.component */ "./src/app/Components/parameters/client/client-list/client-list.component.ts");
-/* harmony import */ var _Components_parameters_client_client_list_more_details_more_details_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Components/parameters/client/client-list/more-details/more-details.component */ "./src/app/Components/parameters/client/client-list/more-details/more-details.component.ts");
-/* harmony import */ var _Components_parameters_client_client_list_add_client_add_client_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Components/parameters/client/client-list/add-client/add-client.component */ "./src/app/Components/parameters/client/client-list/add-client/add-client.component.ts");
-/* harmony import */ var _Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Shared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
-/* harmony import */ var _Components_parameters_client_client_list_update_client_update_client_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Components/parameters/client/client-list/update-client/update-client.component */ "./src/app/Components/parameters/client/client-list/update-client/update-client.component.ts");
-/* harmony import */ var _Components_parameters_Carte_Bon_card_type_list_card_type_list_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Components/parameters/Carte Bon/card-type-list/card-type-list.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-list.component.ts");
-/* harmony import */ var _Components_parameters_citerne_citerne_list_add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component */ "./src/app/Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component.ts");
-/* harmony import */ var _Components_parameters_citerne_citerne_list_citerne_list_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./Components/parameters/citerne/citerne-list/citerne-list.component */ "./src/app/Components/parameters/citerne/citerne-list/citerne-list.component.ts");
-/* harmony import */ var _Components_parameters_citerne_citerne_list_update_citerne_update_citerne_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./Components/parameters/citerne/citerne-list/update-citerne/update-citerne.component */ "./src/app/Components/parameters/citerne/citerne-list/update-citerne/update-citerne.component.ts");
-/* harmony import */ var _Components_home_Recette_releveIndex_list_releveIndex_list_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./Components/home/Recette/releveIndex-list/releveIndex-list.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-list.component.ts");
-/* harmony import */ var _Components_home_Recette_releveIndex_list_releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./Components/home/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component.ts");
-/* harmony import */ var _Components_home_Recette_releveIndex_list_releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./Components/home/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component.ts");
-/* harmony import */ var _Components_parameters_index_index_list_index_list_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./Components/parameters/index/index-list/index-list.component */ "./src/app/Components/parameters/index/index-list/index-list.component.ts");
-/* harmony import */ var _Components_parameters_index_index_list_index_add_index_add_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./Components/parameters/index/index-list/index-add/index-add.component */ "./src/app/Components/parameters/index/index-list/index-add/index-add.component.ts");
-/* harmony import */ var _Components_parameters_index_index_list_index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./Components/parameters/index/index-list/index-edit/index-edit.component */ "./src/app/Components/parameters/index/index-list/index-edit/index-edit.component.ts");
+/* harmony import */ var _ComClient_client_list_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ComClient/client-list.component */ "./src/app/Components/parameters/client/client-list/client-list.component.ts");
+/* harmony import */ var _ComClient_more_details_more_details_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ComClient/more-details/more-details.component */ "./src/app/Components/parameters/client/client-list/more-details/more-details.component.ts");
+/* harmony import */ var _ComClient_add_client_add_client_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ComClient/add-client/add-client.component */ "./src/app/Components/parameters/client/client-list/add-client/add-client.component.ts");
+/* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var _ComClient_update_client_update_client_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ComClient/update-client/update-client.component */ "./src/app/Components/parameters/client/client-list/update-client/update-client.component.ts");
+/* harmony import */ var _ComCardType_card_type_list_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ComCardType/card-type-list.component */ "./src/app/Components/parameters/Carte Bon/card-type-list/card-type-list.component.ts");
+/* harmony import */ var _ComCiterne_add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ComCiterne/add-citerne/add-citerne.component */ "./src/app/Components/parameters/citerne/citerne-list/add-citerne/add-citerne.component.ts");
+/* harmony import */ var _ComCiterne_citerne_list_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ComCiterne/citerne-list.component */ "./src/app/Components/parameters/citerne/citerne-list/citerne-list.component.ts");
+/* harmony import */ var _ComCiterne_update_citerne_update_citerne_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ComCiterne/update-citerne/update-citerne.component */ "./src/app/Components/parameters/citerne/citerne-list/update-citerne/update-citerne.component.ts");
+/* harmony import */ var _ComReleveIndex_releveIndex_list_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @ComReleveIndex/releveIndex-list.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-list.component.ts");
+/* harmony import */ var _ComReleveIndex_releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @ComReleveIndex/releveIndex-add/releveIndex-add.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component.ts");
+/* harmony import */ var _ComReleveIndex_releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ComReleveIndex/releveIndex-edit/releveIndex-edit.component */ "./src/app/Components/home/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component.ts");
+/* harmony import */ var _ComIndex_index_list_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @ComIndex/index-list.component */ "./src/app/Components/parameters/index/index-list/index-list.component.ts");
+/* harmony import */ var _ComIndex_index_add_index_add_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @ComIndex/index-add/index-add.component */ "./src/app/Components/parameters/index/index-list/index-add/index-add.component.ts");
+/* harmony import */ var _ComIndex_index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ComIndex/index-edit/index-edit.component */ "./src/app/Components/parameters/index/index-list/index-edit/index-edit.component.ts");
+/* harmony import */ var _ComDistributeur_distributeur_list_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ComDistributeur/distributeur-list.component */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-list.component.ts");
+/* harmony import */ var _ComDistributeur_distributeur_add_distributeur_add_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @ComDistributeur/distributeur-add/distributeur-add.component */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.ts");
+/* harmony import */ var _ComDistributeur_distributeur_edit_distributeur_edit_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ComDistributeur/distributeur-edit/distributeur-edit.component */ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-edit/distributeur-edit.component.ts");
+/* harmony import */ var _ComCarburant_prix_carburant_list_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @ComCarburant/prix-carburant-list.component */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-list.component.ts");
+/* harmony import */ var _ComCarburant_prix_carburant_add_prix_carburant_add_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @ComCarburant/prix-carburant-add/prix-carburant-add.component */ "./src/app/Components/parameters/prixCarburant/prix-Carburant-list/prix-carburant-add/prix-carburant-add.component.ts");
+
+
+
+
+
 
 
 
@@ -2201,23 +2745,28 @@ var AppModule = /** @class */ (function () {
                 _Components_Authentification_register_register_component__WEBPACK_IMPORTED_MODULE_8__["RegisterComponent"],
                 _Components_parameters_parameters_component__WEBPACK_IMPORTED_MODULE_9__["ParametersComponent"],
                 _Components_home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"],
-                _Components_parameters_Carte_Bon_card_type_list_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_17__["CardTypeAddComponent"],
-                _Components_parameters_Carte_Bon_card_type_list_card_type_edit_card_type_edit_component__WEBPACK_IMPORTED_MODULE_18__["CardTypeEditComponent"],
-                _Components_parameters_client_client_list_client_list_component__WEBPACK_IMPORTED_MODULE_21__["ClientListComponent"],
-                _Components_parameters_client_client_list_more_details_more_details_component__WEBPACK_IMPORTED_MODULE_22__["MoreDetailsComponent"],
-                _Components_parameters_client_client_list_add_client_add_client_component__WEBPACK_IMPORTED_MODULE_23__["AddClientComponent"],
-                _Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmDeleteComponent"],
-                _Components_parameters_client_client_list_update_client_update_client_component__WEBPACK_IMPORTED_MODULE_25__["UpdateClientComponent"],
-                _Components_parameters_Carte_Bon_card_type_list_card_type_list_component__WEBPACK_IMPORTED_MODULE_26__["CardTypeListComponent"],
-                _Components_parameters_citerne_citerne_list_add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_27__["AddCiterneComponent"],
-                _Components_parameters_citerne_citerne_list_citerne_list_component__WEBPACK_IMPORTED_MODULE_28__["CiterneListComponent"],
-                _Components_parameters_citerne_citerne_list_update_citerne_update_citerne_component__WEBPACK_IMPORTED_MODULE_29__["UpdateCiterneComponent"],
-                _Components_home_Recette_releveIndex_list_releveIndex_list_component__WEBPACK_IMPORTED_MODULE_30__["ReleveIndexListComponent"],
-                _Components_home_Recette_releveIndex_list_releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_31__["ReleveIndexAddComponent"],
-                _Components_home_Recette_releveIndex_list_releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_32__["ReleveIndexEditComponent"],
-                _Components_parameters_index_index_list_index_list_component__WEBPACK_IMPORTED_MODULE_33__["IndexListComponent"],
-                _Components_parameters_index_index_list_index_add_index_add_component__WEBPACK_IMPORTED_MODULE_34__["IndexAddComponent"],
-                _Components_parameters_index_index_list_index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_35__["IndexEditComponent"]
+                _ComCardType_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_17__["CardTypeAddComponent"],
+                _ComCardType_card_type_edit_card_type_edit_component__WEBPACK_IMPORTED_MODULE_18__["CardTypeEditComponent"],
+                _ComClient_client_list_component__WEBPACK_IMPORTED_MODULE_21__["ClientListComponent"],
+                _ComClient_more_details_more_details_component__WEBPACK_IMPORTED_MODULE_22__["MoreDetailsComponent"],
+                _ComClient_add_client_add_client_component__WEBPACK_IMPORTED_MODULE_23__["AddClientComponent"],
+                _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmDeleteComponent"],
+                _ComClient_update_client_update_client_component__WEBPACK_IMPORTED_MODULE_25__["UpdateClientComponent"],
+                _ComCardType_card_type_list_component__WEBPACK_IMPORTED_MODULE_26__["CardTypeListComponent"],
+                _ComCiterne_add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_27__["AddCiterneComponent"],
+                _ComCiterne_citerne_list_component__WEBPACK_IMPORTED_MODULE_28__["CiterneListComponent"],
+                _ComCiterne_update_citerne_update_citerne_component__WEBPACK_IMPORTED_MODULE_29__["UpdateCiterneComponent"],
+                _ComReleveIndex_releveIndex_list_component__WEBPACK_IMPORTED_MODULE_30__["ReleveIndexListComponent"],
+                _ComReleveIndex_releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_31__["ReleveIndexAddComponent"],
+                _ComReleveIndex_releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_32__["ReleveIndexEditComponent"],
+                _ComIndex_index_list_component__WEBPACK_IMPORTED_MODULE_33__["IndexListComponent"],
+                _ComIndex_index_add_index_add_component__WEBPACK_IMPORTED_MODULE_34__["IndexAddComponent"],
+                _ComIndex_index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_35__["IndexEditComponent"],
+                _ComDistributeur_distributeur_list_component__WEBPACK_IMPORTED_MODULE_36__["DistributeurListComponent"],
+                _ComDistributeur_distributeur_add_distributeur_add_component__WEBPACK_IMPORTED_MODULE_37__["DistributeurAddComponent"],
+                _ComDistributeur_distributeur_edit_distributeur_edit_component__WEBPACK_IMPORTED_MODULE_38__["DistributeurEditComponent"],
+                _ComCarburant_prix_carburant_list_component__WEBPACK_IMPORTED_MODULE_39__["PrixCarburantListComponent"],
+                _ComCarburant_prix_carburant_add_prix_carburant_add_component__WEBPACK_IMPORTED_MODULE_40__["PrixCarburantAddComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -2231,17 +2780,21 @@ var AppModule = /** @class */ (function () {
                 _material_material_module__WEBPACK_IMPORTED_MODULE_20__["MaterialModule"]
             ],
             entryComponents: [
-                _Components_parameters_Carte_Bon_card_type_list_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_17__["CardTypeAddComponent"],
-                _Components_parameters_Carte_Bon_card_type_list_card_type_edit_card_type_edit_component__WEBPACK_IMPORTED_MODULE_18__["CardTypeEditComponent"],
-                _Components_parameters_client_client_list_more_details_more_details_component__WEBPACK_IMPORTED_MODULE_22__["MoreDetailsComponent"],
-                _Components_parameters_client_client_list_add_client_add_client_component__WEBPACK_IMPORTED_MODULE_23__["AddClientComponent"],
-                _Components_Shared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmDeleteComponent"],
-                _Components_parameters_client_client_list_update_client_update_client_component__WEBPACK_IMPORTED_MODULE_25__["UpdateClientComponent"],
-                _Components_parameters_citerne_citerne_list_add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_27__["AddCiterneComponent"],
-                _Components_home_Recette_releveIndex_list_releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_31__["ReleveIndexAddComponent"],
-                _Components_home_Recette_releveIndex_list_releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_32__["ReleveIndexEditComponent"],
-                _Components_parameters_index_index_list_index_add_index_add_component__WEBPACK_IMPORTED_MODULE_34__["IndexAddComponent"],
-                _Components_parameters_index_index_list_index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_35__["IndexEditComponent"]
+                _ComCardType_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_17__["CardTypeAddComponent"],
+                _ComCardType_card_type_edit_card_type_edit_component__WEBPACK_IMPORTED_MODULE_18__["CardTypeEditComponent"],
+                _ComClient_more_details_more_details_component__WEBPACK_IMPORTED_MODULE_22__["MoreDetailsComponent"],
+                _ComClient_add_client_add_client_component__WEBPACK_IMPORTED_MODULE_23__["AddClientComponent"],
+                _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmDeleteComponent"],
+                _ComClient_update_client_update_client_component__WEBPACK_IMPORTED_MODULE_25__["UpdateClientComponent"],
+                _ComCiterne_add_citerne_add_citerne_component__WEBPACK_IMPORTED_MODULE_27__["AddCiterneComponent"],
+                _ComCiterne_update_citerne_update_citerne_component__WEBPACK_IMPORTED_MODULE_29__["UpdateCiterneComponent"],
+                _ComReleveIndex_releveIndex_add_releveIndex_add_component__WEBPACK_IMPORTED_MODULE_31__["ReleveIndexAddComponent"],
+                _ComReleveIndex_releveIndex_edit_releveIndex_edit_component__WEBPACK_IMPORTED_MODULE_32__["ReleveIndexEditComponent"],
+                _ComIndex_index_add_index_add_component__WEBPACK_IMPORTED_MODULE_34__["IndexAddComponent"],
+                _ComIndex_index_edit_index_edit_component__WEBPACK_IMPORTED_MODULE_35__["IndexEditComponent"],
+                _ComDistributeur_distributeur_add_distributeur_add_component__WEBPACK_IMPORTED_MODULE_37__["DistributeurAddComponent"],
+                _ComDistributeur_distributeur_edit_distributeur_edit_component__WEBPACK_IMPORTED_MODULE_38__["DistributeurEditComponent"],
+                _ComCarburant_prix_carburant_add_prix_carburant_add_component__WEBPACK_IMPORTED_MODULE_40__["PrixCarburantAddComponent"]
             ],
             providers: [_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_12__["AuthService"], _shared_Guards_auth_guard__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"],
                 {
@@ -2426,6 +2979,29 @@ var ReleveIndex = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/models/carburant.ts":
+/*!********************************************!*\
+  !*** ./src/app/shared/models/carburant.ts ***!
+  \********************************************/
+/*! exports provided: Carburant */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Carburant", function() { return Carburant; });
+var Carburant = /** @class */ (function () {
+    function Carburant() {
+        this.carburant = '';
+        this.prix = 0;
+        this.identifiantPrix = '';
+    }
+    return Carburant;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/models/cardType.model.ts":
 /*!*************************************************!*\
   !*** ./src/app/shared/models/cardType.model.ts ***!
@@ -2499,6 +3075,30 @@ var Client = /** @class */ (function () {
         this.region = '';
     }
     return Client;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/models/distributeur.model.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/shared/models/distributeur.model.ts ***!
+  \*****************************************************/
+/*! exports provided: Distributeur */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Distributeur", function() { return Distributeur; });
+var Distributeur = /** @class */ (function () {
+    function Distributeur() {
+        this.reference = '';
+        this.libelle = '';
+        this.numImmatriculation = 0;
+        this.anneeFabrication = 0;
+    }
+    return Distributeur;
 }());
 
 
@@ -2769,6 +3369,72 @@ var ClientService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/distributeur.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/shared/services/distributeur.service.ts ***!
+  \*********************************************************/
+/*! exports provided: DistributeurService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DistributeurService", function() { return DistributeurService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var DistributeurService = /** @class */ (function () {
+    function DistributeurService(http) {
+        this.http = http;
+        this.uri = 'http://localhost:5000/distributeur';
+        this.distributeurs = [];
+        this.distributeursMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.distributeurs);
+    }
+    DistributeurService.prototype.addDistributeur = function (distributeur) {
+        return this.http.post(this.uri + "/add", distributeur);
+    };
+    DistributeurService.prototype.getDistributeursList = function (sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (data) {
+            _this.distributeurs = data;
+            _this.distributeurs = _this.distributeurs.reverse();
+            _this.distributeursMatTab.data = _this.distributeurs;
+            if (sort) {
+                _this.distributeursMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.distributeursMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    DistributeurService.prototype.editDistributeur = function (id) {
+        return this.http.get(this.uri + "/edit/" + id);
+    };
+    DistributeurService.prototype.updateDistributeur = function (id, distributeur) {
+        return this.http.put(this.uri + "/update/" + id, distributeur);
+    };
+    DistributeurService.prototype.deleteDistributeur = function (id) {
+        return this.http.delete(this.uri + "/delete/" + id);
+    };
+    DistributeurService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], DistributeurService);
+    return DistributeurService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/index.service.ts":
 /*!**************************************************!*\
   !*** ./src/app/shared/services/index.service.ts ***!
@@ -2790,7 +3456,7 @@ __webpack_require__.r(__webpack_exports__);
 var IndexService = /** @class */ (function () {
     function IndexService(http) {
         this.http = http;
-        this.uri = 'http://localhost:5000/index';
+        this.uri = 'https://ppp-ss.herokuapp.com/index';
         this.indexs = [];
         this.indexsMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.indexs);
     }
@@ -2882,6 +3548,72 @@ var NotificationService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/prix-carburant.service.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/shared/services/prix-carburant.service.ts ***!
+  \***********************************************************/
+/*! exports provided: PrixCarburantService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrixCarburantService", function() { return PrixCarburantService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var PrixCarburantService = /** @class */ (function () {
+    function PrixCarburantService(http) {
+        this.http = http;
+        this.uri = 'http://localhost:5000/carburant';
+        this.carburants = [];
+        this.carburantsMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.carburants);
+    }
+    PrixCarburantService.prototype.addCarburant = function (carburant) {
+        return this.http.post(this.uri + "/add", carburant);
+    };
+    PrixCarburantService.prototype.getCarburantList = function (sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (data) {
+            _this.carburants = data;
+            _this.carburants = _this.carburants.reverse();
+            _this.carburantsMatTab.data = _this.carburants;
+            if (sort) {
+                _this.carburantsMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.carburantsMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    PrixCarburantService.prototype.editCarburant = function (id) {
+        return this.http.get(this.uri + "/edit/" + id);
+    };
+    PrixCarburantService.prototype.updateCarburant = function (id, carburant) {
+        return this.http.put(this.uri + "/update/" + id, carburant);
+    };
+    PrixCarburantService.prototype.deleteCarburant = function (id) {
+        return this.http.delete(this.uri + "/delete/" + id);
+    };
+    PrixCarburantService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], PrixCarburantService);
+    return PrixCarburantService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/releveIndex.service.ts":
 /*!********************************************************!*\
   !*** ./src/app/shared/services/releveIndex.service.ts ***!
@@ -2903,8 +3635,11 @@ __webpack_require__.r(__webpack_exports__);
 var ReleveIndexService = /** @class */ (function () {
     function ReleveIndexService(http) {
         this.http = http;
-        this.uri = 'http://localhost:5000/recette';
+        this.uri = 'https://ppp-ss.herokuapp.com/recette';
+        this.indexUri = 'https://ppp-ss.herokuapp.com/index';
         this.releveIndexs = [];
+        this.list = [];
+        this.indexs = [];
         this.releveIndexsMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.releveIndexs);
     }
     ReleveIndexService.prototype.addReleveIndex = function (releveIndex) {
@@ -2921,6 +3656,18 @@ var ReleveIndexService = /** @class */ (function () {
             }
             if (paginator) {
                 _this.releveIndexsMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ReleveIndexService.prototype.getIndexsNames = function () {
+        var _this = this;
+        this.http.get(this.indexUri + "/list").subscribe(function (data) {
+            _this.indexs = data;
+            var i;
+            for (i = 0; i < _this.indexs.length; i++) {
+                _this.list.push(_this.indexs[i].reference);
             }
         }, function (err) {
             console.log(err);

@@ -9,18 +9,24 @@ import { HttpClient } from '@angular/common/http';
 export class IndexService {
 
   public indexs: Index[];
+  public carburant: string;
   public indexsMatTab: MatTableDataSource<any>;
 
 
-  private uri = 'http://localhost:5000/index';
+  private uri = 'https://ppp-ss.herokuapp.com/index';
 
   constructor(private http: HttpClient) {
     this.indexs = [];
+    this.carburant = '';
     this.indexsMatTab = new MatTableDataSource(this.indexs);
   }
 
   addIndex(index) {
     return this.http.post<any>(`${this.uri}/add`, index);
+  }
+
+  getCarburant(reference: string) {
+    return this.http.get<any>(`${this.uri}/getCarburant/${reference}`);
   }
 
   getIndexList(sort?: MatSort, paginator?: MatPaginator): void {
