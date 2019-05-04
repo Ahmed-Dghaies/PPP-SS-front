@@ -48,6 +48,7 @@ export class ReleveIndexService {
   }
 
   getIndexsNames(): void {
+    this.list= [];
     this.http.get<Index[]>(`${this.indexUri}/list`).subscribe((data: Index[]) => {
       this.indexs = data;
       let i;
