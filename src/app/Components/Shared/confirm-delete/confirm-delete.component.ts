@@ -6,6 +6,8 @@ import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service'
 import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
 import { IndexService } from 'app/shared/services/index.service';
 import { CiterneService } from 'app/shared/services/citerne.service';
+import { DistributeurService } from 'app/shared/services/distributeur.service';
+import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -25,6 +27,8 @@ export class ConfirmDeleteComponent implements OnInit {
     private releveIndexService: ReleveIndexService,
     private indexService: IndexService,
     private citerneService: CiterneService,
+    private distributeurService: DistributeurService,
+    private carburantService: PrixCarburantService,
     private notifService: NotificationService) {
     this.id = data.id;
     this.msg = data.msg;
@@ -44,11 +48,37 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteIndex();
     } else if (this.msg === 'citerne') {
       this.deleteCiterne();
+    } else if (this.msg === 'distributeur') {
+      this.deleteDistributeur();
+    } else if (this.msg === 'carburant') {
+      this.deleteCarburant();
     }
   }
 
   annuler(): void {
     this.dialogRef.close();
+  }
+
+  deleteCarburant(): void {
+    this.carburantService.deleteCarburant(this.id).subscribe(res => {
+      this.carburantService.getCarburantList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteDistributeur(): void {
+    this.distributeurService.deleteDistributeur(this.id).subscribe(res => {
+      this.distributeurService.getDistributeursList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
   }
 
   deleteCiterne(): void {

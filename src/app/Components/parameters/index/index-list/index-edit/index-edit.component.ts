@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { Index } from 'app/shared/models/Index.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IndexService } from 'app/shared/services/index.service';
@@ -14,6 +14,8 @@ export class IndexEditComponent implements OnInit {
 
   public index: Index;
   public width: number;
+  screenHeight: any;
+  screenWidth: any;
 
   constructor(
     public dialogRef: MatDialogRef<IndexEditComponent>,
@@ -21,7 +23,18 @@ export class IndexEditComponent implements OnInit {
     private indexService: IndexService,
     private notifservice: NotificationService) {
     this.index = data.index;
-    this.width = 2;
+    this.getScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.width =  1;
+    } else {
+      this.width =  2;
+    }
   }
 
   updateIndex(): void {

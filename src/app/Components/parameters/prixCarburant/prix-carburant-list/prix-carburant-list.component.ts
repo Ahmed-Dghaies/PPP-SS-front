@@ -4,6 +4,7 @@ import { PrixCarburantService } from 'app/shared/services/prix-carburant.service
 import { PrixCarburantAddComponent } from './prix-carburant-add/prix-carburant-add.component';
 import { ConfirmDeleteComponent } from '@ComShared/confirm-delete/confirm-delete.component';
 import { Carburant } from 'app/shared/models/carburant';
+import { PrixCarburantEditComponent } from './prix-carburant-edit/prix-carburant-edit.component';
 
 @Component({
   selector: 'app-prix-carburant-list',
@@ -26,6 +27,13 @@ export class PrixCarburantListComponent implements OnInit {
 
   ngOnInit() {
     this.carburantService.getCarburantList(this.sort, this.paginator);
+  }
+
+  updateCarburantDialog(carburant: Carburant): void {
+    this.dialog.open(PrixCarburantEditComponent, {
+      panelClass: 'full-width-dialog',
+      data: { carburant : Object.assign({}, carburant) }
+    });
   }
 
   addCarburantDialog(): void {

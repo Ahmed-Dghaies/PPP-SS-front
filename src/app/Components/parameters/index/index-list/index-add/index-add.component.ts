@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Index } from 'app/shared/models/Index.model';
 import { MatDialogRef } from '@angular/material';
 import { IndexService } from 'app/shared/services/index.service';
@@ -20,6 +20,8 @@ export class IndexAddComponent implements OnInit {
   public citerneList: string[];
   public distributeurList: string[];
   public carburantList: string[];
+  screenHeight: any;
+  screenWidth: any;
 
   constructor(
     private dialogRef: MatDialogRef<IndexAddComponent>,
@@ -29,7 +31,6 @@ export class IndexAddComponent implements OnInit {
     private distributeurService: DistributeurService,
     private notifService: NotificationService) {
     this.index = new Index();
-    this.width = 2;
     this.citerneList = [];
     this.distributeurList = [];
     this.carburantList = [];
@@ -39,12 +40,24 @@ export class IndexAddComponent implements OnInit {
     this.getDistributeurNamesList();
     this.carburantService.getCarburantList();
     this.getCarburantNamesList();
+    this.getScreenSize();
   }
 
   getCiterneNamesList() {
     let i;
     for (i = 0; i < this.citerneService.citernes.length; i++) {
       this.citerneList.push(this.citerneService.citernes[i].identifiant);
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.width =  1;
+    } else {
+      this.width =  2;
     }
   }
 

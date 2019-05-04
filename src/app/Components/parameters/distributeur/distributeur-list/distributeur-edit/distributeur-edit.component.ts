@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -13,6 +13,9 @@ import { DistributeurService } from 'app/shared/services/distributeur.service';
 export class DistributeurEditComponent implements OnInit {
 
   public distributeur: Distributeur;
+  public width: number;
+  screenHeight: any;
+  screenWidth: any;
 
   constructor(
     public dialogRef: MatDialogRef<DistributeurEditComponent>,
@@ -20,6 +23,7 @@ export class DistributeurEditComponent implements OnInit {
     private distributeurService: DistributeurService,
     private notifservice: NotificationService) {
     this.distributeur = data.distributeur;
+    this.getScreenSize();
   }
 
   updateDistributeur(): void {
@@ -33,6 +37,18 @@ export class DistributeurEditComponent implements OnInit {
           console.log(err);
         });
   }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.width =  1;
+    } else {
+      this.width =  2;
+    }
+  }
+
 
   onClose() {
     this.dialogRef.close();

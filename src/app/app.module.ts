@@ -39,6 +39,7 @@ import { DistributeurAddComponent } from '@ComDistributeur/distributeur-add/dist
 import { DistributeurEditComponent } from '@ComDistributeur/distributeur-edit/distributeur-edit.component';
 import { PrixCarburantListComponent } from '@ComCarburant/prix-carburant-list.component';
 import { PrixCarburantAddComponent } from '@ComCarburant/prix-carburant-add/prix-carburant-add.component';
+import { PrixCarburantEditComponent } from '@ComCarburant/prix-carburant-edit/prix-carburant-edit.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { PrixCarburantAddComponent } from '@ComCarburant/prix-carburant-add/prix
     DistributeurAddComponent,
     DistributeurEditComponent,
     PrixCarburantListComponent,
-    PrixCarburantAddComponent
+    PrixCarburantAddComponent,
+    PrixCarburantEditComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,8 @@ import { PrixCarburantAddComponent } from '@ComCarburant/prix-carburant-add/prix
     IndexEditComponent,
     DistributeurAddComponent,
     DistributeurEditComponent,
-    PrixCarburantAddComponent
+    PrixCarburantAddComponent,
+    PrixCarburantEditComponent
   ],
   providers: [AuthService, AuthGuard,
     {

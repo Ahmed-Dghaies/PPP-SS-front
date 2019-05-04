@@ -55,7 +55,7 @@ export class DistributeurListComponent implements OnInit {
     });
   }
 
-  updatedistributeurDialog(distributeur: Distributeur): void {
+  updateDistributeurDialog(distributeur: Distributeur): void {
     this.dialog.open(DistributeurEditComponent, {
       panelClass: 'full-width-dialog',
       data: { distributeur: Object.assign({}, distributeur) }

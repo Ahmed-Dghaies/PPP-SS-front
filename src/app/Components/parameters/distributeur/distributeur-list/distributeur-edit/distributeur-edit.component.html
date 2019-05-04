@@ -6,33 +6,37 @@
   </button>
 </mat-toolbar>
 <form mat-dialog-content class="normal-form" #angForm="ngForm">
-  <mat-grid-list cols="1" rowHeight="300px">
+  <mat-grid-list [cols]="width" rowHeight="100px">
     <mat-grid-tile>
-      <div class="controles-container">
-        <input type="hidden">
-        <mat-form-field>
-          <input matInput placeholder="Reference" required type="text" name="reference"
-            [(ngModel)]="distributeur.reference">
-          <mat-error>code carte bon is required.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Libellé" required type="text" name="libelle" [(ngModel)]="distributeur.libelle">
-          <mat-error>Libellé carte bon is required.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="N Immatriculation" type="number" name="numImmatriculation"
-            [(ngModel)]="distributeur.numImmatriculation">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Année fabrication" type="number" name="anneeFabrication"
-            [(ngModel)]="distributeur.anneeFabrication">
-        </mat-form-field>
-        <div class="button-row">
-          <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid"
-            (click)="updateDistributeur()">Modifier type</button>
-          <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
-        </div>
-      </div>
+      <input type="hidden">
+      <mat-form-field>
+        <input matInput placeholder="Reference" required type="text" name="reference"
+          [(ngModel)]="distributeur.reference">
+        <mat-error>code carte bon is required.</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Libellé" required type="text" name="libelle" [(ngModel)]="distributeur.libelle">
+        <mat-error>Libellé carte bon is required.</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="N Immatriculation" type="number" name="numImmatriculation"
+          [(ngModel)]="distributeur.numImmatriculation">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Année fabrication" type="number" name="anneeFabrication"
+          [(ngModel)]="distributeur.anneeFabrication">
+      </mat-form-field>
     </mat-grid-tile>
   </mat-grid-list>
+  <div class="button-row">
+    <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid"
+      (click)="updateDistributeur()">Modifier type</button>
+    <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+  </div>
 </form>
