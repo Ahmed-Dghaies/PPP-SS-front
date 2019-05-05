@@ -10,4 +10,12 @@ export class Session {
   public poste: string;
   public description: string;
   public state: string;
+  public personnes: [
+    {
+      _id?: string,
+      id_pompiste: string,
+      nom_pompiste: string,
+      heures_pres: number
+    }
+  ];
 }

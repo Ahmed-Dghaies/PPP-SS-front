@@ -40,6 +40,10 @@ import { DistributeurEditComponent } from '@ComDistributeur/distributeur-edit/di
 import { PrixCarburantListComponent } from '@ComCarburant/prix-carburant-list.component';
 import { PrixCarburantAddComponent } from '@ComCarburant/prix-carburant-add/prix-carburant-add.component';
 import { PrixCarburantEditComponent } from '@ComCarburant/prix-carburant-edit/prix-carburant-edit.component';
+import { PompisteListComponent } from './Components/parameters/pompiste/pompiste-list/pompiste-list.component';
+import { AddPompisteComponent } from './Components/parameters/pompiste/pompiste-list/add-pompiste/add-pompiste.component';
+import { UpdatePompisteComponent } from './Components/parameters/pompiste/pompiste-list/update-pompiste/update-pompiste.component';
+import { SessionPompisteListComponent } from './Components/home/session-pompiste-list/session-pompiste-list.component';
 
 
 @NgModule({
@@ -71,7 +75,11 @@ import { PrixCarburantEditComponent } from '@ComCarburant/prix-carburant-edit/pr
     DistributeurEditComponent,
     PrixCarburantListComponent,
     PrixCarburantAddComponent,
-    PrixCarburantEditComponent
+    PrixCarburantEditComponent,
+    PompisteListComponent,
+    AddPompisteComponent,
+    UpdatePompisteComponent,
+    SessionPompisteListComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +108,10 @@ import { PrixCarburantEditComponent } from '@ComCarburant/prix-carburant-edit/pr
     DistributeurAddComponent,
     DistributeurEditComponent,
     PrixCarburantAddComponent,
-    PrixCarburantEditComponent
+    PrixCarburantEditComponent,
+    AddPompisteComponent,
+    UpdatePompisteComponent,
+    SessionPompisteListComponent
   ],
   providers: [AuthService, AuthGuard,
     {

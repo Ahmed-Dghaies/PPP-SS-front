@@ -8,6 +8,7 @@ import { IndexService } from 'app/shared/services/index.service';
 import { CiterneService } from 'app/shared/services/citerne.service';
 import { DistributeurService } from 'app/shared/services/distributeur.service';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
+import { PompisteService } from 'app/shared/services/pompiste.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -29,6 +30,7 @@ export class ConfirmDeleteComponent implements OnInit {
     private citerneService: CiterneService,
     private distributeurService: DistributeurService,
     private carburantService: PrixCarburantService,
+    private pompisteService: PompisteService,
     private notifService: NotificationService) {
     this.id = data.id;
     this.msg = data.msg;
@@ -52,6 +54,8 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteDistributeur();
     } else if (this.msg === 'carburant') {
       this.deleteCarburant();
+    } else if (this.msg === 'Pompiste') {
+      this.deletePompiste();
     }
   }
 
@@ -128,6 +132,17 @@ export class ConfirmDeleteComponent implements OnInit {
   deleteCardType(): void {
     this.cardTypeService.deleteCardType(this.id).subscribe(res => {
       this.cardTypeService.getCardTypesList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deletePompiste(): void {
+    this.pompisteService.deletePompiste(this.id).subscribe(res => {
+      this.pompisteService.getpompistesList();
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },
