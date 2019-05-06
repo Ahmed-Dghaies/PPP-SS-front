@@ -14,17 +14,28 @@
               <input matInput placeholder="Reference index" disabled required type="text" name="reference"
                 [(ngModel)]="releveIndex.reference">
               <mat-error>Reference index is required.</mat-error>
-            </mat-form-field>
-            <mat-form-field>
+          </mat-form-field>
+          <mat-form-field>
               <input matInput placeholder="Départ index" required type="number" name="depart" [(ngModel)]="releveIndex.depart">
               <mat-error>Départ index is required.</mat-error>
-            </mat-form-field>
-            <mat-form-field>
+          </mat-form-field>
+          <mat-form-field>
               <input matInput placeholder="Arrivé index" required type="number" name="arrive" [(ngModel)]="releveIndex.arrive">
               <mat-error>Arrivé index is required.</mat-error>
-            </mat-form-field>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-label>Pompiste</mat-label>
+              <mat-select required name="pompiste" [(value)]="releveIndex.pompiste._id">
+                
+                <mat-option *ngFor="let p of releveIndexService.pompistes"
+                  [value]="p._id">{{p.nom}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Pompiste is required.</mat-error>
+          </mat-form-field>
           <div class="button-row">
-            <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid"
+            <button mat-raised-button color="primary" type="submit" [disabled]="angForm.invalid"
               (click)="updateReleveIndex()">Modifier type</button>
             <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
           </div>

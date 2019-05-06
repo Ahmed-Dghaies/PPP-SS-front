@@ -17,12 +17,18 @@ export class ReleveIndexEditComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ReleveIndexEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private releveIndexService: ReleveIndexService,
+    public releveIndexService: ReleveIndexService,
     private notifservice: NotificationService) {
     this.releveIndex = data.index;
   }
 
   updateReleveIndex(): void {
+    // set name for pompiste after id change
+    this.releveIndexService.pompistes.forEach(p => {
+      if (p._id === this.releveIndex.pompiste._id) {
+        this.releveIndex.pompiste.nom = p.nom;
+      }
+    });
     this.releveIndexService.updateReleveIndex(this.releveIndex._id, this.releveIndex)
       .subscribe(res => {
         this.releveIndexService.getReleveIndexsList();
@@ -31,6 +37,7 @@ export class ReleveIndexEditComponent implements OnInit {
       },
         err => {
           console.log(err);
+          this.notifservice.warn('Erreur');
         });
   }
 
@@ -43,6 +50,7 @@ export class ReleveIndexEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.releveIndexService.getSessionPompiste();
   }
 
 }

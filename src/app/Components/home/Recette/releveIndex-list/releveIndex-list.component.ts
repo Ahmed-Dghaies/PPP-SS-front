@@ -33,9 +33,9 @@ export class ReleveIndexListComponent implements OnInit {
           this.screenHeight = window.innerHeight;
           this.screenWidth = window.innerWidth;
           if (this.screenWidth < 650) {
-            this.displayedColumns = ['reference', 'quantite', 'prevue', 'actions'];
+            this.displayedColumns = ['reference', 'quantite', 'prevue', 'Pompiste', 'actions'];
           } else {
-            this.displayedColumns = ['reference', 'depart', 'arrive', 'quantite', 'prix', 'prevue', 'actions'];
+            this.displayedColumns = ['reference', 'depart', 'arrive', 'quantite', 'prix', 'Pompiste', 'prevue', 'actions'];
           }
     }
 
