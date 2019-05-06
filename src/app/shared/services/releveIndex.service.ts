@@ -3,6 +3,8 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { IndexVM } from '../models/view_models/IndexVM.model';
 import { HttpClient } from '@angular/common/http';
 import { Index } from '../models/Index.model';
+import { SessionService } from './session.service';
+import { Session } from '../models/session.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +15,18 @@ export class ReleveIndexService {
   public releveIndexsMatTab: MatTableDataSource<any>;
   public list: string[];
   public indexs: Index[];
+  public pompistes: any[];
 
   private uri = 'https://ppp-ss.herokuapp.com/recette';
   private indexUri = 'https://ppp-ss.herokuapp.com/index';
+  private sessionUri = 'https://ppp-ss.herokuapp.com/session';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private sessionService: SessionService) {
     this.releveIndexs = [];
     this.list = [];
     this.indexs = [];
+    this.pompistes = [];
     this.releveIndexsMatTab = new MatTableDataSource(this.releveIndexs);
   }
 
@@ -59,6 +65,22 @@ export class ReleveIndexService {
       err => {
         console.log(err);
       });
+  }
+
+  getSessionPompiste(): void {
+    const idSession = this.sessionService.sessions[0]._id;
+    this.http.get(`${this.sessionUri}/get-session-pompiste/${idSession}`).subscribe(res => {
+      const key = 'pompistes';
+      this.pompistes = res[key].map(p => {
+        return {
+          _id: p._id,
+          nom: p.nom_pompiste
+        };
+      });
+    },
+    err => {
+      console.log(err);
+    });
   }
 
   editReleveIndex(id) {

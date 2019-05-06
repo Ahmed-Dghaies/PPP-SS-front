@@ -44,15 +44,24 @@ export class ReleveIndexAddComponent implements OnInit {
               this.dialogRef.close();
               this.notifService.success('relevé index ajouter avec succés');
             },
-            err => console.log(err)
+            err => {
+              console.log(err);
+              this.notifService.warn('Erreur');
+            }
           );
       },
         err => {
-          console.log(err);
+          {
+            console.log(err);
+            this.notifService.warn('Erreur');
+          }
         });
     },
       err => {
-        console.log(err);
+        {
+          console.log(err);
+          this.notifService.warn('Erreur');
+        }
       });
   }
 
@@ -66,6 +75,7 @@ export class ReleveIndexAddComponent implements OnInit {
 
   ngOnInit() {
     this.releveIndexService.getIndexsNames();
+    this.releveIndexService.getSessionPompiste();
   }
 
 }
