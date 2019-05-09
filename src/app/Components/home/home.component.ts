@@ -1,8 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { SessionService } from 'app/shared/services/session.service';
-import { Session } from 'app/shared/models/session.model';
-import { MatTableDataSource, MatDialog } from '@angular/material';
-import { SessionPompisteListComponent } from './session-pompiste-list/session-pompiste-list.component';
+import { WeatherService } from 'app/shared/services/weather.service';
+import { Weather } from 'app/shared/models/weather.model';
 
 @Component({
   selector: 'app-home',
@@ -11,36 +9,32 @@ import { SessionPompisteListComponent } from './session-pompiste-list/session-po
 })
 export class HomeComponent implements OnInit {
 
-  public displayedColumns: string[];
-  screenHeight: any;
-  screenWidth: any;
+  public weather: Weather;
+  public imgSrc = '';
+  public temp: number;
+  public humidity: number;
+  public sunrise = '';
+  public sunset = '';
 
-  constructor(public sessionService: SessionService,
-              private matDialog: MatDialog) {
-    this.displayedColumns = ['date', 'poste', 'description', 'state', 'actions'];
-    this.getScreenSize();
+  constructor(public weatherService: WeatherService) {
+
   }
 
-  @HostListener('window:resize', ['$event'])
-    getScreenSize(event?) {
-          this.screenHeight = window.innerHeight;
-          this.screenWidth = window.innerWidth;
-          if (this.screenWidth < 650) {
-            this.displayedColumns = ['date', 'poste', 'state', 'actions'];
-          } else {
-            this.displayedColumns = ['date', 'poste', 'description', 'state', 'actions'];
-          }
-    }
 
   ngOnInit() {
-    this.sessionService.getCurrentSession();
-  }
-
-  openPompisteListDialog(session: Session): void {
-    this.matDialog.open(SessionPompisteListComponent, {
-      panelClass: 'full-width-dialog',
-      data: {session}
-    });
+    this.weatherService.getWeather().subscribe(res => {
+      this.weather = res;
+      this.imgSrc = '../../../assets/images/'+this.weather.weather[0].icon+'.png';
+      this.temp = Math.round(this.weather.main.temp - 273);
+      this.humidity = this.weather.main.humidity;
+      const sunrise_date = new Date(this.weather.sys.sunrise*1000);
+      const sunset_date = new Date(this.weather.sys.sunset*1000);
+      this.sunrise = sunrise_date.getHours()+':'+sunrise_date.getMinutes();
+      this.sunset = sunset_date.getHours() + ':' + sunset_date.getMinutes();
+    },
+    err => {
+      console.log(err);
+    })
   }
 
 }

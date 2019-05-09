@@ -5,6 +5,7 @@ import { RegisterComponent } from './Components/Authentification/register/regist
 import { LoginComponent } from './Components/Authentification/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
 import { AuthGuard } from './shared/Guards/auth.guard';
+import { CheckCurrentSessionComponent } from './Components/check-current-session/check-current-session.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'session',
+    component: CheckCurrentSessionComponent,
     canActivate: [AuthGuard]
   }
 ];
