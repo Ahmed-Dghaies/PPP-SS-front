@@ -16,7 +16,7 @@ export class CheckCurrentSessionComponent implements OnInit {
   screenWidth: any;
 
   constructor(public sessionService: SessionService,
-    private matDialog: MatDialog) {
+              private matDialog: MatDialog) {
     this.displayedColumns = ['date', 'poste', 'description', 'state', 'actions'];
     this.getScreenSize();
   }

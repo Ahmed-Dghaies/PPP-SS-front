@@ -29,8 +29,12 @@ import { AddCiterneComponent } from '@ComCiterne/add-citerne/add-citerne.compone
 import { CiterneListComponent } from '@ComCiterne/citerne-list.component';
 import { UpdateCiterneComponent } from '@ComCiterne/update-citerne/update-citerne.component';
 import { ReleveIndexListComponent } from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-list.component';
-import { ReleveIndexAddComponent } from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component';
-import { ReleveIndexEditComponent } from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component';
+import {
+   ReleveIndexAddComponent
+} from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component';
+import {
+  ReleveIndexEditComponent
+} from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component';
 import { IndexListComponent } from '@ComIndex/index-list.component';
 import { IndexAddComponent } from '@ComIndex/index-add/index-add.component';
 import { IndexEditComponent } from '@ComIndex/index-edit/index-edit.component';
@@ -45,6 +49,7 @@ import { AddPompisteComponent } from './Components/parameters/pompiste/pompiste-
 import { UpdatePompisteComponent } from './Components/parameters/pompiste/pompiste-list/update-pompiste/update-pompiste.component';
 import { SessionPompisteListComponent } from './Components/check-current-session/session-pompiste-list/session-pompiste-list.component';
 import { CheckCurrentSessionComponent } from './Components/check-current-session/check-current-session.component';
+import { CalendarComponent } from './Components/home/calendar/calendar.component';
 
 
 @NgModule({
@@ -81,7 +86,8 @@ import { CheckCurrentSessionComponent } from './Components/check-current-session
     AddPompisteComponent,
     UpdatePompisteComponent,
     SessionPompisteListComponent,
-    CheckCurrentSessionComponent
+    CheckCurrentSessionComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

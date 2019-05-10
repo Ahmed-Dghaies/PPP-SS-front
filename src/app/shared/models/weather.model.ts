@@ -1,4 +1,4 @@
-export class Weather{
+export class Weather {
 
     public coord: {
         lon: number;
@@ -37,7 +37,7 @@ export class Weather{
         sunrise: number;
         sunset: number;
     };
-    public id: number
+    public id: number;
     public name: string;
     public cod: number;
 }
