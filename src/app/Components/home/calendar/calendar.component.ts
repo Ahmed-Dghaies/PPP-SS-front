@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatCalendar } from '@angular/material';
+import { EventService } from 'app/shared/services/event.service';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('calendar') calendar: MatCalendar<any>;
+  selectedDate: any;
+
+  constructor(public eventService: EventService) { }
 
   ngOnInit() {
+    this.eventService.getEvents();
+  }
+
+  selectDay(e): void {
+    const d = new Date(e);
+    const date = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+    this.eventService.getEvents(date);
   }
 
 }

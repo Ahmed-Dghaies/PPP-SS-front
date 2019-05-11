@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <span>Modifier Evénement</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <mat-grid-list cols="1" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input matInput placeholder="Nom" required type="text" name="description" [(ngModel)]="event.description">
+          <mat-error>Nom est obligatoire</mat-error>
+        </mat-form-field>
+
+        <div class="button-row">
+          <button mat-raised-button color="primary" (click)="updateEvent()"
+            [disabled]="angForm.pristine || angForm.invalid">Modifier
+          </button>
+          <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

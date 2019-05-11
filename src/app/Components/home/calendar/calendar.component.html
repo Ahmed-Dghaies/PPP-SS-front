@@ -1,3 +1,14 @@
-<p>
-  calendar works!
-</p>
+<div class="row index" style="margin-right: 0px; margin-top: 20px;">
+  <div class="col-md-5 col-lg-5 col-sm-12">
+    <div class="container wrapper">
+      <mat-calendar #calendar [(selected)]="selectedDate" (selectedChange)="selectDay($event)"></mat-calendar>
+    </div>
+  </div>
+
+  <div class="col-md-7 col-lg-7 col-sm-12">
+    <div class="list-events-wrapper container">
+      <app-list-events></app-list-events>
+    </div>
+  </div>
+
+</div>

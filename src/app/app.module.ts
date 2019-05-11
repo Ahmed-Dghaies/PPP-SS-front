@@ -50,6 +50,8 @@ import { UpdatePompisteComponent } from './Components/parameters/pompiste/pompis
 import { SessionPompisteListComponent } from './Components/check-current-session/session-pompiste-list/session-pompiste-list.component';
 import { CheckCurrentSessionComponent } from './Components/check-current-session/check-current-session.component';
 import { CalendarComponent } from './Components/home/calendar/calendar.component';
+import { ListEventsComponent } from './Components/home/calendar/list-events/list-events.component';
+import { UpdateEventComponent } from './Components/home/calendar/list-events/update-event/update-event.component';
 
 
 @NgModule({
@@ -87,7 +89,9 @@ import { CalendarComponent } from './Components/home/calendar/calendar.component
     UpdatePompisteComponent,
     SessionPompisteListComponent,
     CheckCurrentSessionComponent,
-    CalendarComponent
+    CalendarComponent,
+    ListEventsComponent,
+    UpdateEventComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +123,8 @@ import { CalendarComponent } from './Components/home/calendar/calendar.component
     PrixCarburantEditComponent,
     AddPompisteComponent,
     UpdatePompisteComponent,
-    SessionPompisteListComponent
+    SessionPompisteListComponent,
+    UpdateEventComponent
   ],
   providers: [AuthService, AuthGuard,
     {
