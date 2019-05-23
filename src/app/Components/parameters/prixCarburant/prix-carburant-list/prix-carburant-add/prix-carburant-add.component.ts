@@ -18,7 +18,7 @@ export class PrixCarburantAddComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<PrixCarburantAddComponent>,
     private prixcarburantService: PrixCarburantService,
-    private carburantService: CarburantService,
+    public carburantService: CarburantService,
     private notifService: NotificationService) {
     this.carburant = new PrixCarburant();
   }

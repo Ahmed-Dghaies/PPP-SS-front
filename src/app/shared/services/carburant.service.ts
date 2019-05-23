@@ -12,7 +12,7 @@ export class CarburantService {
   public carburants: Carburant[];
   public carburantsMatTab: MatTableDataSource<any>;
 
-  private uri = 'http://localhost:5000/carburant';
+  private uri = 'https://ppp-ss.herokuapp.com/carburant';
 
   constructor(private http: HttpClient) {
     this.carburants = [];

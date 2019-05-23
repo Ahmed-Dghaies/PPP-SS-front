@@ -25,7 +25,7 @@ export class AddCiterneComponent implements OnInit {
     private dialogMat: MatDialogRef<AddCiterneComponent>,
     private citerneService: CiterneService,
     private notifService: NotificationService,
-    private carburantService: CarburantService) {
+    public carburantService: CarburantService) {
     this.citerne = new Citerne();
     this.width = 2;
   }

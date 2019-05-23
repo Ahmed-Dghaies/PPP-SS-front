@@ -21,7 +21,7 @@ export class UpdateCiterneComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private citerneService: CiterneService,
     private notifservice: NotificationService,
-    private carburantService: CarburantService) {
+    public carburantService: CarburantService) {
     this.citerne = data.citerne;
     this.width = 2;
   }

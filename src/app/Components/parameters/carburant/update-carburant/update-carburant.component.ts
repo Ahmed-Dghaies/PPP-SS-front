@@ -13,15 +13,20 @@ import { NgForm } from '@angular/forms';
 export class UpdateCarburantComponent implements OnInit {
 
   public carburant: Carburant;
+  public width: number;
   constructor(
     public dialogRef: MatDialogRef<UpdateCarburantComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private carburantService: CarburantService,
     private notifservice: NotificationService) {
     this.carburant = data.carburant;
+    this.width = 2;
    }
 
   ngOnInit() {
+    if (document.body.clientWidth < 600) {
+      this.width = 1;
+    }
   }
 
   onClose(): void {

@@ -19,7 +19,7 @@ export class PrixCarburantEditComponent implements OnInit {
     public dialogRef: MatDialogRef<PrixCarburantEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private prixcarburantService: PrixCarburantService,
-    private carburantService: CarburantService,
+    public carburantService: CarburantService,
     private notifservice: NotificationService) {
     this.carburant = data.carburant;
   }
