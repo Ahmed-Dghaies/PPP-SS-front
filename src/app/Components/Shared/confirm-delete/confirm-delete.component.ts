@@ -10,6 +10,7 @@ import { DistributeurService } from 'app/shared/services/distributeur.service';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
 import { PompisteService } from 'app/shared/services/pompiste.service';
 import { EventService } from 'app/shared/services/event.service';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -30,10 +31,11 @@ export class ConfirmDeleteComponent implements OnInit {
     private indexService: IndexService,
     private citerneService: CiterneService,
     private distributeurService: DistributeurService,
-    private carburantService: PrixCarburantService,
+    private prixcarburantService: PrixCarburantService,
     private pompisteService: PompisteService,
     private notifService: NotificationService,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private carburantService: CarburantService) {
     this.id = data.id;
     this.msg = data.msg;
   }
@@ -54,12 +56,14 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteCiterne();
     } else if (this.msg === 'distributeur') {
       this.deleteDistributeur();
-    } else if (this.msg === 'carburant') {
-      this.deleteCarburant();
+    } else if (this.msg === 'Prix carburant') {
+      this.deletePrixCarburant();
     } else if (this.msg === 'Pompiste') {
       this.deletePompiste();
     } else if (this.msg === 'Evenement') {
       this.deleteEvent();
+    } else if (this.msg === 'carburant') {
+      this.deleteCarburant();
     }
   }
 
@@ -67,9 +71,20 @@ export class ConfirmDeleteComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  deletePrixCarburant(): void {
+    this.prixcarburantService.deletePrixCarburant(this.id).subscribe(res => {
+      this.prixcarburantService.getCarburantList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   deleteCarburant(): void {
     this.carburantService.deleteCarburant(this.id).subscribe(res => {
-      this.carburantService.getCarburantList();
+      this.carburantService.getCarburantsList();
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },

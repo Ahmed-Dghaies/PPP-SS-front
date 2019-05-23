@@ -1,13 +1,12 @@
 export class Carburant {
 
-  constructor() {
-    this.carburant = '';
-    this.prix = 0;
-    this.identifiantPrix = '';
-  }
+    constructor() {
+      this.ref = '';
+      this.description = '';
+    }
 
-  public _id?: string;
-  public carburant: string;
-  public prix: number;
-  public identifiantPrix: string;
-}
+    public _id?: string;
+    public ref: string;
+    public description: string;
+
+  }

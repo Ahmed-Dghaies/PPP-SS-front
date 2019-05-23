@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+  <mat-list>
+      <mat-list-item><h4>Tolérance : </h4>&nbsp;&nbsp;{{citerne.tolerance}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><h4>Stock : </h4>&nbsp;&nbsp;{{citerne.stock}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><h4>Ordre : </h4>&nbsp;&nbsp;{{citerne.ordre}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><h4>Etat : </h4>&nbsp;&nbsp;{{citerne.etat}}</mat-list-item>
+      <mat-divider></mat-divider>
+      
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+</div>

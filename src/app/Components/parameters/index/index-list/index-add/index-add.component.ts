@@ -46,7 +46,7 @@ export class IndexAddComponent implements OnInit {
   getCiterneNamesList() {
     let i;
     for (i = 0; i < this.citerneService.citernes.length; i++) {
-      this.citerneList.push(this.citerneService.citernes[i].identifiant);
+      this.citerneList.push(this.citerneService.citernes[i].code);
     }
   }
 

@@ -3,7 +3,7 @@ import { MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
 import { PrixCarburantAddComponent } from './prix-carburant-add/prix-carburant-add.component';
 import { ConfirmDeleteComponent } from '@ComShared/confirm-delete/confirm-delete.component';
-import { Carburant } from 'app/shared/models/carburant';
+import { PrixCarburant } from 'app/shared/models/prixcarburant';
 import { PrixCarburantEditComponent } from './prix-carburant-edit/prix-carburant-edit.component';
 
 @Component({
@@ -20,16 +20,16 @@ export class PrixCarburantListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    public carburantService: PrixCarburantService,
+    public prixcarburantService: PrixCarburantService,
     private dialog: MatDialog) {
     this.displayedColumns = ['carburant', 'prix', 'identifiantPrix', 'actions'];
   }
 
   ngOnInit() {
-    this.carburantService.getCarburantList(this.sort, this.paginator);
+    this.prixcarburantService.getCarburantList(this.sort, this.paginator);
   }
 
-  updateCarburantDialog(carburant: Carburant): void {
+  updateCarburantDialog(carburant: PrixCarburant): void {
     this.dialog.open(PrixCarburantEditComponent, {
       panelClass: 'full-width-dialog',
       data: { carburant : Object.assign({}, carburant) }
@@ -42,7 +42,7 @@ export class PrixCarburantListComponent implements OnInit {
     });
   }
 
-  deleteCarburantDialog(id: string, msg: string): void {
+  deletePrixCarburantDialog(id: string, msg: string): void {
 
     this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
@@ -51,7 +51,7 @@ export class PrixCarburantListComponent implements OnInit {
 
 
   filter(): void {
-    this.carburantService.carburantsMatTab.filter = this.search.trim().toLowerCase();
+    this.prixcarburantService.carburantsMatTab.filter = this.search.trim().toLowerCase();
   }
 
   clearSearch(): void {

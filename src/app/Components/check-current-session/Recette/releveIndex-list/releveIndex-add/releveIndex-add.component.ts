@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 import { IndexService } from 'app/shared/services/index.service';
 import { Index } from 'app/shared/models/Index.model';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
-import { Carburant } from 'app/shared/models/carburant';
+import { PrixCarburant } from 'app/shared/models/prixcarburant';
 
 @Component({
   selector: 'app-releve-index-add',
@@ -35,7 +35,7 @@ export class ReleveIndexAddComponent implements OnInit {
   addReleveIndex() {
     this.indexService.getCarburant(this.releveIndex.reference).subscribe((indexData: Index) => {
       this.carburant = indexData.carburant;
-      this.carburantService.getPrix(this.carburant).subscribe((carburantData: Carburant) => {
+      this.carburantService.getPrix(this.carburant).subscribe((carburantData: PrixCarburant) => {
         this.releveIndex.prix = carburantData.prix;
         this.releveIndexService.addReleveIndex(this.releveIndex)
           .subscribe(

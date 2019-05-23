@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Carburant } from 'app/shared/models/carburant';
+import { PrixCarburant } from 'app/shared/models/prixcarburant';
 import { MatDialogRef } from '@angular/material';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 @Component({
   selector: 'app-prix-carburant-add',
@@ -12,28 +13,29 @@ import { NgForm } from '@angular/forms';
 })
 export class PrixCarburantAddComponent implements OnInit {
 
-  public carburant: Carburant;
+  public carburant: PrixCarburant;
 
   constructor(
     private dialogRef: MatDialogRef<PrixCarburantAddComponent>,
-    private carburantService: PrixCarburantService,
+    private prixcarburantService: PrixCarburantService,
+    private carburantService: CarburantService,
     private notifService: NotificationService) {
-    this.carburant = new Carburant();
+    this.carburant = new PrixCarburant();
   }
 
   addCarburant() {
     this.carburant.identifiantPrix = 'P1';
-    this.carburantService.updateIdentifiantPrix(this.carburant.carburant)
+    this.prixcarburantService.updateIdentifiantPrix(this.carburant.carburant)
       .subscribe(
         res => {
           this.notifService.success('indentifiant prix on eté mis a jour avec succés');
         },
         err => console.log(err)
       );
-    this.carburantService.addCarburant(this.carburant)
+    this.prixcarburantService.addCarburant(this.carburant)
       .subscribe(
         res => {
-          this.carburantService.getCarburantList();
+          this.prixcarburantService.getCarburantList();
           this.dialogRef.close();
           this.notifService.success('Carburant ajouter avec succés');
         },
@@ -50,6 +52,7 @@ export class PrixCarburantAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.carburantService.getCarburantsList();
   }
 
 }

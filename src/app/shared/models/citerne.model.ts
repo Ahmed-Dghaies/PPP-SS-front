@@ -1,15 +1,23 @@
 export class Citerne {
   constructor() {
-    this.identifiant = '';
+    this.code = '';
+    this.libelle = '';
     this.capacite = 0;
-    this.contenu = 0;
-    this.type = '';
+    this.carburant = '';
+    this.tolerance = 0;
+    this.stock = 0;
+    this.ordre = 0;
+    this.etat = 'actif';
 
   }
   public _id?: string;
-  public identifiant: string;
+  public code: string;
+  public libelle: string;
   public capacite: number;
-  public contenu: number;
-  public type: string;
+  public carburant: string;
+  public tolerance: number;
+  public stock: number;
+  public ordre: number;
+  public etat: string;
 
 }

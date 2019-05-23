@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Carburant } from '../models/carburant';
+import { PrixCarburant } from '../models/prixcarburant';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrixCarburantService {
 
-  public carburants: Carburant[];
+  public carburants: PrixCarburant[];
   public carburantsMatTab: MatTableDataSource<any>;
 
-  private uri = 'https://ppp-ss.herokuapp.com/carburant';
+  private uri = 'http://localhost:5000/prixcarburant';
 
   constructor(private http: HttpClient) {
     this.carburants = [];
@@ -45,7 +47,7 @@ export class PrixCarburantService {
   }
 
   getCarburantList(sort?: MatSort, paginator?: MatPaginator): void {
-    this.http.get<Carburant[]>(`${this.uri}/list`).subscribe((data: Carburant[]) => {
+    this.http.get<PrixCarburant[]>(`${this.uri}/list`).subscribe((data: PrixCarburant[]) => {
       this.carburants = data;
       this.carburants = this.carburants.reverse();
       this.carburantsMatTab.data = this.carburants;
@@ -71,7 +73,7 @@ export class PrixCarburantService {
     return this.http.put(`${this.uri}/update/${id}`, carburant);
   }
 
-  deleteCarburant(id) {
+  deletePrixCarburant(id) {
     return this.http.delete(`${this.uri}/delete/${id}`);
   }
 }

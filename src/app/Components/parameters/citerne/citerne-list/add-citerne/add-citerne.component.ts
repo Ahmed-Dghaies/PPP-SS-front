@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Citerne } from 'app/shared/models/citerne.model';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSort, MatPaginator } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { CiterneService } from 'app/shared/services/citerne.service';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 
 
@@ -18,10 +19,13 @@ export class AddCiterneComponent implements OnInit {
   public citerne: Citerne;
   public width: number;
 
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private dialogMat: MatDialogRef<AddCiterneComponent>,
     private citerneService: CiterneService,
-    private notifService: NotificationService) {
+    private notifService: NotificationService,
+    private carburantService: CarburantService) {
     this.citerne = new Citerne();
     this.width = 2;
   }
@@ -30,6 +34,7 @@ export class AddCiterneComponent implements OnInit {
     if (document.body.clientWidth < 600) {
       this.width = 1;
     }
+    this.carburantService.getCarburantsList();
   }
   onClose(): void {
     this.dialogMat.close();
@@ -40,7 +45,6 @@ export class AddCiterneComponent implements OnInit {
   }
 
   addCiterne(): void {
-    this.citerne.contenu = 0;
     console.log(this.citerne);
     this.citerneService.addCiterne(this.citerne).subscribe(res => {
       this.citerneService.getCiternesList();
@@ -51,5 +55,6 @@ export class AddCiterneComponent implements OnInit {
         console.log(err);
       });
   }
+
 
 }

@@ -1,0 +1,40 @@
+<mat-toolbar>
+  <span>Modifier Carburant</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="ref" required type="text" name="ref"
+            [(ngModel)]="carburant.ref">
+          <mat-error>Ce champ est obligatoire!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="description" required type="text" name="description"
+            [(ngModel)]="carburant.description">
+          <mat-error>Ce champ est obligatoire!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="updateCarburant()"
+        [disabled]="angForm.pristine || angForm.invalid">Modifier
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Annuler</button>
+    </div>
+  </div>
+</form>

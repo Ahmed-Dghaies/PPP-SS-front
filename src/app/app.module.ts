@@ -28,6 +28,7 @@ import { CardTypeListComponent } from '@ComCardType/card-type-list.component';
 import { AddCiterneComponent } from '@ComCiterne/add-citerne/add-citerne.component';
 import { CiterneListComponent } from '@ComCiterne/citerne-list.component';
 import { UpdateCiterneComponent } from '@ComCiterne/update-citerne/update-citerne.component';
+import { MoreCiterneDetailsComponent } from '@ComCiterne/more-citerne-details/more-citerne-details.component';
 import { ReleveIndexListComponent } from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-list.component';
 import {
    ReleveIndexAddComponent
@@ -52,6 +53,9 @@ import { CheckCurrentSessionComponent } from './Components/check-current-session
 import { CalendarComponent } from './Components/home/calendar/calendar.component';
 import { ListEventsComponent } from './Components/home/calendar/list-events/list-events.component';
 import { UpdateEventComponent } from './Components/home/calendar/list-events/update-event/update-event.component';
+import { CarburantComponent } from './Components/parameters/carburant/carburant.component';
+import { AddCarburantComponent } from './Components/parameters/carburant/add-carburant/add-carburant.component';
+import { UpdateCarburantComponent } from './Components/parameters/carburant/update-carburant/update-carburant.component';
 
 
 @NgModule({
@@ -91,7 +95,11 @@ import { UpdateEventComponent } from './Components/home/calendar/list-events/upd
     CheckCurrentSessionComponent,
     CalendarComponent,
     ListEventsComponent,
-    UpdateEventComponent
+    UpdateEventComponent,
+    MoreCiterneDetailsComponent,
+    CarburantComponent,
+    AddCarburantComponent,
+    UpdateCarburantComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +132,10 @@ import { UpdateEventComponent } from './Components/home/calendar/list-events/upd
     AddPompisteComponent,
     UpdatePompisteComponent,
     SessionPompisteListComponent,
-    UpdateEventComponent
+    UpdateEventComponent,
+    MoreCiterneDetailsComponent,
+    AddCarburantComponent,
+    UpdateCarburantComponent
   ],
   providers: [AuthService, AuthGuard,
     {

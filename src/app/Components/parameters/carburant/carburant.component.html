@@ -1,5 +1,5 @@
 <div class="search-div">
-  <button mat-raised-button (click)="addCiterneDialog()">
+  <button mat-raised-button (click)="addCarburantDialog()">
     <mat-icon>add</mat-icon>Ajouter
   </button>
   <mat-form-field class="search-form-field" floatLabel="never">
@@ -10,35 +10,25 @@
   </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="citerneService.citernesMatTab" matSort>
-    <ng-container matColumnDef="code">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.code}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="libelle">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Libelle</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.libelle}}</mat-cell>
-    </ng-container>
+  <mat-table [dataSource]="carburantService.carburantsMatTab" matSort>
     <ng-container matColumnDef="carburant">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Carburant</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.carburant}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.ref}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="capacite">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Capacité</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.capacite}}</mat-cell>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
     </ng-container>
+    
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button class="position" mat-icon-button matTooltip="Voir plus" (click)="seeMoreDialog(row)">
-          <mat-icon>remove_red_eye</mat-icon>
-        </button>
-        <button class="position" mat-icon-button matTooltip="Editer" color="primary" (click)="updateCiterneDialog(row)">
+        <button class="position" mat-icon-button matTooltip="Editer" color="primary" (click)="updateCarburantDialog(row)">
           <mat-icon>edit</mat-icon>
         </button>
         <button class="position" mat-icon-button matTooltip="Supprimer" color="warn"
-          (click)="deleteCiterneDialog(row._id, 'citerne')">
+          (click)="deleteCarburantDialog(row._id, 'carburant')">
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-cell>
@@ -55,10 +45,10 @@
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':citerneService.citernesMatTab!=null}">
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':carburantService.carburantsMatTab!=null}">
     </mat-footer-row>
     <mat-footer-row *matFooterRowDef="['noData']"
-      [ngClass]="{'hide':!(citerneService.citernesMatTab!=null && citerneService.citernesMatTab.data.length==0)}">
+      [ngClass]="{'hide':!(carburantService.carburantsMatTab!=null && carburantService.carburantsMatTab.data.length==0)}">
     </mat-footer-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>

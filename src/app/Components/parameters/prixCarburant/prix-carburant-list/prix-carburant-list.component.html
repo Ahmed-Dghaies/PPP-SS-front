@@ -10,7 +10,7 @@
   </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="carburantService.carburantsMatTab" matSort>
+  <mat-table [dataSource]="prixcarburantService.carburantsMatTab" matSort>
     <ng-container matColumnDef="carburant">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Carburant</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.carburant}}</mat-cell>
@@ -29,7 +29,7 @@
         <button mat-icon-button color="primary" (click)="updateCarburantDialog(row)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="deleteCarburantDialog(row._id, 'carburant')">
+        <button mat-icon-button color="warn" (click)="deletePrixCarburantDialog(row._id, 'Prix carburant')">
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-cell>
@@ -46,10 +46,10 @@
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':carburantService.carburantsMatTab!=null}">
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':prixcarburantService.carburantsMatTab!=null}">
     </mat-footer-row>
     <mat-footer-row *matFooterRowDef="['noData']"
-      [ngClass]="{'hide':!(carburantService.carburantsMatTab!=null && carburantService.carburantsMatTab.data.length==0)}">
+      [ngClass]="{'hide':!(prixcarburantService.carburantsMatTab!=null && prixcarburantService.carburantsMatTab.data.length==0)}">
     </mat-footer-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>

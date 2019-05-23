@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CiterneService } from 'app/shared/services/citerne.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 @Component({
   selector: 'app-update-citerne',
@@ -19,7 +20,8 @@ export class UpdateCiterneComponent implements OnInit {
     public dialogRef: MatDialogRef<UpdateCiterneComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private citerneService: CiterneService,
-    private notifservice: NotificationService) {
+    private notifservice: NotificationService,
+    private carburantService: CarburantService) {
     this.citerne = data.citerne;
     this.width = 2;
   }
@@ -28,6 +30,7 @@ export class UpdateCiterneComponent implements OnInit {
     if (document.body.clientWidth < 600) {
       this.width = 1;
     }
+    this.carburantService.getCarburantsList();
   }
   onClose(): void {
     this.dialogRef.close();
@@ -37,7 +40,7 @@ export class UpdateCiterneComponent implements OnInit {
     form.reset();
   }
 
-  updateClient(): void {
+  updateCiterne(): void {
     this.citerneService.updateCiterne(this.citerne._id, this.citerne).subscribe(res => {
       this.citerneService.getCiternesList();
       this.dialogRef.close();
