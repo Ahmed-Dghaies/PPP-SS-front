@@ -25,9 +25,7 @@
     height: 150px;
     padding-top: 50px;
     padding-bottom: 50px;
-    background-color: #3f51b5;
-    color: #f4f4f4;
-
+    color: #333;
 }
 
 .blockquote{
@@ -73,6 +71,10 @@ mat-card{
     background-color: #f4f4f4;
 }
 
+.margin{
+    margin-bottom: 10px;
+}
+
 .calendar{
     margin-right: 0;
     margin-left: 0;
@@ -80,4 +82,38 @@ mat-card{
     padding-bottom: 20px;
     padding-left: 20px; 
     z-index: 100;
+}
+
+.info{
+    min-height: 150px;
+    background-color: #3f51b5;
+    color: #f4f4f4;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.padding-icon{
+    position: relative;
+    margin-top: 10%;
+}
+
+.value{
+    color: #3f51b5;
+    font-size: 20px;
+}
+
+.value-pompiste {
+  color: #3f51b5;
+  font-size: 12px;
+}
+
+.content{
+    font-size: 10px;
+}
+
+.text-sup{
+    background-color: #3f51b5;
+    color: #f4f4f4;
+    border-radius: 40%;
+    padding: 1px 3px;
 }

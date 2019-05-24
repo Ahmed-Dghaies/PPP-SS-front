@@ -19,8 +19,7 @@ export class CalendarComponent implements OnInit {
   }
 
   selectDay(e): void {
-    const d = new Date(e);
-    const date = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+    const date = e.toString().slice(4, 15).replace(/\s+/g, '-');
     this.eventService.getEvents(date);
   }
 

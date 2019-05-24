@@ -32,6 +32,7 @@ export class ListEventsComponent implements OnInit {
   }
 
   addEvent(): void {
+    this.event.date = this.event.date.toString().slice(4, 15).replace(/\s+/g, '-');
     this.eventService.addevent(this.event);
   }
 

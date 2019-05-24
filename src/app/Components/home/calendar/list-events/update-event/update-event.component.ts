@@ -34,7 +34,7 @@ export class UpdateEventComponent implements OnInit {
 
   updateEvent(): void {
     this.eventService.updateEvent(this.event).subscribe(res => {
-      this.eventService.getEvents(this.event.date.toString());
+      this.eventService.getEvents(this.event.date);
       this.notifservice.success('Evénement modifié');
       this.dialogRef.close();
     },

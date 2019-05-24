@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Index } from '../models/Index.model';
 import { SessionService } from './session.service';
 import { Session } from '../models/session.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -68,8 +69,7 @@ export class ReleveIndexService {
   }
 
   getSessionPompiste(): void {
-    const idSession = this.sessionService.sessions[0]._id;
-    this.http.get(`${this.sessionUri}/get-session-pompiste/${idSession}`).subscribe(res => {
+    this.http.get(`${this.sessionUri}/get-session-pompiste`).subscribe(res => {
       const key = 'pompistes';
       this.pompistes = res[key].map(p => {
         return {
@@ -93,5 +93,18 @@ export class ReleveIndexService {
 
   deleteReleveIndex(id) {
     return this.http.delete(`${this.uri}/deleteReleveIndex/${id}`);
+  }
+
+
+  // get total revenue
+  getTotlaRevenue(): Observable<any> {
+    const month = new Date().getMonth() + 1;
+    return this.http.get(`${this.uri}/totalRevenue?month=${month}`);
+  }
+
+  // get quantité carburant
+  getQuantiteCarburant(): Observable<any> {
+    const month = new Date().getMonth() + 1;
+    return this.http.get(`${this.uri}/quantiteCarburant?month=${month}`);
   }
 }

@@ -14,6 +14,88 @@
   </blockquote>
 </div>
 
+<div class="info">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3 col-lg-3 col-sm-12 margin">
+        <mat-card>
+        <div class="row">
+          <div class="col-3 padding-icon">
+            <mat-icon color="primary">supervisor_account</mat-icon>
+          </div>
+          <div class="col-9">
+            <div class="row value">
+              {{emps}}
+            </div>
+            <div class="row content">
+              <mat-divider></mat-divider>
+              Nombre d'employés
+            </div>
+          </div>
+        </div>
+        </mat-card>
+      </div>
+
+      <div class="col-md-3 col-lg-3 col-sm-12 margin">
+        <mat-card>
+          <div class="row">
+            <div class="col-3 padding-icon">
+              <mat-icon color="primary">attach_money</mat-icon>
+            </div>
+            <div class="col-9">
+              <div class="row value">
+                {{totalRevenue}} <sup> <span class="text-sup">TDN</span></sup>
+              </div>
+              <div class="row content">
+                <mat-divider></mat-divider>
+                Revenue Total du mois {{month}}
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-3 col-lg-3 col-sm-12 margin">
+        <mat-card>
+          <div class="row">
+            <div class="col-3 padding-icon">
+              <mat-icon color="primary"> local_gas_station</mat-icon>
+            </div>
+            <div class="col-9">
+              <div class="row value">
+                {{quantiteCarburant}} <sup> <span class="text-sup">L</span></sup>
+              </div>
+              <div class="row content">
+                <mat-divider></mat-divider>
+                Quantité Carburant du mois {{month}}
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-3 col-lg-3 col-sm-12 margin">
+        <mat-card>
+          <div class="row">
+            <div class="col-3 padding-icon">
+              <mat-icon color="primary">work</mat-icon>
+            </div>
+            <div class="col-9">
+              <div *ngIf="releveIndexService.pompistes.length ===0"><i>No data!</i></div>
+              <div *ngFor=" let pompiste of releveIndexService.pompistes" class="row value-pompiste">
+                {{pompiste.nom}}
+              </div>
+              <div class="row content">
+                  <mat-divider></mat-divider>
+                  Liste des pompistes en travail
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="calendar">
   <app-calendar></app-calendar>
 </div>

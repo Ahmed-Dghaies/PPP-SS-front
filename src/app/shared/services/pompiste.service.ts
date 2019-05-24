@@ -59,4 +59,8 @@ export class PompisteService {
 
     return this.http.put(`${this.uri}/update/${id}`, request);
   }
+
+  getTotalPompiste(): Observable<any> {
+    return this.http.get(`${this.uri}/totalPompiste`);
+  }
 }

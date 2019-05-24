@@ -20,7 +20,7 @@ export class EventService {
 
   getEvents(d?: string): void {
     const now = new Date();
-    let date = (now.getMonth() + 1) + '-' + now.getDate() + '-' + now.getFullYear();
+    let date = now.toString().slice(4, 15).replace(/\s+/g, '-');
 
     if (d) {
       date = d;
@@ -28,11 +28,7 @@ export class EventService {
 
     this.http.get(`${this.uri}/list/byDate?date=${date}`).subscribe(res => {
       const key = 'events';
-      this.events = res[key].map(e => {
-        const eventDate =  new Date(e.date);
-        e.date = (eventDate.getMonth() + 1) + '-' + eventDate.getDate() + '-' + eventDate.getFullYear();
-        return e;
-      });
+      this.events = res[key];
     },
     err => {
       console.log(err);

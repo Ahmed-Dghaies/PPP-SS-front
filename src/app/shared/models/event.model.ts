@@ -1,5 +1,5 @@
 export class Event {
     public _id?: string;
-    public date: Date;
+    public date: string;
     public description: string;
 }
