@@ -38,7 +38,11 @@ export class CarburantComponent implements OnInit {
   }
 
   deleteCarburantDialog(id: string, msg: string): void {
-      this.dialog.open(ConfirmDeleteComponent, {
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.citernecomp.ngOnInit();
+      this.carburantcomp.ngOnInit();
+    });
+    this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
     });
   }

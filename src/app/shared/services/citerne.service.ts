@@ -14,7 +14,7 @@ export class CiterneService {
   public citernes: Citerne[];
   public citernesMatTab: MatTableDataSource<any>;
 
-  private uri = 'https://ppp-ss.herokuapp.com/citerne';
+  private uri = 'http://localhost:5000/citerne';
 
 
 
