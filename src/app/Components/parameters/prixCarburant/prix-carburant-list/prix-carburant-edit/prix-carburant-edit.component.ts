@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
 import { PrixCarburant } from 'app/shared/models/prixcarburant';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
@@ -13,8 +13,6 @@ import { CarburantService } from 'app/shared/services/carburant.service';
 })
 export class PrixCarburantEditComponent implements OnInit {
 
-  public carburant: PrixCarburant;
-
   constructor(
     public dialogRef: MatDialogRef<PrixCarburantEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -24,8 +22,11 @@ export class PrixCarburantEditComponent implements OnInit {
     this.carburant = data.carburant;
   }
 
+  public carburant: PrixCarburant;
+
+
   updateCarburant(): void {
-    this.prixcarburantService.updateCarburant(this.carburant._id, this.carburant)
+      this.prixcarburantService.updateCarburant(this.carburant._id, this.carburant)
       .subscribe(res => {
         this.prixcarburantService.getCarburantList();
         this.dialogRef.close();

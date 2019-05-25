@@ -56,6 +56,7 @@ import { UpdateEventComponent } from './Components/home/calendar/list-events/upd
 import { CarburantComponent } from './Components/parameters/carburant/carburant.component';
 import { AddCarburantComponent } from './Components/parameters/carburant/add-carburant/add-carburant.component';
 import { UpdateCarburantComponent } from './Components/parameters/carburant/update-carburant/update-carburant.component';
+import { MatExpansionModule } from '@angular/material';
 
 
 @NgModule({
@@ -110,7 +111,8 @@ import { UpdateCarburantComponent } from './Components/parameters/carburant/upda
     SlimLoadingBarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    MatExpansionModule
   ],
   entryComponents: [
     CardTypeAddComponent,
@@ -137,7 +139,7 @@ import { UpdateCarburantComponent } from './Components/parameters/carburant/upda
     AddCarburantComponent,
     UpdateCarburantComponent
   ],
-  providers: [AuthService, AuthGuard,
+  providers: [AuthService, AuthGuard, IndexListComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

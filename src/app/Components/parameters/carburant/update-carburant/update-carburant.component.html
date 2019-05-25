@@ -14,7 +14,7 @@
       
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="ref" required type="text" name="ref"
+          <input matInput placeholder="ref" (keydown.space)="$event.preventDefault()" required type="text" name="ref"
             [(ngModel)]="carburant.ref">
           <mat-error>Ce champ est obligatoire!</mat-error>
         </mat-form-field>

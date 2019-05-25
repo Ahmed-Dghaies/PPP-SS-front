@@ -12,8 +12,8 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Reference" required type="text" name="reference" [(ngModel)]="index.reference">
-          <mat-error>Reference is required.</mat-error>
+          <input matInput placeholder="Reference" (keydown.space)="$event.preventDefault()" required type="text" name="reference" [(ngModel)]="index.reference">
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -21,30 +21,46 @@
         <mat-form-field>
           <input matInput placeholder="Valeur Index" required type="number" name="valeurIndex"
             [(ngModel)]="index.valeurIndex">
-          <mat-error>Valeur Index is required.</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <!--<mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Carburant</mat-label>
+          <mat-select  required name="carburant" [(ngModel)]="index.carburant">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id" >
+              {{p.ref}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Ce champ est obligatoire.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>-->
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Citerne</mat-label>
+          <mat-select required name="citerne" [(ngModel)]="index.citerne">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let c of citerneService.citernes" [value]="c._id" >
+              {{c.code}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Type carburant" required type="text" name="carburant"
-            [(ngModel)]="index.carburant">
-          <mat-error>Type carburant is required.</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Citerne" required type="text" name="citerne" [(ngModel)]="index.citerne">
-          <mat-error>Citerne is required.</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Distributeur" required type="text" name="distributeur"
-            [(ngModel)]="index.distributeur">
-          <mat-error>Distributeur is required.</mat-error>
+          <mat-label>Distributeur</mat-label>
+          <mat-select required name="distributeur" [(ngModel)]="index.distributeur">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let d of distributeurService.distributeurs" [value]="d._id" >
+              {{d.reference}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 

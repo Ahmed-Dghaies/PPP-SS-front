@@ -14,9 +14,9 @@
       
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="code" required type="text" name="code"
+          <input matInput placeholder="code" (keydown.space)="$event.preventDefault()" required type="text" name="code"
             [(ngModel)]="citerne.code">
-          <mat-error>Le code du citerne est obligatoire!</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -24,47 +24,47 @@
         <mat-form-field>
           <input matInput placeholder="libelle" required type="text" name="libelle"
             [(ngModel)]="citerne.libelle">
-          <mat-error>La libelle du citerne est obligatoire!</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="capacite" required type="number" name="capacite" [(ngModel)]="citerne.capacite">
-          <mat-error>La capacité du citerne est obligatoire</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
-          <mat-label>Type carburant</mat-label>
+          <mat-label>Carburant</mat-label>
           <mat-select required [(ngModel)]="citerne.carburant" name="carburant">
             <mat-option>None</mat-option>
-            <mat-option *ngFor="let p of carburantService.carburants" [value]="p.ref">{{p.ref}}</mat-option>
+            <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id">{{p.ref}}</mat-option>
           </mat-select>
 
-          <mat-error>Type est obligatoire</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="tolerance" required type="number" name="tolerance" [(ngModel)]="citerne.tolerance">
-          <mat-error>La tolérance du citerne est obligatoire</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="stock" required type="number" name="stock" [(ngModel)]="citerne.stock">
-          <mat-error>Stock du citerne est obligatoire</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="ordre" required type="number" name="ordre" [(ngModel)]="citerne.ordre">
-          <mat-error>L'ordre du citerne est obligatoire</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -76,7 +76,7 @@
             <mat-option value="non actif">Non Actif</mat-option>
           </mat-select>
 
-          <mat-error>Etat est obligatoire</mat-error>
+          <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 

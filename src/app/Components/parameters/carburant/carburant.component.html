@@ -23,7 +23,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
-      <mat-cell *matCellDef="let row">
+      <mat-cell *matCellDef="let row" [ngClass]="{'hide':row.ref === 'NA'}">
         <button class="position" mat-icon-button matTooltip="Editer" color="primary" (click)="updateCarburantDialog(row)">
           <mat-icon>edit</mat-icon>
         </button>

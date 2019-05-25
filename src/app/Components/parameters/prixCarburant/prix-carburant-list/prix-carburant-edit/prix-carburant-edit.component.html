@@ -10,17 +10,18 @@
     <mat-grid-tile>
       <div class="controles-container">
         <input type="hidden" >
+
         <mat-form-field>
             <mat-label>Carburant</mat-label>
-            <mat-select required [(ngModel)]="carburant.carburant" name="carburant">
+            <mat-select  required [(ngModel)]="carburant.carburant" name="carburant">
               <mat-option>None</mat-option>
-              <mat-option *ngFor="let p of carburantService.carburants" [value]="p.ref">{{p.ref}}</mat-option>
+              <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id">{{p.ref}}</mat-option>
             </mat-select>
-  
             <mat-error>Carburant est obligatoire</mat-error>
           </mat-form-field>
+
         <mat-form-field>
-          <input matInput placeholder="Prix" required type="number" name="prix" [(ngModel)]="carburant.prix">
+          <input matInput #prix placeholder="Prix" required type="number" name="prix" [(ngModel)]="carburant.prix" >
           <mat-error>prix Carburant is required.</mat-error>
         </mat-form-field>
         <div class="button-row">

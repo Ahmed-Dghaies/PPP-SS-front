@@ -4,6 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IndexService } from 'app/shared/services/index.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { CarburantService } from 'app/shared/services/carburant.service';
+import { CiterneService } from 'app/shared/services/citerne.service';
+import { DistributeurService } from 'app/shared/services/distributeur.service';
 
 @Component({
   selector: 'app-index-edit',
@@ -21,7 +24,10 @@ export class IndexEditComponent implements OnInit {
     public dialogRef: MatDialogRef<IndexEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private indexService: IndexService,
-    private notifservice: NotificationService) {
+    private notifservice: NotificationService,
+    public carburantService: CarburantService,
+    public citerneService: CiterneService,
+    public distributeurService: DistributeurService) {
     this.index = data.index;
     this.getScreenSize();
   }
@@ -38,7 +44,11 @@ export class IndexEditComponent implements OnInit {
   }
 
   updateIndex(): void {
-    this.indexService.updateIndex(this.index._id, this.index)
+    this.citerneService.getCiterneById(this.index.citerne).subscribe(cit => {
+      this.index.carburant = cit.carburant;
+      console.log(cit.carburant);
+
+      this.indexService.updateIndex(this.index._id, this.index)
       .subscribe(res => {
         this.indexService.getIndexList();
         this.dialogRef.close();
@@ -47,6 +57,7 @@ export class IndexEditComponent implements OnInit {
         err => {
           console.log(err);
         });
+    });
   }
 
   onClose() {
@@ -58,6 +69,8 @@ export class IndexEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.citerneService.getCiternesList();
+    this.distributeurService.getDistributeursList();
   }
 
 }

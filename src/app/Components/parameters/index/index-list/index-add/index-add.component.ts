@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { CiterneService } from 'app/shared/services/citerne.service';
 import { DistributeurService } from 'app/shared/services/distributeur.service';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 @Component({
   selector: 'app-index-add',
@@ -27,27 +28,14 @@ export class IndexAddComponent implements OnInit {
     private dialogRef: MatDialogRef<IndexAddComponent>,
     private indexService: IndexService,
     private citerneService: CiterneService,
-    private carburantService: PrixCarburantService,
+    public carburantService: CarburantService,
     private distributeurService: DistributeurService,
     private notifService: NotificationService) {
     this.index = new Index();
     this.citerneList = [];
     this.distributeurList = [];
     this.carburantList = [];
-    this.citerneService.getCiternesList();
-    this.getCiterneNamesList();
-    this.distributeurService.getDistributeursList();
-    this.getDistributeurNamesList();
-    this.carburantService.getCarburantList();
-    this.getCarburantNamesList();
     this.getScreenSize();
-  }
-
-  getCiterneNamesList() {
-    let i;
-    for (i = 0; i < this.citerneService.citernes.length; i++) {
-      this.citerneList.push(this.citerneService.citernes[i].code);
-    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -61,27 +49,13 @@ export class IndexAddComponent implements OnInit {
     }
   }
 
-  getCarburantNamesList() {
-    let i;
-    for (i = 0; i < this.carburantService.carburants.length; i++) {
-      if (!this.carburantList.includes(this.carburantService.carburants[i].carburant)) {
-        this.carburantList.push(this.carburantService.carburants[i].carburant);
-      }
-    }
-  }
-
-  getDistributeurNamesList() {
-    let i;
-    for (i = 0; i < this.distributeurService.distributeurs.length; i++) {
-      this.distributeurList.push(this.distributeurService.distributeurs[i].reference);
-    }
-  }
-
   addIndex() {
     const datetime = new Date();
     const date = datetime.toISOString().slice(0, 10);
     this.index.dernierDate = date;
-    this.indexService.addIndex(this.index)
+    this.citerneService.getCiterneById(this.index.citerne).subscribe(cit => {
+      this.index.carburant = cit.carburant;
+      this.indexService.addIndex(this.index)
       .subscribe(
         res => {
           this.indexService.getIndexList();
@@ -90,6 +64,7 @@ export class IndexAddComponent implements OnInit {
         },
         err => console.log(err)
       );
+    });
   }
 
   onClose() {
@@ -104,6 +79,8 @@ export class IndexAddComponent implements OnInit {
     if (document.body.clientWidth < 600) {
       this.width = 1;
     }
+    this.citerneService.getCiternesList();
+    this.distributeurService.getDistributeursList();
   }
 
 }

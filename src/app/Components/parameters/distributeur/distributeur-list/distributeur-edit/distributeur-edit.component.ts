@@ -4,8 +4,10 @@ import { NotificationService } from 'app/shared/services/notification.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Distributeur } from 'app/shared/models/distributeur.model';
 import { DistributeurService } from 'app/shared/services/distributeur.service';
+import { IndexListComponent } from '@ComIndex/index-list.component';
 
 @Component({
+  providers: [IndexListComponent],
   selector: 'app-distributeur-edit',
   templateUrl: './distributeur-edit.component.html',
   styleUrls: ['./distributeur-edit.component.css']
@@ -21,7 +23,8 @@ export class DistributeurEditComponent implements OnInit {
     public dialogRef: MatDialogRef<DistributeurEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private distributeurService: DistributeurService,
-    private notifservice: NotificationService) {
+    private notifservice: NotificationService,
+    private comp: IndexListComponent) {
     this.distributeur = data.distributeur;
     this.getScreenSize();
   }
@@ -36,6 +39,7 @@ export class DistributeurEditComponent implements OnInit {
         err => {
           console.log(err);
         });
+    this.comp.ngOnInit();
   }
 
   @HostListener('window:resize', ['$event'])

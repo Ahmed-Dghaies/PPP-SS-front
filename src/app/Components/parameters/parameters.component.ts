@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CardType } from '../../shared/models/cardType.model';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 @Component({
   selector: 'app-parameters',
   templateUrl: './parameters.component.html',
-  styleUrls: ['./parameters.component.css']
+  styleUrls: ['./parameters.component.css'],
+  viewProviders: [MatExpansionModule]
 })
 export class ParametersComponent implements OnInit {
 

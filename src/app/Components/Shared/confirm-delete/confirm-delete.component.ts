@@ -11,6 +11,9 @@ import { PrixCarburantService } from 'app/shared/services/prix-carburant.service
 import { PompisteService } from 'app/shared/services/pompiste.service';
 import { EventService } from 'app/shared/services/event.service';
 import { CarburantService } from 'app/shared/services/carburant.service';
+import { Citerne } from 'app/shared/models/citerne.model';
+import { PrixCarburant } from 'app/shared/models/prixcarburant';
+import { Index } from 'app/shared/models/Index.model';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -83,6 +86,21 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   deleteCarburant(): void {
+    this.citerneService.getCiterneByCarburant(this.id).subscribe(data => {
+// tslint:disable-next-line: no-string-literal
+      data['citernes'].forEach((element: Citerne) => {
+        element.carburant = '5ce8b2ac441ba4055c2bd9d9';
+        this.citerneService.updateCiterne(element._id, element).subscribe(res => {
+        });
+      });
+    });
+    this.prixcarburantService.getCarburantByPrix(this.id).subscribe(data => {
+// tslint:disable-next-line: no-string-literal
+      data['prix'].forEach((element: PrixCarburant) => {
+        this.prixcarburantService.deletePrixCarburant(element._id).subscribe(res => {
+        });
+      });
+    });
     this.carburantService.deleteCarburant(this.id).subscribe(res => {
       this.carburantService.getCarburantsList();
       this.dialogRef.close();
@@ -94,6 +112,13 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   deleteDistributeur(): void {
+
+    this.indexService.getIndexByDistributeur(this.id).subscribe((data: Index[]) => {
+      data.forEach((element: Index) => {
+        this.indexService.deleteIndex(element._id).subscribe(res => {
+        });
+      });
+    });
     this.distributeurService.deleteDistributeur(this.id).subscribe(res => {
       this.distributeurService.getDistributeursList();
       this.dialogRef.close();
@@ -105,6 +130,13 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   deleteCiterne(): void {
+
+    this.indexService.getIndexByCiterne(this.id).subscribe((data: Index[]) => {
+      data.forEach((element: Index) => {
+        this.indexService.deleteIndex(element._id).subscribe(res => {
+        });
+      });
+    });
     this.citerneService.deleteCiterne(this.id).subscribe(res => {
       this.citerneService.getCiternesList();
       this.dialogRef.close();

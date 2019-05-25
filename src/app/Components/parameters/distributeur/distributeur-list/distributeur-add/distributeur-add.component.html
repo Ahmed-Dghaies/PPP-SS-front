@@ -9,15 +9,15 @@
   <mat-grid-list [cols]="width" rowHeight="100px">
     <mat-grid-tile>
       <mat-form-field>
-        <input matInput placeholder="Reference" required type="text" name="reference"
+        <input matInput placeholder="Reference" (keydown.space)="$event.preventDefault()" required type="text" name="reference"
           [(ngModel)]="distributeur.reference">
-        <mat-error>code carte bon is required.</mat-error>
+        <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-form-field>
         <input matInput placeholder="Libellé" required type="text" name="libelle" [(ngModel)]="distributeur.libelle">
-        <mat-error>Libellé carte bon is required.</mat-error>
+        <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>

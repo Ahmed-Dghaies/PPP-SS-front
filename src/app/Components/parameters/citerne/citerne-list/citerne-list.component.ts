@@ -6,11 +6,16 @@ import { UpdateCiterneComponent } from './update-citerne/update-citerne.componen
 import { Citerne } from 'app/shared/models/citerne.model';
 import { CiterneService } from 'app/shared/services/citerne.service';
 import { MoreCiterneDetailsComponent } from './more-citerne-details/more-citerne-details.component';
+import { CarburantService } from 'app/shared/services/carburant.service';
+import { IndexListComponent } from '@ComIndex/index-list.component';
+import { IndexService } from 'app/shared/services/index.service';
+import { Index } from 'app/shared/models/Index.model';
 
 @Component({
   selector: 'app-citerne-list',
   templateUrl: './citerne-list.component.html',
-  styleUrls: ['./citerne-list.component.css']
+  styleUrls: ['./citerne-list.component.css'],
+  providers: [IndexListComponent]
 })
 export class CiterneListComponent implements OnInit {
 
@@ -20,7 +25,11 @@ export class CiterneListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public citerneService: CiterneService, private dialog: MatDialog) {
+  constructor(public citerneService: CiterneService,
+              private dialog: MatDialog,
+              private carburantService: CarburantService,
+              private indexService: IndexService,
+              private comp: IndexListComponent) {
     this.displayedColumns = ['code', 'libelle', 'carburant', 'capacite', 'actions'];
   }
 
@@ -44,16 +53,24 @@ export class CiterneListComponent implements OnInit {
   }
 
   deleteCiterneDialog(id: string, msg: string): void {
-
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.comp.ngOnInit();
+    });
     this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
     });
   }
 
   updateCiterneDialog(citerne: Citerne): void {
-    this.dialog.open(UpdateCiterneComponent, {
-      panelClass: 'full-width-dialog',
-      data: { citerne: Object.assign({}, citerne) }
+    let ref: string;
+    ref = citerne.carburant;
+    this.carburantService.getByRef(ref).subscribe(res => {
+      citerne.carburant = res._id;
+      this.dialog.open(UpdateCiterneComponent, {
+        panelClass: 'full-width-dialog',
+        data: { citerne: Object.assign({}, citerne) }
+      });
+      citerne.carburant = ref;
     });
   }
 

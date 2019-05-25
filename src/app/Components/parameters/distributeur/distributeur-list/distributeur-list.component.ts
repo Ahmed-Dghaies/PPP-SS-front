@@ -5,8 +5,10 @@ import { DistributeurAddComponent } from './distributeur-add/distributeur-add.co
 import { ConfirmDeleteComponent } from 'app/Components/Shared/confirm-delete/confirm-delete.component';
 import { Distributeur } from 'app/shared/models/distributeur.model';
 import { DistributeurEditComponent } from './distributeur-edit/distributeur-edit.component';
+import { IndexListComponent } from '@ComIndex/index-list.component';
 
 @Component({
+  providers: [IndexListComponent],
   selector: 'app-distributeur-list',
   templateUrl: './distributeur-list.component.html',
   styleUrls: ['./distributeur-list.component.css']
@@ -23,7 +25,8 @@ export class DistributeurListComponent implements OnInit {
 
   constructor(
     public distributeurService: DistributeurService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private comp: IndexListComponent) {
     this.getScreenSize();
     }
 
@@ -43,6 +46,9 @@ export class DistributeurListComponent implements OnInit {
   }
 
   addDistributeurDialog(): void {
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.comp.ngOnInit();
+    });
     this.dialog.open(DistributeurAddComponent, {
       panelClass: 'full-width-dialog'
     });
@@ -50,6 +56,9 @@ export class DistributeurListComponent implements OnInit {
 
   deleteDistributeurDialog(id: string, msg: string): void {
 
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.comp.ngOnInit();
+    });
     this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
     });

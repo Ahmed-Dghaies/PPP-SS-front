@@ -33,8 +33,6 @@ export class DistributeurService {
       if (paginator) {
         this.distributeursMatTab.paginator = paginator;
       }
-
-
     },
       err => {
         console.log(err);
@@ -51,5 +49,15 @@ export class DistributeurService {
 
   deleteDistributeur(id) {
     return this.http.delete(`${this.uri}/delete/${id}`);
+  }
+
+  // get distributeur by ID
+  getById(id: string) {
+    return this.http.get<Distributeur>(`${this.uri}/list/${id}`);
+  }
+
+  // get by reference
+  getByRef(ref: string) {
+    return this.http.get<Distributeur>(`${this.uri}/list/getbyref/${ref}`);
   }
 }

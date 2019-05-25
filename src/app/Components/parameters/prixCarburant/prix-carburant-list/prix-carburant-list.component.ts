@@ -5,6 +5,7 @@ import { PrixCarburantAddComponent } from './prix-carburant-add/prix-carburant-a
 import { ConfirmDeleteComponent } from '@ComShared/confirm-delete/confirm-delete.component';
 import { PrixCarburant } from 'app/shared/models/prixcarburant';
 import { PrixCarburantEditComponent } from './prix-carburant-edit/prix-carburant-edit.component';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 @Component({
   selector: 'app-prix-carburant-list',
@@ -21,6 +22,7 @@ export class PrixCarburantListComponent implements OnInit {
 
   constructor(
     public prixcarburantService: PrixCarburantService,
+    private carburantService: CarburantService,
     private dialog: MatDialog) {
     this.displayedColumns = ['carburant', 'prix', 'identifiantPrix', 'actions'];
   }
@@ -30,9 +32,15 @@ export class PrixCarburantListComponent implements OnInit {
   }
 
   updateCarburantDialog(carburant: PrixCarburant): void {
-    this.dialog.open(PrixCarburantEditComponent, {
-      panelClass: 'full-width-dialog',
-      data: { carburant : Object.assign({}, carburant) }
+    let ref: string;
+    ref = carburant.carburant;
+    this.carburantService.getByRef(ref).subscribe(res => {
+      carburant.carburant = res._id;
+      this.dialog.open(PrixCarburantEditComponent, {
+        panelClass: 'full-width-dialog',
+        data: { carburant : Object.assign({}, carburant) }
+      });
+      carburant.carburant = ref;
     });
   }
 
@@ -43,7 +51,6 @@ export class PrixCarburantListComponent implements OnInit {
   }
 
   deletePrixCarburantDialog(id: string, msg: string): void {
-
     this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
     });

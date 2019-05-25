@@ -4,8 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CarburantService } from 'app/shared/services/carburant.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { PrixCarburantListComponent } from '@ComCarburant/prix-carburant-list.component';
+import { CiterneListComponent } from '@ComCiterne/citerne-list.component';
 
 @Component({
+  providers: [PrixCarburantListComponent, CiterneListComponent],
   selector: 'app-update-carburant',
   templateUrl: './update-carburant.component.html',
   styleUrls: ['./update-carburant.component.css']
@@ -18,7 +21,9 @@ export class UpdateCarburantComponent implements OnInit {
     public dialogRef: MatDialogRef<UpdateCarburantComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private carburantService: CarburantService,
-    private notifservice: NotificationService) {
+    private notifservice: NotificationService,
+    private comp: PrixCarburantListComponent,
+    private compciterne: CiterneListComponent) {
     this.carburant = data.carburant;
     this.width = 2;
    }
@@ -46,6 +51,8 @@ export class UpdateCarburantComponent implements OnInit {
       err => {
         console.log(err);
       });
+    this.comp.ngOnInit();
+    this.compciterne.ngOnInit();
   }
 
 }
