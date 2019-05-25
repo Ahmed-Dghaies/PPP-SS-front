@@ -27,9 +27,9 @@ export class IndexAddComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<IndexAddComponent>,
     private indexService: IndexService,
-    private citerneService: CiterneService,
+    public citerneService: CiterneService,
     public carburantService: CarburantService,
-    private distributeurService: DistributeurService,
+    public distributeurService: DistributeurService,
     private notifService: NotificationService) {
     this.index = new Index();
     this.citerneList = [];
