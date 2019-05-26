@@ -20,7 +20,7 @@ export class IndexService {
   public indexsMatTab: MatTableDataSource<any>;
 
 
-  private uri = 'http://localhost:5000/index';
+  private uri = 'https://ppp-ss.herokuapp.com/index';
 
   constructor(private http: HttpClient,
               private citerneService: CiterneService,
