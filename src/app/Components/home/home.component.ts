@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.weatherService.getWeather().subscribe(res => {
       this.weather = res;
-      this.imgSrc = '/assets/images/' + this.weather.weather[0].icon + '.png';
+      this.imgSrc = 'https://ppp-ss.herokuapp.com/event/weather-img/' + this.weather.weather[0].icon + '.png';
       this.temp = Math.round(this.weather.main.temp - 273);
       this.humidity = this.weather.main.humidity;
       const sunriseDate = new Date(this.weather.sys.sunrise * 1000);
