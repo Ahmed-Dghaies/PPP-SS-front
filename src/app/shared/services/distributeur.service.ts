@@ -11,7 +11,7 @@ export class DistributeurService {
   public distributeurs: Distributeur[];
   public distributeursMatTab: MatTableDataSource<any>;
 
-  private uri = 'http://localhost:5000/distributeur';
+  private uri = 'https://ppp-ss.herokuapp.com/distributeur';
 
   constructor(private http: HttpClient) {
     this.distributeurs = [];
