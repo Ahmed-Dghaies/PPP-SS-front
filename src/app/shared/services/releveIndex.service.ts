@@ -35,7 +35,7 @@ export class ReleveIndexService {
     const datetime = new Date();
     let date = datetime.toISOString().slice(0, 10);
     const hour = datetime.getHours();
-    const dd = new Date(datetime.setDate(datetime.getDate() - 1))
+    const dd = new Date(datetime.setDate(datetime.getDate() - 1));
     const yesterday = dd.toISOString().slice(0, 10);
     let poste = '';
     if ((hour >= 6) && (hour < 14)) { poste = 'P1'; }
