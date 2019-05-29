@@ -25,7 +25,7 @@ export class PrixCarburantAddComponent implements OnInit {
 
   addCarburant() {
     this.carburant.identifiantPrix = 'P1';
-    this.prixcarburantService.updateIdentifiantPrix(this.carburant.carburant)
+    this.prixcarburantService.updateIdentifiantPrix(this.carburant._id)
       .subscribe(
         res => {
           this.notifService.success('indentifiant prix on eté mis a jour avec succés');

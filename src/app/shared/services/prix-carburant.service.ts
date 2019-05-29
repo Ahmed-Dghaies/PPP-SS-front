@@ -35,8 +35,8 @@ export class PrixCarburantService {
     return result;
   }
 
-  updateIdentifiantPrix(carburant: string) {
-    const res = this.carburants.filter(x => x.carburant === carburant);
+  updateIdentifiantPrix(id: string) {
+    const res = this.carburants.filter(x => x._id === id);
     let i;
     for (i = 0; i < res.length; i++) {
       res[i].identifiantPrix = this.change(res[i].identifiantPrix);
