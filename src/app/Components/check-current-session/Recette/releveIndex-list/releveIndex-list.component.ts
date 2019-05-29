@@ -28,6 +28,7 @@ export class ReleveIndexListComponent implements OnInit {
     this.getScreenSize();
   }
 
+
   @HostListener('window:resize', ['$event'])
     getScreenSize(event?) {
           this.screenHeight = window.innerHeight;

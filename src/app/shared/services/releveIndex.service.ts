@@ -31,12 +31,30 @@ export class ReleveIndexService {
     this.releveIndexsMatTab = new MatTableDataSource(this.releveIndexs);
   }
 
+  getDatePoste = () => {
+    const datetime = new Date();
+    let date = datetime.toISOString().slice(0, 10);
+    const hour = datetime.getHours();
+    const dd = new Date(datetime.setDate(datetime.getDate() - 1))
+    const yesterday = dd.toISOString().slice(0, 10);
+    let poste = '';
+    if ((hour >= 6) && (hour < 14)) { poste = 'P1'; }
+// tslint:disable-next-line: one-line
+    else if ((hour >= 14) && (hour < 22)) { poste = 'P2'; }
+// tslint:disable-next-line: one-line
+    else if ((hour === 22) || (hour === 23)) { poste = 'P3'; }
+// tslint:disable-next-line: one-line
+    else if ((hour >= 0) && (hour < 6)) { poste = 'P3'; date = yesterday; }
+    return date.concat(poste);
+}
+
   addReleveIndex(releveIndex) {
     return this.http.post<any>(`${this.uri}/addReleveIndex`, releveIndex);
   }
 
   getReleveIndexsList(sort?: MatSort, paginator?: MatPaginator): void {
-    this.http.get<IndexVM[]>(`${this.uri}/listReleveIndex`).subscribe((data: IndexVM[]) => {
+    const time = this.getDatePoste();
+    this.http.get<IndexVM[]>(`${this.uri}/listReleveIndex/${time}`).subscribe((data: IndexVM[]) => {
       this.releveIndexs = data;
       this.releveIndexs = this.releveIndexs.reverse();
       this.releveIndexsMatTab.data = this.releveIndexs;
