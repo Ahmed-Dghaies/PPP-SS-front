@@ -19,7 +19,7 @@ export class PrixCarburantService {
   private uri = 'https://ppp-ss.herokuapp.com/prixcarburant';
 
   constructor(private http: HttpClient,
-    private carburantService: CarburantService) {
+              private carburantService: CarburantService) {
     this.prixCarburants = [];
     this.carburantsMatTab = new MatTableDataSource(this.prixCarburants);
   }
