@@ -5,95 +5,100 @@
 /* filter controls */
 
 .search-div {
-    margin: 10px;
+  margin: 10px;
 }
 
 .search-form-field {
-    width: 60%;
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
+  width: 60%;
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
 }
 
 .search-form-field div.mat-form-field-underline {
-    display: none;
+  display: none;
 }
 
 .search-form-field div.mat-form-field-infix {
-    border-top: 0px;
+  border-top: 0px;
 }
 
 .search-form-field div.mat-form-field-wrapper {
-    padding-bottom: 0px;
+  padding-bottom: 0px;
 }
 
 .search-form-field div.mat-form-field-suffix button {
-    height: 32px;
-    width: 32px;
+  height: 32px;
+  width: 32px;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .full-width-dialog .mat-dialog-container {
-    width: 700px !important;
+  width: 700px !important;
 }
 
 .btn-dialog-close {
-    width: 45px;
-    min-width: 0px !important;
-    height: 40px;
-    padding: 0px !important;
-    float: left;
+  width: 45px;
+  min-width: 0px !important;
+  height: 40px;
+  padding: 0px !important;
+  float: left;
 }
 
 .fill-remaining-space {
-    /* This fills the remaining space, by using flexbox.
+  /* This fills the remaining space, by using flexbox.
        Every toolbar row uses a flexbox row layout. */
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 form.normal-form {
-    margin: 10px;
+  margin: 10px;
 }
 
 .controles-container {
-    width: 100%;
-    padding: 5%;
+  width: 100%;
+  padding: 5%;
 }
 
 .controles-container>* {
-    width: 100%;
+  width: 100%;
 }
 
 .add-bottom-padding {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .button-row button {
-    margin: 5px;
+  margin: 5px;
 }
 
 /* notification */
+
 snack-bar-container.success {
-    background-color: #5cb85c;
-    color : #fff;
-  }
+  background-color: #5cb85c;
+  color: #fff;
+}
 
-  snack-bar-container.warn {
-    background-color: #f99157;
-    color : #fff;
-  }
+snack-bar-container.warn {
+  background-color: #f99157;
+  color: #fff;
+}
 
+snack-bar-container.notification simple-snack-bar {
+  font-size: 18px !important;
+  font-weight: bold;
+}
 
-  snack-bar-container.notification simple-snack-bar{
-    font-size: 18px !important;
-    font-weight: bold;
-  }
+.margin-param {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
 
-  .margin-param{
-    margin-top: 30px;
-    margin-bottom: 30px;
+.lightGrayButton {
+  background: lightgray;
+  min-width: 90px;
 }

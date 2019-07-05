@@ -9,5 +9,6 @@ export class Recette {
   public _id?: string;
   public date: Date;
   public poste: string;
+  public sessionId: string;
   public rIndex: IndexVM[];
 }

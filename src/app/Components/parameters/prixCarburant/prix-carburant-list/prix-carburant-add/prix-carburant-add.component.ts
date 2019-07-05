@@ -25,13 +25,17 @@ export class PrixCarburantAddComponent implements OnInit {
 
   addCarburant() {
     this.carburant.identifiantPrix = 'P1';
-    this.prixcarburantService.updateIdentifiantPrix(this.carburant._id)
+    const datetime = new Date();
+    const date = datetime.toISOString().slice(0, 10);
+    this.carburant.date = date;
+    this.prixcarburantService.updateIdentifiantPrix(this.carburant.carburant)
       .subscribe(
         res => {
           this.notifService.success('indentifiant prix on eté mis a jour avec succés');
         },
         err => console.log(err)
       );
+    console.log(this.carburant);
     this.prixcarburantService.addCarburant(this.carburant)
       .subscribe(
         res => {

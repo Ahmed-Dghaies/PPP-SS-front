@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-releve-index-edit',
@@ -18,6 +19,7 @@ export class ReleveIndexEditComponent implements OnInit {
     public dialogRef: MatDialogRef<ReleveIndexEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public releveIndexService: ReleveIndexService,
+    public sessionService: SessionService,
     private notifservice: NotificationService) {
     this.releveIndex = data.index;
   }
@@ -31,7 +33,7 @@ export class ReleveIndexEditComponent implements OnInit {
     });
     this.releveIndexService.updateReleveIndex(this.releveIndex._id, this.releveIndex)
       .subscribe(res => {
-        this.releveIndexService.getReleveIndexsList();
+        this.releveIndexService.getReleveIndexsList(this.sessionService.currentSessionId);
         this.dialogRef.close();
         this.notifservice.success('Relevé index modifié avec succés');
       },

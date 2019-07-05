@@ -24,7 +24,7 @@ export class PrixCarburantListComponent implements OnInit {
     public prixcarburantService: PrixCarburantService,
     private carburantService: CarburantService,
     private dialog: MatDialog) {
-    this.displayedColumns = ['carburant', 'prix', 'identifiantPrix', 'actions'];
+    this.displayedColumns = ['carburant', 'prix', 'identifiantPrix', 'date', 'actions'];
   }
 
   ngOnInit() {

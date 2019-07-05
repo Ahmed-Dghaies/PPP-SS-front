@@ -12,15 +12,16 @@ import { Carburant } from '../models/carburant';
 })
 export class PrixCarburantService {
 
-  public carburants: PrixCarburant[];
+  public prixCarburants: PrixCarburant[];
+  public carburant: Carburant;
   public carburantsMatTab: MatTableDataSource<any>;
 
   private uri = 'https://ppp-ss.herokuapp.com/prixcarburant';
 
   constructor(private http: HttpClient,
-              private carburantService: CarburantService) {
-    this.carburants = [];
-    this.carburantsMatTab = new MatTableDataSource(this.carburants);
+    private carburantService: CarburantService) {
+    this.prixCarburants = [];
+    this.carburantsMatTab = new MatTableDataSource(this.prixCarburants);
   }
 
   addCarburant(carburant) {
@@ -36,13 +37,19 @@ export class PrixCarburantService {
   }
 
   updateIdentifiantPrix(id: string) {
-    const res = this.carburants.filter(x => x._id === id);
+    this.carburantService.getCarburantsList();
+    const car = this.carburantService.carburants;
+    console.log(car);
+    const result = car.filter(x => x._id === id)[0];
+    console.log(result);
+    this.getCarburantList();
+    const res = this.prixCarburants.filter(x => x.carburant === result.ref);
     let i;
     for (i = 0; i < res.length; i++) {
       res[i].identifiantPrix = this.change(res[i].identifiantPrix);
     }
+    console.log(res);
     return this.http.put(`${this.uri}/updateList/`, res);
-
   }
 
   getPrix(input: string) {
@@ -51,9 +58,9 @@ export class PrixCarburantService {
 
   getCarburantList(sort?: MatSort, paginator?: MatPaginator): void {
     this.http.get<PrixCarburant[]>(`${this.uri}/list`).subscribe((data: PrixCarburant[]) => {
-      this.carburants = data;
+      this.prixCarburants = data;
       let carburant: Carburant;
-      this.carburants.forEach((element: PrixCarburant) => {
+      this.prixCarburants.forEach((element: PrixCarburant) => {
         this.carburantService.getById(element.carburant).subscribe((res: Carburant) => {
           carburant = res;
           element.carburant = carburant.ref;
@@ -61,8 +68,8 @@ export class PrixCarburantService {
       });
 
 
-      this.carburants = this.carburants.reverse();
-      this.carburantsMatTab.data = this.carburants;
+      this.prixCarburants = this.prixCarburants.reverse();
+      this.carburantsMatTab.data = this.prixCarburants;
       if (sort) {
         this.carburantsMatTab.sort = sort;
       }

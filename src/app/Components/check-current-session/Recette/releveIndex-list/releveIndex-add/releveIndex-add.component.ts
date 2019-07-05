@@ -8,6 +8,7 @@ import { IndexService } from 'app/shared/services/index.service';
 import { Index } from 'app/shared/models/Index.model';
 import { PrixCarburantService } from 'app/shared/services/prix-carburant.service';
 import { PrixCarburant } from 'app/shared/models/prixcarburant';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-releve-index-add',
@@ -25,6 +26,7 @@ export class ReleveIndexAddComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ReleveIndexAddComponent>,
     public releveIndexService: ReleveIndexService,
+    public sessionService: SessionService,
     private indexService: IndexService,
     private carburantService: PrixCarburantService,
     private notifService: NotificationService) {
@@ -40,7 +42,7 @@ export class ReleveIndexAddComponent implements OnInit {
         this.releveIndexService.addReleveIndex(this.releveIndex)
           .subscribe(
             res => {
-              this.releveIndexService.getReleveIndexsList();
+              this.releveIndexService.getReleveIndexsList(this.sessionService.currentSessionId );
               this.dialogRef.close();
               this.notifService.success('relevé index ajouter avec succés');
             },

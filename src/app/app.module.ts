@@ -29,13 +29,9 @@ import { AddCiterneComponent } from '@ComCiterne/add-citerne/add-citerne.compone
 import { CiterneListComponent } from '@ComCiterne/citerne-list.component';
 import { UpdateCiterneComponent } from '@ComCiterne/update-citerne/update-citerne.component';
 import { MoreCiterneDetailsComponent } from '@ComCiterne/more-citerne-details/more-citerne-details.component';
-import { ReleveIndexListComponent } from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-list.component';
-import {
-   ReleveIndexAddComponent
-} from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-add/releveIndex-add.component';
-import {
-  ReleveIndexEditComponent
-} from 'app/Components/check-current-session/Recette/releveIndex-list/releveIndex-edit/releveIndex-edit.component';
+import { ReleveIndexListComponent } from '@ComRecette/releveIndex-list/releveIndex-list.component';
+import { ReleveIndexAddComponent } from '@ComRecette/releveIndex-list/releveIndex-add/releveIndex-add.component';
+import { ReleveIndexEditComponent } from '@ComRecette/releveIndex-list/releveIndex-edit/releveIndex-edit.component';
 import { IndexListComponent } from '@ComIndex/index-list.component';
 import { IndexAddComponent } from '@ComIndex/index-add/index-add.component';
 import { IndexEditComponent } from '@ComIndex/index-edit/index-edit.component';
@@ -57,6 +53,7 @@ import { CarburantComponent } from './Components/parameters/carburant/carburant.
 import { AddCarburantComponent } from './Components/parameters/carburant/add-carburant/add-carburant.component';
 import { UpdateCarburantComponent } from './Components/parameters/carburant/update-carburant/update-carburant.component';
 import { MatExpansionModule } from '@angular/material';
+import { ConfirmSessionCloserComponent } from './Components/check-current-session/confirm-session-closer/confirm-session-closer.component';
 
 
 @NgModule({
@@ -100,7 +97,8 @@ import { MatExpansionModule } from '@angular/material';
     MoreCiterneDetailsComponent,
     CarburantComponent,
     AddCarburantComponent,
-    UpdateCarburantComponent
+    UpdateCarburantComponent,
+    ConfirmSessionCloserComponent
   ],
   imports: [
     BrowserModule,
@@ -137,7 +135,8 @@ import { MatExpansionModule } from '@angular/material';
     UpdateEventComponent,
     MoreCiterneDetailsComponent,
     AddCarburantComponent,
-    UpdateCarburantComponent
+    UpdateCarburantComponent,
+    ConfirmSessionCloserComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

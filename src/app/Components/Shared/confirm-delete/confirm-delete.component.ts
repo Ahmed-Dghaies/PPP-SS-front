@@ -14,6 +14,7 @@ import { CarburantService } from 'app/shared/services/carburant.service';
 import { Citerne } from 'app/shared/models/citerne.model';
 import { PrixCarburant } from 'app/shared/models/prixcarburant';
 import { Index } from 'app/shared/models/Index.model';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -34,6 +35,7 @@ export class ConfirmDeleteComponent implements OnInit {
     private indexService: IndexService,
     private citerneService: CiterneService,
     private distributeurService: DistributeurService,
+    private sessionService: SessionService,
     private prixcarburantService: PrixCarburantService,
     private pompisteService: PompisteService,
     private notifService: NotificationService,
@@ -149,7 +151,7 @@ export class ConfirmDeleteComponent implements OnInit {
 
   deleteReleveIndex(): void {
     this.releveIndexService.deleteReleveIndex(this.id).subscribe(res => {
-      this.releveIndexService.getReleveIndexsList();
+      this.releveIndexService.getReleveIndexsList(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },

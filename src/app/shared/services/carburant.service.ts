@@ -24,7 +24,6 @@ export class CarburantService {
   getCarburantsList(sort?: MatSort, paginator?: MatPaginator): void {
     this.http.get<Carburant[]>(`${this.uri}/list`).subscribe((data: Carburant[]) => {
       this.carburants = data;
-      console.log(this.carburants);
       this.carburants = this.carburants.reverse();
       this.carburantsMatTab.data = this.carburants;
       if (sort) {

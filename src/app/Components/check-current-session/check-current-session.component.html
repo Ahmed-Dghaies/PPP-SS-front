@@ -28,7 +28,10 @@
           <button (click)="openPompisteListDialog(row)" mat-icon-button matTooltip="Voir Pompistes" color="primary">
             <mat-icon>supervisor_account</mat-icon>
           </button>
-
+          <span class="fill-remaining-space"></span>
+          <button mat-raised-button class="lightGrayButton" (click)="closeSession(row._id, 'session')">
+            <mat-icon>close</mat-icon>Fermer
+          </button>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="loading">
@@ -38,7 +41,11 @@
       </ng-container>
       <ng-container matColumnDef="noData">
         <mat-footer-cell *matFooterCellDef colspan="6">
-          No data.
+          <span class="fill-remaining-space"></span>
+          <button mat-raised-button class="lightGrayButton" (click)="closeSession()">
+            <mat-icon>add</mat-icon>créer une nouvelle session
+          </button>
+          <span class="fill-remaining-space"></span>
         </mat-footer-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -57,4 +64,3 @@
   </mat-toolbar>
   <app-releve-index-list></app-releve-index-list>
 </div>
-

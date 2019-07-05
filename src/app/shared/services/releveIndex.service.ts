@@ -22,8 +22,7 @@ export class ReleveIndexService {
   private indexUri = 'https://ppp-ss.herokuapp.com/index';
   private sessionUri = 'https://ppp-ss.herokuapp.com/session';
 
-  constructor(private http: HttpClient,
-              private sessionService: SessionService) {
+  constructor(private http: HttpClient) {
     this.releveIndexs = [];
     this.list = [];
     this.indexs = [];
@@ -52,9 +51,8 @@ export class ReleveIndexService {
     return this.http.post<any>(`${this.uri}/addReleveIndex`, releveIndex);
   }
 
-  getReleveIndexsList(sort?: MatSort, paginator?: MatPaginator): void {
-    const time = this.getDatePoste();
-    this.http.get<IndexVM[]>(`${this.uri}/listReleveIndex/${time}`).subscribe((data: IndexVM[]) => {
+  getReleveIndexsList(currentId: string, sort?: MatSort, paginator?: MatPaginator): void {
+    this.http.get<IndexVM[]>(`${this.uri}/listReleveIndex/${currentId}`).subscribe((data: IndexVM[]) => {
       this.releveIndexs = data;
       this.releveIndexs = this.releveIndexs.reverse();
       this.releveIndexsMatTab.data = this.releveIndexs;

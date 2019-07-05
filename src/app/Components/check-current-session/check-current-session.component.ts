@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SessionService } from 'app/shared/services/session.service';
 import { Session } from 'app/shared/models/session.model';
+import { NotificationService } from 'app/shared/services/notification.service';
+import { ConfirmSessionCloserComponent } from '@ComSession/confirm-session-closer/confirm-session-closer.component';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { SessionPompisteListComponent } from './session-pompiste-list/session-pompiste-list.component';
 
@@ -43,5 +45,7 @@ export class CheckCurrentSessionComponent implements OnInit {
     });
   }
 
-
+  closeSession(): void {
+    this.matDialog.open(ConfirmSessionCloserComponent);
+  }
 }

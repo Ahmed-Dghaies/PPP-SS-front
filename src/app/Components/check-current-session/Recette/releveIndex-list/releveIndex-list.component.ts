@@ -5,6 +5,7 @@ import { ReleveIndexAddComponent } from './releveIndex-add/releveIndex-add.compo
 import { ConfirmDeleteComponent } from 'app/Components/Shared/confirm-delete/confirm-delete.component';
 import { ReleveIndexEditComponent } from './releveIndex-edit/releveIndex-edit.component';
 import { ReleveIndex } from 'app/shared/models/ReleveIndex.model';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-releve-index-list',
@@ -24,6 +25,7 @@ export class ReleveIndexListComponent implements OnInit {
 
   constructor(
     public releveIndexService: ReleveIndexService,
+    public sessionService: SessionService,
     private dialog: MatDialog) {
     this.getScreenSize();
   }
@@ -41,7 +43,6 @@ export class ReleveIndexListComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.releveIndexService.getReleveIndexsList(this.sort, this.paginator);
   }
 
   addReleveIndexDialog(): void {
@@ -55,7 +56,6 @@ export class ReleveIndexListComponent implements OnInit {
   }
 
   deleteReleveIndexDialog(id: string, msg: string): void {
-
     this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
     });
