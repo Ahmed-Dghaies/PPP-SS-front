@@ -35,13 +35,19 @@ export class SessionService {
     this.http.get<Session[]>(`${this.uri}/get`).subscribe(res => {
       const key = 'result';
       this.sessions = res[key];
-      this.currentSessionId = this.sessions[0]._id;
       this.sessionMatTab.data = this.sessions;
-      this.releveIndexService.getReleveIndexsList(this.sessions[0]._id);
+      if (this.sessions[0]) {
+        this.currentSessionId = this.sessions[0]._id;
+        this.releveIndexService.getReleveIndexsList(this.sessions[0]._id);
+      }
     },
       err => {
         console.log(err);
       });
+  }
+
+  updateSession(id, session) {
+    return this.http.put(`${this.uri}/update/${id}`, session);
   }
 
   deletePompisteFromSession(idPompiste: string, idSession: string): Observable<any> {

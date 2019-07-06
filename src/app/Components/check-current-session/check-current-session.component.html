@@ -28,7 +28,9 @@
           <button (click)="openPompisteListDialog(row)" mat-icon-button matTooltip="Voir Pompistes" color="primary">
             <mat-icon>supervisor_account</mat-icon>
           </button>
-          <span class="fill-remaining-space"></span>
+          <button mat-icon-button color="primary" (click)="updateSession(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
           <button mat-raised-button class="lightGrayButton" (click)="closeSession(row._id, 'session')">
             <mat-icon>close</mat-icon>Fermer
           </button>

@@ -54,6 +54,7 @@ import { AddCarburantComponent } from './Components/parameters/carburant/add-car
 import { UpdateCarburantComponent } from './Components/parameters/carburant/update-carburant/update-carburant.component';
 import { MatExpansionModule } from '@angular/material';
 import { ConfirmSessionCloserComponent } from './Components/check-current-session/confirm-session-closer/confirm-session-closer.component';
+import { ModifySessionComponent } from './Components/check-current-session/modify-session/modify-session.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { ConfirmSessionCloserComponent } from './Components/check-current-sessio
     CarburantComponent,
     AddCarburantComponent,
     UpdateCarburantComponent,
-    ConfirmSessionCloserComponent
+    ConfirmSessionCloserComponent,
+    ModifySessionComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +138,8 @@ import { ConfirmSessionCloserComponent } from './Components/check-current-sessio
     MoreCiterneDetailsComponent,
     AddCarburantComponent,
     UpdateCarburantComponent,
-    ConfirmSessionCloserComponent
+    ConfirmSessionCloserComponent,
+    ModifySessionComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {
