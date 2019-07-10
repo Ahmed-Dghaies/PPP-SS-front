@@ -39,19 +39,19 @@ export class CardBonListComponent implements OnInit {
   }
 
 
-  addClientDialog(): void {
+  addCarteBonDialog(): void {
     this.dialog.open(CardBonAddComponent, {
       panelClass: 'full-width-dialog'
     });
   }
 
-  deleteClientDialog(id: string, msg: string): void {
+  deleteCarteBonDialog(id: string, msg: string): void {
     this.dialog.open(ConfirmDeleteComponent, {
       data: { id, msg }
     });
   }
 
-  updateClientDialog(carteBon: CarteBon): void {
+  updateCarteBonDialog(carteBon: CarteBon): void {
     this.dialog.open(CardBonEditComponent, {
       panelClass: 'full-width-dialog',
       data: { carteBon: Object.assign({}, carteBon) }
