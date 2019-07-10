@@ -172,7 +172,9 @@ import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/
     CardBonMoreDetailsComponent,
     BonValeurAddComponent,
     BonValeurEditComponent,
-    BonValeurMoreDetailsComponent
+    BonValeurMoreDetailsComponent,
+    ChequeAddComponent,
+    ChequeEditComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

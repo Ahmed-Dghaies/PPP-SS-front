@@ -18,7 +18,7 @@ export class CardBonAddComponent implements OnInit {
 
   constructor(private dialogMat: MatDialogRef<CardBonAddComponent>,
               private carteBonService: CarteBonService,
-              private carteBonTypeService: CarteBonTypeService,
+              public carteBonTypeService: CarteBonTypeService,
               private notifService: NotificationService) {
     this.carteBon = new CarteBon();
     this.width = 2;
