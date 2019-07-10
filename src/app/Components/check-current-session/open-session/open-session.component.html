@@ -1,0 +1,29 @@
+<mat-toolbar>
+    <span>ouvrir une nouvelle session</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+  </mat-toolbar>
+  <form mat-dialog-content class="normal-form" #angForm="ngForm" (submit)="OpenNewSession()">
+    <mat-grid-list cols="1" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <mat-form-field>
+            <input matInput placeholder="Date" required disabled type="text" name="date" [(ngModel)]="session.date">
+            <mat-error>Date est est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Poste" required type="text" name="poste" [(ngModel)]="session.poste">
+            <mat-error>Poste est obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="Description" required type="text" name="description" [(ngModel)]="session.description">
+              <mat-error>Description est obligatoire.</mat-error>
+            </mat-form-field>
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid" >Ouvrir</button>
+            <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>

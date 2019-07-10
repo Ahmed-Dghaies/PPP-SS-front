@@ -27,8 +27,8 @@ export class SessionService {
     return this.http.put(`${this.uri}/closeSession`, 'close');
   }
 
-  OpenNewSession(): void {
-
+  OpenNewSession(session: Session): Observable<any> {
+    return this.http.post(`${this.uri}/OpenNewSession`, session);
   }
 
   getCurrentSession(): void {
@@ -46,8 +46,9 @@ export class SessionService {
       });
   }
 
-  updateSession(id, session) {
-    return this.http.put(`${this.uri}/update/${id}`, session);
+  updateSession(id, description) {
+    console.log(description);
+    return this.http.put(`${this.uri}/update/${id}/${description}`, description);
   }
 
   deletePompisteFromSession(idPompiste: string, idSession: string): Observable<any> {

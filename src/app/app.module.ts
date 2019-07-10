@@ -55,7 +55,12 @@ import { UpdateCarburantComponent } from './Components/parameters/carburant/upda
 import { MatExpansionModule } from '@angular/material';
 import { ConfirmSessionCloserComponent } from './Components/check-current-session/confirm-session-closer/confirm-session-closer.component';
 import { ModifySessionComponent } from './Components/check-current-session/modify-session/modify-session.component';
-
+import { OpenSessionComponent } from './Components/check-current-session/open-session/open-session.component';
+import { ShowDetailsComponent } from './Components/check-current-session/Recette/show-details/show-details.component';
+import { CardBonListComponent } from '@ComCarteBon/card-bon-list.component';
+import { CardBonAddComponent } from '@ComCarteBon/card-bon-add/card-bon-add.component';
+import { CardBonEditComponent } from '@ComCarteBon/card-bon-edit/card-bon-edit.component';
+import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/card-bon-more-details.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +105,13 @@ import { ModifySessionComponent } from './Components/check-current-session/modif
     AddCarburantComponent,
     UpdateCarburantComponent,
     ConfirmSessionCloserComponent,
-    ModifySessionComponent
+    ModifySessionComponent,
+    OpenSessionComponent,
+    ShowDetailsComponent,
+    CardBonListComponent,
+    CardBonAddComponent,
+    CardBonEditComponent,
+    CardBonMoreDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -139,7 +150,11 @@ import { ModifySessionComponent } from './Components/check-current-session/modif
     AddCarburantComponent,
     UpdateCarburantComponent,
     ConfirmSessionCloserComponent,
-    ModifySessionComponent
+    ModifySessionComponent,
+    OpenSessionComponent,
+    ShowDetailsComponent,
+    CardBonAddComponent,
+    CardBonEditComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

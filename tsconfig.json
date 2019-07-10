@@ -29,7 +29,8 @@
       "@ComShared/*": ["app/Components/Shared/*"],
       "@ComCarburant/*": ["app/Components/parameters/prixCarburant/prix-carburant-list/*"],
       "@ComRecette/*": ["app/Components/check-current-session/Recette/*"],
-      "@ComSession/*": ["app/Components/check-current-session/*"]
+      "@ComSession/*": ["app/Components/check-current-session/*"],
+      "@ComCarteBon/*": ["app/Components/parameters/Carte Bon/card-bon-list/*"]
     }
   }
 }

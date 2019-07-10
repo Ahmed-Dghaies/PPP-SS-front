@@ -1,0 +1,69 @@
+<mat-toolbar>
+  <span>Modifier Carte Bon</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Produit de carburant" required type="text" name="cardType"
+            [(ngModel)]="carteBon.cardType">
+          <mat-error>Produit de carburant est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Numéro du bon" required type="text" name="cardNumber"
+            [(ngModel)]="carteBon.cardNumber">
+          <mat-error>Numéro du bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre de litres" required email type="number" name="litreNumber"
+            [(ngModel)]="carteBon.litreNumber">
+          <mat-error>Nombre de litres est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Code du client" required type="text" name="clientCode" [(ngModel)]="carteBon.clientCode">
+          <mat-error>Code du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Valeur du Bon" required type="number" name="cardValue"
+            [(ngModel)]="carteBon.cardValue">
+          <mat-error>Valeur du Bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Date Livraison" required type="text" name="date" [(ngModel)]="carteBon.date">
+          <mat-error>Date Livraison est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="updateCarteBon()"
+        [disabled]="angForm.pristine || angForm.invalid">Modifier
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

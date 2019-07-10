@@ -19,6 +19,7 @@ export class ReleveIndexAddComponent implements OnInit {
 
   public releveIndex: ReleveIndex;
   public carburant: string;
+  public indexValue: number;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,6 +33,7 @@ export class ReleveIndexAddComponent implements OnInit {
     private notifService: NotificationService) {
     this.carburant = '';
     this.releveIndex = new ReleveIndex();
+    this.indexValue = -1;
   }
 
   addReleveIndex() {
@@ -65,6 +67,12 @@ export class ReleveIndexAddComponent implements OnInit {
           this.notifService.warn('Erreur');
         }
       });
+  }
+
+  getIndexValue(reference: string): void {
+    const res = this.releveIndexService.indexs.filter(x => x.reference === reference);
+    this.releveIndex.depart = res[0].valeurIndex;
+    this.releveIndex.arrive = res[0].valeurIndex;
   }
 
   onClose() {

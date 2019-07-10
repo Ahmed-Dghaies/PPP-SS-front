@@ -6,6 +6,7 @@ import { Index } from '../models/Index.model';
 import { SessionService } from './session.service';
 import { Session } from '../models/session.model';
 import { Observable } from 'rxjs';
+import { IndexService } from './index.service';
 
 @Injectable({
   providedIn: 'root'

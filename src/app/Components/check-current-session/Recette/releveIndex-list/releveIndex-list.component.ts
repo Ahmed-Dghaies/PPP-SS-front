@@ -6,6 +6,7 @@ import { ConfirmDeleteComponent } from 'app/Components/Shared/confirm-delete/con
 import { ReleveIndexEditComponent } from './releveIndex-edit/releveIndex-edit.component';
 import { ReleveIndex } from 'app/shared/models/ReleveIndex.model';
 import { SessionService } from 'app/shared/services/session.service';
+import { ShowDetailsComponent } from '@ComRecette/show-details/show-details.component';
 
 @Component({
   selector: 'app-releve-index-list',
@@ -47,6 +48,12 @@ export class ReleveIndexListComponent implements OnInit {
 
   addReleveIndexDialog(): void {
     this.dialog.open(ReleveIndexAddComponent, {
+      panelClass: 'full-width-dialog'
+    });
+  }
+
+  detailsDialog(): void {
+    this.dialog.open(ShowDetailsComponent, {
       panelClass: 'full-width-dialog'
     });
   }

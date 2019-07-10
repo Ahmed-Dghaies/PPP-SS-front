@@ -6,6 +6,8 @@ import { ConfirmSessionCloserComponent } from '@ComSession/confirm-session-close
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { ModifySessionComponent } from './modify-session/modify-session.component';
 import { SessionPompisteListComponent } from './session-pompiste-list/session-pompiste-list.component';
+import { OpenSessionComponent } from './open-session/open-session.component';
+import { Pompiste } from 'app/shared/models/pompiste.model';
 
 @Component({
   selector: 'app-check-current-session',
@@ -50,6 +52,39 @@ export class CheckCurrentSessionComponent implements OnInit {
     this.matDialog.open(SessionPompisteListComponent, {
       panelClass: 'full-width-dialog',
       data: { session }
+    });
+  }
+
+  CreateNewSession(): Session {
+    const session = new Session();
+    session.state = 'Open';
+    const datetime = new Date();
+    const date = datetime.toISOString().slice(0, 10);
+    const hour = datetime.getHours();
+    let poste = '';
+    let description = '';
+    if ((hour >= 6) && (hour < 14)) {
+      poste = 'P1.2';
+      description = 'Poste de ' + hour + 'H à 14H';
+    } else if ((hour >= 14) && (hour < 22)) {
+      poste = 'P2.2';
+      description = 'Poste de ' + hour + 'H à 22H';
+    } else if ((hour === 22) || (hour === 23) || ((hour >= 0) && (hour < 6))) {
+      poste = 'P3.2';
+      description = 'Poste de ' + hour + 'H à 6H de matin';
+    }
+    session.date = date;
+    session.poste = poste;
+    session.description = description;
+    return session;
+  }
+
+  openNewSessionDialog(): void {
+    const session = this.CreateNewSession();
+    console.log(session);
+    this.matDialog.open(OpenSessionComponent, {
+      panelClass: 'full-width-dialog',
+      data: {session: Object.assign({}, session)}
     });
   }
 

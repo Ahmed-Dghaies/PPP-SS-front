@@ -23,7 +23,7 @@ export class ModifySessionComponent implements OnInit {
   }
 
   updateSession(): void {
-    this.sessionService.updateSession(this.session._id, this.session)
+    this.sessionService.updateSession(this.session._id, this.session.description)
       .subscribe(res => {
         this.sessionService.getCurrentSession();
         this.dialogRef.close();
