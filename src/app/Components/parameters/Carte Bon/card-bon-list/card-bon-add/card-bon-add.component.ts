@@ -4,6 +4,7 @@ import { CarteBon } from 'app/shared/models/carteBon.model';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { CarteBonService } from 'app/shared/services/carte-bon.service';
 import { NgForm } from '@angular/forms';
+import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
 
 @Component({
   selector: 'app-card-bon-add',
@@ -17,6 +18,7 @@ export class CardBonAddComponent implements OnInit {
 
   constructor(private dialogMat: MatDialogRef<CardBonAddComponent>,
               private carteBonService: CarteBonService,
+              private carteBonTypeService: CarteBonTypeService,
               private notifService: NotificationService) {
     this.carteBon = new CarteBon();
     this.width = 2;
@@ -29,6 +31,7 @@ export class CardBonAddComponent implements OnInit {
     const datetime = new Date();
     const date = datetime.toISOString().slice(0, 10);
     this.carteBon.date = date;
+    this.carteBonTypeService.getCardTypesList();
   }
 
   onClose(): void {

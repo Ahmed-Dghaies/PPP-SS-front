@@ -1,0 +1,67 @@
+<mat-toolbar>
+  <span>Ajouter Bon Valeur</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Numéro du bon" required type="text" name="cardNumber"
+            [(ngModel)]="bonValeur.cardNumber">
+          <mat-error>Numéro du bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Valeur du Bon" required type="number" name="cardValue"
+            [(ngModel)]="bonValeur.cardValue">
+          <mat-error>Valeur du Bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Code du client" required type="text" name="clientCode"
+            [(ngModel)]="bonValeur.clientCode">
+          <mat-error>Code du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom du client" required type="text" name="clientName"
+            [(ngModel)]="bonValeur.clientName">
+          <mat-error>Nom du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Adresse du client" required type="text" name="clientAdress"
+            [(ngModel)]="bonValeur.clientAdress">
+          <mat-error>Adresse du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Date Livraison" required type="text" name="date" [(ngModel)]="bonValeur.date">
+          <mat-error>Date Livraison est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addBonValeur()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

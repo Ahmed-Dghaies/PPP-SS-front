@@ -61,6 +61,13 @@ import { CardBonListComponent } from '@ComCarteBon/card-bon-list.component';
 import { CardBonAddComponent } from '@ComCarteBon/card-bon-add/card-bon-add.component';
 import { CardBonEditComponent } from '@ComCarteBon/card-bon-edit/card-bon-edit.component';
 import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/card-bon-more-details.component';
+import { BonValeurListComponent } from '@ComBonValeur/bon-valeur-list.component';
+import { BonValeurAddComponent } from '@ComBonValeur/bon-valeur-add/bon-valeur-add.component';
+import { BonValeurEditComponent } from '@ComBonValeur/bon-valeur-edit/bon-valeur-edit.component';
+import { BonValeurMoreDetailsComponent } from '@ComBonValeur/bon-valeur-more-details/bon-valeur-more-details.component';
+import { ChequeListComponent } from './Components/parameters/Cheque/cheque-list/cheque-list.component';
+import { ChequeAddComponent } from './Components/parameters/Cheque/cheque-list/cheque-add/cheque-add.component';
+import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/cheque-edit/cheque-edit.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +118,14 @@ import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/
     CardBonListComponent,
     CardBonAddComponent,
     CardBonEditComponent,
-    CardBonMoreDetailsComponent
+    CardBonMoreDetailsComponent,
+    BonValeurListComponent,
+    BonValeurAddComponent,
+    BonValeurEditComponent,
+    BonValeurMoreDetailsComponent,
+    ChequeListComponent,
+    ChequeAddComponent,
+    ChequeEditComponent
   ],
   imports: [
     BrowserModule,
@@ -154,7 +168,11 @@ import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/
     OpenSessionComponent,
     ShowDetailsComponent,
     CardBonAddComponent,
-    CardBonEditComponent
+    CardBonEditComponent,
+    CardBonMoreDetailsComponent,
+    BonValeurAddComponent,
+    BonValeurEditComponent,
+    BonValeurMoreDetailsComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

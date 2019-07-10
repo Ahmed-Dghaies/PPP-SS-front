@@ -15,6 +15,9 @@ import { Citerne } from 'app/shared/models/citerne.model';
 import { PrixCarburant } from 'app/shared/models/prixcarburant';
 import { Index } from 'app/shared/models/Index.model';
 import { SessionService } from 'app/shared/services/session.service';
+import { CarteBonService } from 'app/shared/services/carte-bon.service';
+import { BonValeurService } from 'app/shared/services/bon-valeur.service';
+import { ChequeService } from 'app/shared/services/cheque.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -40,7 +43,10 @@ export class ConfirmDeleteComponent implements OnInit {
     private pompisteService: PompisteService,
     private notifService: NotificationService,
     private eventService: EventService,
-    private carburantService: CarburantService) {
+    private carburantService: CarburantService,
+    private carteBonService: CarteBonService,
+    private bonValeurService: BonValeurService,
+    private chequeService: ChequeService) {
     this.id = data.id;
     this.msg = data.msg;
   }
@@ -69,6 +75,12 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteEvent();
     } else if (this.msg === 'carburant') {
       this.deleteCarburant();
+    } else if (this.msg === 'carteBon') {
+      this.deleteCarteBon();
+    } else if (this.msg === 'bonValeur') {
+      this.deleteBonValeur();
+    } else if (this.msg === 'cheque') {
+      this.deleteCheque();
     }
   }
 
@@ -114,7 +126,6 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   deleteDistributeur(): void {
-
     this.indexService.getIndexByDistributeur(this.id).subscribe((data: Index[]) => {
       data.forEach((element: Index) => {
         this.indexService.deleteIndex(element._id).subscribe(res => {
@@ -132,7 +143,6 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   deleteCiterne(): void {
-
     this.indexService.getIndexByCiterne(this.id).subscribe((data: Index[]) => {
       data.forEach((element: Index) => {
         this.indexService.deleteIndex(element._id).subscribe(res => {
@@ -152,6 +162,39 @@ export class ConfirmDeleteComponent implements OnInit {
   deleteReleveIndex(): void {
     this.releveIndexService.deleteReleveIndex(this.id).subscribe(res => {
       this.releveIndexService.getReleveIndexsList(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteCarteBon(): void {
+    this.carteBonService.deleteCarteBon(this.id).subscribe(res => {
+      this.carteBonService.getCarteBonsList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteCheque(): void {
+    this.chequeService.deleteCheque(this.id).subscribe(res => {
+      this.chequeService.getChequesList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteBonValeur(): void {
+    this.bonValeurService.deleteBonValeur(this.id).subscribe(res => {
+      this.bonValeurService.getBonValeursList();
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },

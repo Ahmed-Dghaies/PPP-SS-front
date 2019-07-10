@@ -12,9 +12,14 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Produit de carburant" required type="text" name="cardType"
-            [(ngModel)]="carteBon.cardType">
-          <mat-error>Produit de carburant est obligatoire</mat-error>
+          <mat-label>Produit de carburant</mat-label>
+          <mat-select required name="cardType" [(ngModel)]="carteBon.cardType">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let c of carteBonTypeService.cardTypes" [value]="c.cardCode" >
+              {{c.cardCode}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Produit de carburant est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -28,7 +33,7 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Nombre de litres" required email type="number" name="litreNumber"
+          <input matInput placeholder="Nombre de litres" required type="number" name="litreNumber"
             [(ngModel)]="carteBon.litreNumber">
           <mat-error>Nombre de litres est obligatoire</mat-error>
         </mat-form-field>

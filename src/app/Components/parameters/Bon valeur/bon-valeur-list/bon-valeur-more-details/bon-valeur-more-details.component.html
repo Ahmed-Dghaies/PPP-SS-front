@@ -1,35 +1,27 @@
 <div mat-dialog-content>
   <mat-list>
     <mat-list-item>
-      <h4>Email : </h4>&nbsp;&nbsp;{{client.email}}
+      <h4>Numéro du Bon: </h4>&nbsp;&nbsp;{{bonValeur.cardNumber}}
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item>
-      <h4>Type : </h4>&nbsp;&nbsp;{{client.type}}
+      <h4>Code du Client: </h4>&nbsp;&nbsp;{{bonValeur.clientCode}}
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item>
-      <h4>Ville : </h4>&nbsp;&nbsp;{{client.address.city}}
+      <h4>Nom du Client: </h4>&nbsp;&nbsp;{{bonValeur.clientName}}
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item>
-      <h4>Region : </h4>&nbsp;&nbsp;{{client.region}}
+      <h4>Adresse du Client: </h4>&nbsp;&nbsp;{{bonValeur.clientAdress}}
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item>
-      <h4>Code Postal : </h4>&nbsp;&nbsp;{{client.address.postal}}
+      <h4>Valeur du bon: </h4>&nbsp;&nbsp;{{bonValeur.cardValue}}
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item>
-      <h4>Téléphone : </h4>&nbsp;&nbsp;{{client.phone}}
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>
-      <h4>Fax : </h4>&nbsp;&nbsp;<h5>{{client.fax}}</h5>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>
-      <h4>Plafond Crédit : </h4>&nbsp;&nbsp;{{client.plafondCredit}}
+      <h4>Date de livraison: </h4>&nbsp;&nbsp;{{bonValeur.date}}
     </mat-list-item>
     <mat-divider></mat-divider>
   </mat-list>
