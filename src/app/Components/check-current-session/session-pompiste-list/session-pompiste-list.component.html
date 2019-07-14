@@ -10,19 +10,39 @@
 
   <form mat-dialog-content class="normal-form" #angForm="ngForm">
     <div class="search-div">
-      <mat-form-field>
-        <mat-label>Pompistes</mat-label>
-        <mat-select required name="p" #p="ngModel" ngModel>
-          <mat-option *ngFor="let pompiste of pompisteService.pompistes" [value]="pompiste.name"
-            (click)="selectPompiste(pompiste)">
-            {{pompiste.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="p.errors?.required">Champ Obligatoire</mat-error>
-      </mat-form-field>&nbsp;&nbsp;
-      <mat-form-field>
-        <input matInput placeholder="Heures" type="number" [(ngModel)]="heures" name="heures">
-      </mat-form-field>&nbsp;&nbsp;
+      <mat-grid-list [cols]="width" rowHeight="100px">
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Pompistes</mat-label>
+            <mat-select required name="p" #p="ngModel" ngModel>
+              <mat-option *ngFor="let pompiste of pompisteService.pompistes" [value]="pompiste.name"
+                (click)="selectPompiste(pompiste)">
+                {{pompiste.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="p.errors?.required">Champ Obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Heures" type="number" [(ngModel)]="heures" name="heures">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Indexs</mat-label>
+            <mat-select [(ngModel)]="responsibleIndexs" name="responsibleIndexs" multiple>
+              <mat-option *ngFor="let I of indexService.indexs" [value]="I.reference">{{I.reference}}</mat-option>
+            </mat-select>
+            <mat-error>{{error}}</mat-error>
+            <mat-error>Liste des indexs est obligatoire.</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+      </mat-grid-list>
       <button [disabled]="angForm.pristine || angForm.invalid" mat-raised-button (click)="addPompisteToSession()">
         <mat-icon>add</mat-icon>Ajouter
       </button>
@@ -39,12 +59,17 @@
         <mat-header-cell *matHeaderCellDef>Heures Pres</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.heures_pres}}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="Liste des indexs">
+          <mat-header-cell *matHeaderCellDef>Liste des indexs</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.indexs}}</mat-cell>
+        </ng-container>
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
 
-          <button (click)="deletePompisteFromSession(row.id_pompiste)"  mat-icon-button matTooltip="Supprimer" color="warn">
+          <button (click)="deletePompisteFromSession(row.id_pompiste)" mat-icon-button matTooltip="Supprimer"
+            color="warn">
             <mat-icon>delete_outline</mat-icon>
           </button>
 

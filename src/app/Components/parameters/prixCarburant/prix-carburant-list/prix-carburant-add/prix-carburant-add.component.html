@@ -9,15 +9,15 @@
       <div class="controles-container">
           <mat-form-field>
               <mat-label>Carburant</mat-label>
-              <mat-select required [(ngModel)]="carburant.carburant" name="carburant">
+              <mat-select required [(ngModel)]="prixCarburant.carburant" name="carburant">
                 <mat-option>None</mat-option>
                 <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id">{{p.ref}}</mat-option>
               </mat-select>
-    
+
               <mat-error>Ce champ est obligatoire</mat-error>
             </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Prix" required type="number" name="prix" [(ngModel)]="carburant.prix">
+          <input matInput placeholder="Prix" required type="number" name="prix" [(ngModel)]="prixCarburant.prix">
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <div class="button-row">

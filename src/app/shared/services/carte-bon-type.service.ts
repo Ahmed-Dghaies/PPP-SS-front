@@ -18,12 +18,12 @@ export class CarteBonTypeService {
     this.cardTypesMatTab = new MatTableDataSource(this.cardTypes);
    }
 
-  addCardType(cardType) {
+  addCardType(cardType: CardType) {
     return this.http.post<any>(`${this.uri}/add`, cardType);
   }
 
   getCardTypesList(sort?: MatSort, paginator?: MatPaginator): void {
-    this.http.get<CardType[]>(`${this.uri}/list`).subscribe((data: { cardCode: '', cardDescription: '' }[]) => {
+    this.http.get<CardType[]>(`${this.uri}/list`).subscribe((data: CardType[]) => {
       this.cardTypes = data;
       this.cardTypes = this.cardTypes.reverse();
       this.cardTypesMatTab.data = this.cardTypes;
@@ -41,15 +41,15 @@ export class CarteBonTypeService {
       });
   }
 
-  editCardType(id) {
+  editCardType(id: string) {
     return this.http.get(`${this.uri}/edit/${id}`);
   }
 
-  updateCardType(id, cardType) {
+  updateCardType(id: string, cardType: CardType) {
     return this.http.put(`${this.uri}/update/${id}`, cardType);
   }
 
-  deleteCardType(id) {
+  deleteCardType(id: string) {
     return this.http.delete(`${this.uri}/delete/${id}`);
   }
 }

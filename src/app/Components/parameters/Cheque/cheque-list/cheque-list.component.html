@@ -15,6 +15,14 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du bénéficiaire</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.payeeName}}</mat-cell>
       </ng-container>
+      <ng-container matColumnDef="chequeNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du chèque</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.chequeNumber}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="bankName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du bank</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.bankName}}</mat-cell>
+      </ng-container>
       <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Jour d'encaissement</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>

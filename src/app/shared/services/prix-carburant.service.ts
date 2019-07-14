@@ -39,16 +39,14 @@ export class PrixCarburantService {
   updateIdentifiantPrix(id: string) {
     this.carburantService.getCarburantsList();
     const car = this.carburantService.carburants;
-    console.log(car);
     const result = car.filter(x => x._id === id)[0];
-    console.log(result);
     this.getCarburantList();
     const res = this.prixCarburants.filter(x => x.carburant === result.ref);
     let i;
     for (i = 0; i < res.length; i++) {
       res[i].identifiantPrix = this.change(res[i].identifiantPrix);
+      res[i].carburant = id;
     }
-    console.log(res);
     return this.http.put(`${this.uri}/updateList/`, res);
   }
 

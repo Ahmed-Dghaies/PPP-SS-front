@@ -4,6 +4,7 @@ import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service'
 import { MatDialogRef } from '@angular/material';
 import { CardType } from 'app/shared/models/cardType.model';
 import { NotificationService } from 'app/shared/services/notification.service';
+import { CarburantService } from 'app/shared/services/carburant.service';
 
 @Component({
   selector: 'app-card-type-add',
@@ -17,7 +18,8 @@ export class CardTypeAddComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<CardTypeAddComponent>,
     private cardTypeService: CarteBonTypeService,
-    private notifService: NotificationService) {
+    private notifService: NotificationService,
+    public carburantService: CarburantService) {
     this.cardType = new CardType();
   }
 
@@ -42,6 +44,7 @@ export class CardTypeAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.carburantService.getCarburantsList();
   }
 
 }

@@ -13,30 +13,29 @@ import { CarburantService } from 'app/shared/services/carburant.service';
 })
 export class PrixCarburantAddComponent implements OnInit {
 
-  public carburant: PrixCarburant;
+  public prixCarburant: PrixCarburant;
 
   constructor(
     private dialogRef: MatDialogRef<PrixCarburantAddComponent>,
     private prixcarburantService: PrixCarburantService,
     public carburantService: CarburantService,
     private notifService: NotificationService) {
-    this.carburant = new PrixCarburant();
+    this.prixCarburant = new PrixCarburant();
   }
 
   addCarburant() {
-    this.carburant.identifiantPrix = 'P1';
+    this.prixCarburant.identifiantPrix = 'P1';
     const datetime = new Date();
     const date = datetime.toISOString().slice(0, 10);
-    this.carburant.date = date;
-    this.prixcarburantService.updateIdentifiantPrix(this.carburant.carburant)
+    this.prixCarburant.date = date;
+    this.prixcarburantService.updateIdentifiantPrix(this.prixCarburant.carburant)
       .subscribe(
         res => {
           this.notifService.success('indentifiant prix on eté mis a jour avec succés');
         },
         err => console.log(err)
       );
-    console.log(this.carburant);
-    this.prixcarburantService.addCarburant(this.carburant)
+    this.prixcarburantService.addCarburant(this.prixCarburant)
       .subscribe(
         res => {
           this.prixcarburantService.getCarburantList();

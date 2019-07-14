@@ -14,37 +14,43 @@
     <ng-container matColumnDef="cardCode">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.cardCode}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="cardDescription">
+    </ng-container>
+    <ng-container matColumnDef="cardCarburant">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Carburant</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.cardCarburant}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cardDescription">
       <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.cardDescription}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="actions">
+    </ng-container>
+    <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-          <button mat-icon-button color="primary" (click)="updateCardTypeDialog(row)">
-              <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteCardTypeDialog(row._id, 'type carte bon')">
-              <mat-icon>delete_outline</mat-icon>
-          </button>
+        <button mat-icon-button color="primary" (click)="updateCardTypeDialog(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteCardTypeDialog(row._id, 'type carte bon')">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
       </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="loading">
+    </ng-container>
+    <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="6">
-          Loading data ...
+        Loading data ...
       </mat-footer-cell>
-  </ng-container>
-  <ng-container matColumnDef="noData">
+    </ng-container>
+    <ng-container matColumnDef="noData">
       <mat-footer-cell *matFooterCellDef colspan="6">
-          No data.
+        No data.
       </mat-footer-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':cardTypeService.cardTypesMatTab!=null}"></mat-footer-row>
-  <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(cardTypeService.cardTypesMatTab!=null && cardTypeService.cardTypesMatTab.data.length==0)}">
-  </mat-footer-row>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':cardTypeService.cardTypesMatTab!=null}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hide':!(cardTypeService.cardTypesMatTab!=null && cardTypeService.cardTypesMatTab.data.length==0)}">
+    </mat-footer-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>

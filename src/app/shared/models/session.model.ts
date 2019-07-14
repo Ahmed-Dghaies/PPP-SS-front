@@ -15,7 +15,8 @@ export class Session {
       _id?: string,
       id_pompiste: string,
       nom_pompiste: string,
-      heures_pres: number
+      heures_pres: number,
+      indexs: string[]
     }
   ];
 }

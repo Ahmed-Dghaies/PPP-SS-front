@@ -8,6 +8,9 @@ export class Cheque {
 
   public _id?: string;
   public payeeName: string;
+  public chequeNumber: string;
+  public bankName: string;
   public date: string;
   public chequeValue: number;
+
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { SessionService } from 'app/shared/services/session.service';
+import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
 
 @Component({
   selector: 'app-confirm-session-closer',
@@ -13,8 +14,8 @@ export class ConfirmSessionCloserComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ConfirmSessionCloserComponent>,
               private notifService: NotificationService,
-              @Inject(MAT_DIALOG_DATA) private data: any,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private releveIndexService: ReleveIndexService) {
   }
 
   annuler(): void {
@@ -22,10 +23,9 @@ export class ConfirmSessionCloserComponent implements OnInit {
   }
 
   CloseSession(): void {
-    console.log('here');
     this.sessionService.closeSession().subscribe(res => {
       this.sessionService.getCurrentSession();
-      console.log('here');
+      this.releveIndexService.clear();
       this.dialogRef.close();
       this.notifService.success(`session fermer avec succés`);
     },

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ChequeService } from 'app/shared/services/cheque.service';
 import { MatDialog, MatPaginator } from '@angular/material';
 import { MatSort } from '@angular/material';
@@ -16,13 +16,26 @@ export class ChequeListComponent implements OnInit {
 
   public displayedColumns: string[];
   public search: string;
+  screenHeight: any;
+  screenWidth: any;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public chequeService: ChequeService,
               private dialog: MatDialog) {
-    this.displayedColumns = ['payeeName', 'date', 'chequeValue', 'actions'];
+    this.displayedColumns = ['payeeName', 'chequeNumber', 'bankName', 'date', 'chequeValue', 'actions'];
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.displayedColumns = ['payeeName', 'bankName', 'chequeValue', 'actions'];
+    } else {
+      this.displayedColumns = ['payeeName', 'chequeNumber', 'bankName', 'date', 'chequeValue', 'actions'];
+    }
   }
 
   ngOnInit() {

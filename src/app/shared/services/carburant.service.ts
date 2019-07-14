@@ -3,8 +3,6 @@ import { Carburant } from '../models/carburant';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PrixCarburantService } from './prix-carburant.service';
-import { PrixCarburant } from '../models/prixcarburant';
 
 @Injectable({
   providedIn: 'root'

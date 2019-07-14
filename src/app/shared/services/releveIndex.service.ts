@@ -3,10 +3,10 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { IndexVM } from '../models/view_models/IndexVM.model';
 import { HttpClient } from '@angular/common/http';
 import { Index } from '../models/Index.model';
-import { SessionService } from './session.service';
-import { Session } from '../models/session.model';
 import { Observable } from 'rxjs';
-import { IndexService } from './index.service';
+import { ReleveIndex } from '../models/ReleveIndex.model';
+import { PrixCarburant } from '../models/prixcarburant';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +18,21 @@ export class ReleveIndexService {
   public list: string[];
   public indexs: Index[];
   public pompistes: any[];
+  public listReleveIndexs: ReleveIndex[];
 
   private uri = 'https://ppp-ss.herokuapp.com/recette';
   private indexUri = 'https://ppp-ss.herokuapp.com/index';
   private sessionUri = 'https://ppp-ss.herokuapp.com/session';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private notifService: NotificationService) {
     this.releveIndexs = [];
     this.list = [];
     this.indexs = [];
     this.pompistes = [];
     this.releveIndexsMatTab = new MatTableDataSource(this.releveIndexs);
+    this.listReleveIndexs = [];
   }
 
   getDatePoste = () => {
@@ -38,15 +42,47 @@ export class ReleveIndexService {
     const dd = new Date(datetime.setDate(datetime.getDate() - 1));
     const yesterday = dd.toISOString().slice(0, 10);
     let poste = '';
-    if ((hour >= 6) && (hour < 14)) { poste = 'P1'; }
-// tslint:disable-next-line: one-line
-    else if ((hour >= 14) && (hour < 22)) { poste = 'P2'; }
-// tslint:disable-next-line: one-line
-    else if ((hour === 22) || (hour === 23)) { poste = 'P3'; }
-// tslint:disable-next-line: one-line
-    else if ((hour >= 0) && (hour < 6)) { poste = 'P3'; date = yesterday; }
+    if ((hour >= 6) && (hour < 14)) {
+      poste = 'P1';
+    } else if ((hour >= 14) && (hour < 22)) {
+      poste = 'P2';
+    } else if ((hour === 22) || (hour === 23)) {
+      poste = 'P3';
+    } else if ((hour >= 0) && (hour < 6)) {
+      poste = 'P3'; date = yesterday;
+    }
     return date.concat(poste);
-}
+  }
+
+  assignIndexs(pompisteVM: any, sessionId: string, indexs: Index[], prixCarburant: PrixCarburant[]): void {
+    const pompiste = {
+      _id: pompisteVM.id_pompiste,
+      nom: pompisteVM.nom_pompiste
+    };
+    for (let _i = 0; _i < pompisteVM.indexs.length; _i++) {
+      this.listReleveIndexs[_i] = new ReleveIndex();
+      this.listReleveIndexs[_i].reference = pompisteVM.indexs[_i];
+      this.listReleveIndexs[_i].pompiste = pompiste;
+      const res = indexs.filter(x => x.reference === pompisteVM.indexs[_i]);
+      this.listReleveIndexs[_i].depart = res[0].valeurIndex;
+      this.listReleveIndexs[_i].arrive = res[0].valeurIndex;
+      const carburantPrice = prixCarburant.filter(x => x.carburant === res[0].carburant).filter(x => x.identifiantPrix === 'P1');
+      this.listReleveIndexs[_i].prix = carburantPrice[0].prix;
+    }
+
+    this.listReleveIndexs.forEach(l => {
+      this.addReleveIndex(l).subscribe(
+        res => {
+          this.getReleveIndexsList(sessionId);
+          this.notifService.success('relevé index ajouter avec succés');
+        },
+        err => {
+          console.log(err);
+          this.notifService.warn('Erreur');
+        }
+      );
+    });
+  }
 
   addReleveIndex(releveIndex) {
     return this.http.post<any>(`${this.uri}/addReleveIndex`, releveIndex);
@@ -69,6 +105,11 @@ export class ReleveIndexService {
       err => {
         console.log(err);
       });
+  }
+
+  clear() {
+    this.releveIndexs = [];
+    this.releveIndexsMatTab.data = [];
   }
 
   getIndexsNames(): void {
@@ -95,9 +136,9 @@ export class ReleveIndexService {
         };
       });
     },
-    err => {
-      console.log(err);
-    });
+      err => {
+        console.log(err);
+      });
   }
 
   editReleveIndex(id) {
