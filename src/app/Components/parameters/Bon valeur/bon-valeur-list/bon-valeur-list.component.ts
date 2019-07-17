@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { BonValeurService } from 'app/shared/services/bon-valeur.service';
-import { BonValeurMoreDetailsComponent } from './bon-valeur-more-details/bon-valeur-more-details.component';
 import { BonValeurAddComponent } from './bon-valeur-add/bon-valeur-add.component';
 import { ConfirmDeleteComponent } from '@ComShared/confirm-delete/confirm-delete.component';
 import { BonValeur } from 'app/shared/models/bonValeur.model';
