@@ -38,6 +38,10 @@ export class ChequeListComponent implements OnInit {
     }
   }
 
+  getTotalPrevue() {
+    return this.chequeService.getTotalPrevue();
+  }
+
   ngOnInit() {
     this.chequeService.getChequesList(this.sort, this.paginator);
   }

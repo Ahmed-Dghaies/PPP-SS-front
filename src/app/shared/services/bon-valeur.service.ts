@@ -19,6 +19,10 @@ export class BonValeurService {
     this.bonValeursMatTab = new MatTableDataSource(this.bonValeurs);
   }
 
+  getTotalPrevue(): string {
+    return this.bonValeurs.map(t => t.totalValue).reduce((acc, value) => acc + value, 0).toFixed(3);
+  }
+
   // get bons Valeur list
   getBonValeursList(sort?: MatSort, paginator?: MatPaginator): void {
     this.http.get<BonValeur[]>(`${this.uri}/list`).subscribe(res => {

@@ -40,7 +40,7 @@ export class BonValeurAddComponent implements OnInit {
   }
 
   addBonValeur(): void {
-    console.log(this.bonValeur);
+    this.bonValeur.totalValue = this.bonValeur.cardValue * this.bonValeur.numberOfCards;
     this.bonValeurService.addBonValeur(this.bonValeur).subscribe(res => {
       this.bonValeurService.getBonValeursList();
       this.dialogMat.close();

@@ -1,3 +1,5 @@
+<ng-progress [positionUsing]="'marginLeft'" [direction]="'leftToRightIncreased'" [color]="'#4286f4'"
+  [trickleSpeed]="500" [thick]="true" [ease]="'easeInSine'"></ng-progress>
 <div class="margin-param container">
   <mat-toolbar color="primary">
     <span>Journée et poste</span>
@@ -21,18 +23,17 @@
         <mat-cell *matCellDef="let element">{{element.state}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
-
           <button (click)="openPompisteListDialog(row)" mat-icon-button matTooltip="Voir Pompistes" color="primary">
             <mat-icon>supervisor_account</mat-icon>
           </button>
-          <button mat-icon-button color="primary" (click)="updateSession(row)">
+          <button mat-icon-button color="primary" matTooltip="Modifier session" (click)="updateSession(row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-raised-button class="lightGrayButton" (click)="closeSession(row._id, 'session')">
-            <mat-icon>close</mat-icon>Fermer
+          <button mat-icon-button color="primary" matTooltip="Fermer session"
+            (click)="closeSession(row._id, 'session')">
+            <mat-icon>close</mat-icon>
           </button>
         </mat-cell>
       </ng-container>

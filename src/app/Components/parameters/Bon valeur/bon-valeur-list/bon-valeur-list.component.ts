@@ -22,22 +22,16 @@ export class BonValeurListComponent implements OnInit {
 
   constructor(public bonValeurService: BonValeurService,
               private dialog: MatDialog) {
-    this.displayedColumns = ['cardNumber', 'cardValue', 'clientCode', 'clientName', 'actions'];
+    this.displayedColumns = ['cardValue', 'numberOfCards', 'date', 'totalValue', 'actions'];
   }
 
   ngOnInit() {
     this.bonValeurService.getBonValeursList(this.sort, this.paginator);
   }
 
-  seeMoreDialog(bonValeur): void {
-    this.dialog.open(BonValeurMoreDetailsComponent, {
-      panelClass: 'full-width-dialog',
-      height: '500px',
-      data: { bonValeur }
-    });
-
+  getTotalPrevue() {
+    return this.bonValeurService.getTotalPrevue();
   }
-
 
   addBonValeurDialog(): void {
     this.dialog.open(BonValeurAddComponent, {

@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './shared/Guards/auth.guard';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
-import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CarteBonTypeService } from './shared/services/carte-bon-type.service';
 import { CardTypeAddComponent } from '@ComCardType/card-type-add/card-type-add.component';
@@ -64,10 +63,10 @@ import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/
 import { BonValeurListComponent } from '@ComBonValeur/bon-valeur-list.component';
 import { BonValeurAddComponent } from '@ComBonValeur/bon-valeur-add/bon-valeur-add.component';
 import { BonValeurEditComponent } from '@ComBonValeur/bon-valeur-edit/bon-valeur-edit.component';
-import { BonValeurMoreDetailsComponent } from '@ComBonValeur/bon-valeur-more-details/bon-valeur-more-details.component';
 import { ChequeListComponent } from './Components/parameters/Cheque/cheque-list/cheque-list.component';
 import { ChequeAddComponent } from './Components/parameters/Cheque/cheque-list/cheque-add/cheque-add.component';
 import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/cheque-edit/cheque-edit.component';
+import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -122,7 +121,6 @@ import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/
     BonValeurListComponent,
     BonValeurAddComponent,
     BonValeurEditComponent,
-    BonValeurMoreDetailsComponent,
     ChequeListComponent,
     ChequeAddComponent,
     ChequeEditComponent
@@ -133,11 +131,11 @@ import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/
     HttpClientModule,
     AppRoutingModule,
     CommonModule,
-    SlimLoadingBarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgProgressModule
   ],
   entryComponents: [
     CardTypeAddComponent,
@@ -172,7 +170,6 @@ import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/
     CardBonMoreDetailsComponent,
     BonValeurAddComponent,
     BonValeurEditComponent,
-    BonValeurMoreDetailsComponent,
     ChequeAddComponent,
     ChequeEditComponent
   ],
@@ -181,7 +178,8 @@ import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }, CarteBonTypeService
+    }, CarteBonTypeService,
+    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

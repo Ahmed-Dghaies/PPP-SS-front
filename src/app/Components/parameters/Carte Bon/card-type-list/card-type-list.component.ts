@@ -21,7 +21,7 @@ export class CardTypeListComponent implements OnInit {
 
   constructor(public cardTypeService: CarteBonTypeService,
               private dialog: MatDialog) {
-    this.displayedColumns = ['cardCode', 'cardCarburant', 'cardDescription', 'actions'];
+    this.displayedColumns = ['cardCode', 'cardCarburant', 'numberOfLiters', 'cardDescription', 'actions'];
   }
 
   ngOnInit() {

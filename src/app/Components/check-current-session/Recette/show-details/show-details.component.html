@@ -1,9 +1,19 @@
+<mat-toolbar>
+    <span>Détails recette</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
 <div class="container">
   <mat-accordion>
     <div class="margin-param">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <span>Carte Bon</span>
+          <span>Carte Bon </span>
+          <span class="fill-remaining-space"></span>
+          <span>Valeur Total: {{cardBonService.getTotalPrevue()}}</span>
+          <span class="fill-remaining-space"></span>
         </mat-expansion-panel-header>
         <app-card-bon-list></app-card-bon-list>
       </mat-expansion-panel>
@@ -13,6 +23,9 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <span>Bon Valeur</span>
+          <span class="fill-remaining-space"></span>
+          <span>Valeur Total: {{bonValeurService.getTotalPrevue()}}</span>
+          <span class="fill-remaining-space"></span>
         </mat-expansion-panel-header>
         <app-bon-valeur-list></app-bon-valeur-list>
       </mat-expansion-panel>
@@ -22,9 +35,16 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <span >Cheque</span>
+          <span class="fill-remaining-space"></span>
+          <span>Valeur Total: {{chequeService.getTotalPrevue()}}</span>
+          <span class="fill-remaining-space"></span>
         </mat-expansion-panel-header>
         <app-cheque-list></app-cheque-list>
       </mat-expansion-panel>
+    </div>
+
+    <div>
+        <span style="font-weight: bold">Valeur prévue du recette: {{getTotalPrevue()}}</span>
     </div>
   </mat-accordion>
 </div>

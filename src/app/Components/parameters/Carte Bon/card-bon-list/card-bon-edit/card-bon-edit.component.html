@@ -12,40 +12,30 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Produit de carburant" required type="text" name="cardType"
-            [(ngModel)]="carteBon.cardType">
-          <mat-error>Produit de carburant est obligatoire</mat-error>
+          <mat-label>Produit de carburant</mat-label>
+          <mat-select required name="cardType" [(ngModel)]="carteBon.cardType">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let c of carteBonTypeService.cardTypes" [value]="c.cardCode">
+              {{c.cardCode}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Produit de carburant est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Numéro du bon" required type="text" name="cardNumber"
-            [(ngModel)]="carteBon.cardNumber">
-          <mat-error>Numéro du bon est obligatoire</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Nombre de litres" required email type="number" name="litreNumber"
-            [(ngModel)]="carteBon.litreNumber">
-          <mat-error>Nombre de litres est obligatoire</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Code du client" required type="text" name="clientCode" [(ngModel)]="carteBon.clientCode">
-          <mat-error>Code du client est obligatoire</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Valeur du Bon" required type="number" name="cardValue"
+          <input matInput placeholder="Valeur du bon" required type="number" name="cardValue"
             [(ngModel)]="carteBon.cardValue">
-          <mat-error>Valeur du Bon est obligatoire</mat-error>
+          <mat-error>Valeur du bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre de bons" required type="number" name="numberOfCards"
+            [(ngModel)]="carteBon.numberOfCards">
+          <mat-error>Nombre de bons est obligatoire</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -56,8 +46,6 @@
         </mat-form-field>
       </mat-grid-tile>
     </mat-grid-list>
-
-
 
     <div class="button-row">
       <button mat-raised-button color="primary" (click)="updateCarteBon()"

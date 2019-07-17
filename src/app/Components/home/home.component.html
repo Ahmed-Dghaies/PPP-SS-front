@@ -1,3 +1,5 @@
+<ng-progress [positionUsing]="'marginLeft'" [direction]="'leftToRightIncreased'" [color]="'#4286f4'"
+  [trickleSpeed]="500" [thick]="true" [ease]="'easeInSine'"></ng-progress>
 <div class="header">
   <div class="bg">
 
@@ -20,20 +22,20 @@
 
       <div class="col-md-3 col-lg-3 col-sm-12 margin">
         <mat-card>
-        <div class="row">
-          <div class="col-3 padding-icon">
-            <mat-icon color="primary">supervisor_account</mat-icon>
-          </div>
-          <div class="col-9">
-            <div class="row value">
-              {{emps}}
+          <div class="row">
+            <div class="col-3 padding-icon">
+              <mat-icon color="primary">supervisor_account</mat-icon>
             </div>
-            <div class="row content">
-              <mat-divider></mat-divider>
-              Nombre d'employés
+            <div class="col-9">
+              <div class="row value">
+                {{emps}}
+              </div>
+              <div class="row content">
+                <mat-divider></mat-divider>
+                Nombre d'employés
+              </div>
             </div>
           </div>
-        </div>
         </mat-card>
       </div>
 
@@ -85,8 +87,8 @@
                 {{pompiste.nom}}
               </div>
               <div class="row content">
-                  <mat-divider></mat-divider>
-                  Liste des pompistes en travail
+                <mat-divider></mat-divider>
+                Liste des pompistes en travail
               </div>
             </div>
           </div>
@@ -114,6 +116,6 @@
         <h3>Coucher du soleil : {{sunset}}</h3>
       </mat-card-content>
     </mat-card>
-    
+
   </div>
 </div>

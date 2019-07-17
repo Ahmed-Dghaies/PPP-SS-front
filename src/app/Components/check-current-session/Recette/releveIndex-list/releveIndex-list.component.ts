@@ -59,7 +59,7 @@ export class ReleveIndexListComponent implements OnInit {
   }
 
   getTotalPrevue() {
-    return this.releveIndexService.releveIndexs.map(t => t.prevue).reduce((acc, value) => acc + value, 0);
+    return this.releveIndexService.releveIndexs.map(t => t.prevue).reduce((acc, value) => acc + value, 0).toFixed(3);
   }
 
   deleteReleveIndexDialog(id: string, msg: string): void {

@@ -14,22 +14,27 @@
       <ng-container matColumnDef="payeeName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du bénéficiaire</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.payeeName}}</mat-cell>
+        <mat-footer-cell *matFooterCellDef>Recette Cheques</mat-footer-cell>
       </ng-container>
       <ng-container matColumnDef="chequeNumber">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du chèque</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.chequeNumber}}</mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
       </ng-container>
       <ng-container matColumnDef="bankName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du bank</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.bankName}}</mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
       </ng-container>
       <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Jour d'encaissement</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
       </ng-container>
       <ng-container matColumnDef="chequeValue">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Montant du chèque</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.chequeValue}}</mat-cell>
+        <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>
@@ -43,6 +48,7 @@
             <mat-icon>delete_outline</mat-icon>
           </button>
         </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
       </ng-container>
       <ng-container matColumnDef="loading">
         <mat-footer-cell *matFooterCellDef colspan="6">
@@ -56,6 +62,9 @@
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="displayedColumns"
+      [ngClass]="{'hide':chequeService.chequesMatTab!=null && chequeService.chequesMatTab.data.length==0}">
+    </mat-footer-row>
       <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':chequeService.chequesMatTab!=null}">
       </mat-footer-row>
       <mat-footer-row *matFooterRowDef="['noData']"

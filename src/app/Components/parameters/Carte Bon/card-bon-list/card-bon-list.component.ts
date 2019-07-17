@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { CarteBonService } from 'app/shared/services/carte-bon.service';
-import { CardBonMoreDetailsComponent } from './card-bon-more-details/card-bon-more-details.component';
 import { CardBonAddComponent } from './card-bon-add/card-bon-add.component';
+import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/card-bon-more-details.component';
 import { ConfirmDeleteComponent } from '@ComShared/confirm-delete/confirm-delete.component';
 import { CardBonEditComponent } from './card-bon-edit/card-bon-edit.component';
 import { CarteBon } from 'app/shared/models/carteBon.model';
@@ -22,11 +22,15 @@ export class CardBonListComponent implements OnInit {
 
   constructor(public carteBonService: CarteBonService,
               private dialog: MatDialog) {
-    this.displayedColumns = ['cardType', 'cardNumber', 'litreNumber', 'clientCode', 'actions'];
+    this.displayedColumns = ['cardType', 'cardValue', 'numberOfCards', 'totalValue', 'actions'];
   }
 
   ngOnInit() {
     this.carteBonService.getCarteBonsList(this.sort, this.paginator);
+  }
+
+  getTotalPrevue() {
+    return this.carteBonService.getTotalPrevue();
   }
 
   seeMoreDialog(carteBon): void {
@@ -37,7 +41,6 @@ export class CardBonListComponent implements OnInit {
     });
 
   }
-
 
   addCarteBonDialog(): void {
     this.dialog.open(CardBonAddComponent, {

@@ -19,6 +19,10 @@ export class CarteBonService {
     this.carteBonsMatTab = new MatTableDataSource(this.carteBons);
   }
 
+  getTotalPrevue(): string {
+    return this.carteBons.map(t => t.totalValue).reduce((acc, value) => acc + value, 0).toFixed(3);
+  }
+
   // get carteBons list
   getCarteBonsList(sort?: MatSort, paginator?: MatPaginator): void {
     this.http.get<CarteBon[]>(`${this.uri}/list`).subscribe(res => {

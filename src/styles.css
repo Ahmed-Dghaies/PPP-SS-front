@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "../node_modules/ng2-slim-loading-bar/style.css";
 /* filter controls */
 
 .search-div {
   margin: 10px;
+}
+
+mat-footer-row {
+  font-weight: bold;
 }
 
 .search-form-field {
@@ -101,4 +104,8 @@ snack-bar-container.notification simple-snack-bar {
 .lightGrayButton {
   background: lightgray;
   min-width: 90px;
+}
+
+.example-radio-button {
+  margin: 5px;
 }

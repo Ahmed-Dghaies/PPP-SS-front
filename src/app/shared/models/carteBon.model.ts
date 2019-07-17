@@ -2,18 +2,16 @@ export class CarteBon {
 
   constructor() {
     this.cardType = '';
-    this.cardNumber = '';
-    this.litreNumber = 0;
-    this.clientCode = '';
     this.cardValue = 0;
+    this.numberOfCards = 0;
+    this.totalValue = 0;
     this.date = '';
   }
 
   public _id?: string;
   public cardType: string;
-  public cardNumber: string;
-  public litreNumber: number;
-  public clientCode: string;
   public cardValue: number;
+  public numberOfCards: number;
+  public totalValue: number;
   public date: string;
 }

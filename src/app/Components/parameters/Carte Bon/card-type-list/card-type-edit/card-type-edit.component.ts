@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, NgForm } from '@angular/forms';
 import { CarteBonTypeService } from '../../../../../shared/services/carte-bon-type.service';
@@ -16,6 +16,9 @@ import { CarburantService } from 'app/shared/services/carburant.service';
 export class CardTypeEditComponent implements OnInit {
 
   public cardType: CardType;
+  public width: number;
+  public screenHeight: number;
+  public screenWidth: number;
 
   constructor(
     public dialogRef: MatDialogRef<CardTypeEditComponent>,
@@ -24,6 +27,17 @@ export class CardTypeEditComponent implements OnInit {
     private notifservice: NotificationService,
     public carburantService: CarburantService) {
     this.cardType = data.cardType;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.width = 1;
+    } else {
+      this.width = 2;
+    }
   }
 
   updateCardType(): void {
@@ -48,6 +62,7 @@ export class CardTypeEditComponent implements OnInit {
 
   ngOnInit() {
     this.carburantService.getCarburantsList();
+    this.getScreenSize();
   }
 
 }

@@ -12,14 +12,6 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Numéro du bon" required type="text" name="cardNumber"
-            [(ngModel)]="bonValeur.cardNumber">
-          <mat-error>Numéro du bon est obligatoire</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
           <input matInput placeholder="Valeur du Bon" required type="number" name="cardValue"
             [(ngModel)]="bonValeur.cardValue">
           <mat-error>Valeur du Bon est obligatoire</mat-error>
@@ -28,25 +20,9 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Code du client" required type="text" name="clientCode"
-            [(ngModel)]="bonValeur.clientCode">
-          <mat-error>Code du client est obligatoire</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Nom du client" required type="text" name="clientName"
-            [(ngModel)]="bonValeur.clientName">
-          <mat-error>Nom du client est obligatoire</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-form-field>
-          <input matInput placeholder="Adresse du client" required type="text" name="clientAdress"
-            [(ngModel)]="bonValeur.clientAdress">
-          <mat-error>Adresse du client est obligatoire</mat-error>
+          <input matInput placeholder="Nombre de bons" required type="number" name="numberOfCards"
+            [(ngModel)]="bonValeur.numberOfCards">
+          <mat-error>Nombre de bons est obligatoire</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 

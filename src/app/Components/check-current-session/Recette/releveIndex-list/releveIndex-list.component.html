@@ -56,9 +56,11 @@
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-cell>
-      <mat-footer-cell *matFooterCellDef><button mat-raised-button class="detailsButton" (click)="detailsDialog()">
-        <mat-icon>add</mat-icon>Détails
-      </button></mat-footer-cell>
+      <mat-footer-cell *matFooterCellDef>
+        <button mat-icon-button matTooltip="Détails recette" color="primary" (click)="detailsDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="6">
@@ -67,14 +69,23 @@
     </ng-container>
     <ng-container matColumnDef="noData">
       <mat-footer-cell *matFooterCellDef colspan="6">
-        No data.
+        <span>No data.</span>
+        <span class="fill-remaining-space"></span>
+        <button mat-icon-button matTooltip="Détails recette" color="primary" (click)="detailsDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
       </mat-footer-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-footer-row *matFooterRowDef="displayedColumns" [ngClass]="{'hide':releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0}"></mat-footer-row>
-    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':releveIndexService.releveIndexsMatTab!=null}"></mat-footer-row>
-    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0)}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="displayedColumns"
+      [ngClass]="{'hide':releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':releveIndexService.releveIndexsMatTab!=null}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hide':!(releveIndexService.releveIndexsMatTab!=null && releveIndexService.releveIndexsMatTab.data.length==0)}">
+    </mat-footer-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
 </div>

@@ -19,6 +19,10 @@ export class ChequeService {
     this.chequesMatTab = new MatTableDataSource(this.cheques);
   }
 
+  getTotalPrevue(): string {
+    return this.cheques.map(t => t.chequeValue).reduce((acc, value) => acc + value, 0).toFixed(3);
+  }
+
   // get cheques list
   getChequesList(sort?: MatSort, paginator?: MatPaginator): void {
     this.http.get<Cheque[]>(`${this.uri}/list`).subscribe(res => {

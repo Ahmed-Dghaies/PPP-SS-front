@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CarteBonService } from 'app/shared/services/carte-bon.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
 
 @Component({
   selector: 'app-card-bon-edit',
@@ -18,6 +19,7 @@ export class CardBonEditComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CardBonEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private carteBonService: CarteBonService,
+              public carteBonTypeService: CarteBonTypeService,
               private notifservice: NotificationService) {
     this.carteBon = data.carteBon;
     this.width = 2;
@@ -27,6 +29,7 @@ export class CardBonEditComponent implements OnInit {
     if (document.body.clientWidth < 600) {
       this.width = 1;
     }
+    this.carteBonTypeService.getCardTypesList();
   }
 
   onClose(): void {
@@ -38,6 +41,7 @@ export class CardBonEditComponent implements OnInit {
   }
 
   updateCarteBon(): void {
+    this.carteBon.totalValue = parseFloat((this.carteBon.cardValue * this.carteBon.numberOfCards).toFixed(3));
     this.carteBonService.updateCarteBon(this.carteBon._id, this.carteBon).subscribe(res => {
       this.carteBonService.getCarteBonsList();
       this.dialogRef.close();

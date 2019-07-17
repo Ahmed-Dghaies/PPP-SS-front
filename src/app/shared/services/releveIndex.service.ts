@@ -70,22 +70,25 @@ export class ReleveIndexService {
       this.listReleveIndexs[_i].prix = carburantPrice[0].prix;
     }
 
-    this.listReleveIndexs.forEach(l => {
-      this.addReleveIndex(l).subscribe(
-        res => {
-          this.getReleveIndexsList(sessionId);
-          this.notifService.success('relevé index ajouter avec succés');
-        },
-        err => {
-          console.log(err);
-          this.notifService.warn('Erreur');
-        }
-      );
-    });
+    this.addMultipleReleveIndex(this.listReleveIndexs).subscribe(
+      res => {
+        this.getReleveIndexsList(sessionId);
+        this.notifService.success('relevé index ajouter avec succés');
+      },
+      err => {
+        console.log(err);
+        this.notifService.warn('Erreur');
+      }
+    );
+
   }
 
   addReleveIndex(releveIndex) {
     return this.http.post<any>(`${this.uri}/addReleveIndex`, releveIndex);
+  }
+
+  addMultipleReleveIndex(releveIndex) {
+    return this.http.post<any>(`${this.uri}/addMultipleReleveIndex`, releveIndex);
   }
 
   getReleveIndexsList(currentId: string, sort?: MatSort, paginator?: MatPaginator): void {

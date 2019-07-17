@@ -38,6 +38,7 @@ export class BonValeurEditComponent implements OnInit {
   }
 
   updateBonValeur(): void {
+    this.bonValeur.totalValue = this.bonValeur.cardValue * this.bonValeur.numberOfCards;
     this.bonValeurService.updateBonValeur(this.bonValeur._id, this.bonValeur).subscribe(res => {
       this.bonValeurService.getBonValeursList();
       this.dialogRef.close();

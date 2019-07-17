@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
 import { MatDialogRef } from '@angular/material';
@@ -14,6 +14,9 @@ import { CarburantService } from 'app/shared/services/carburant.service';
 export class CardTypeAddComponent implements OnInit {
 
   public cardType: CardType;
+  public width: number;
+  public screenHeight: number;
+  public screenWidth: number;
 
   constructor(
     private dialogRef: MatDialogRef<CardTypeAddComponent>,
@@ -21,6 +24,17 @@ export class CardTypeAddComponent implements OnInit {
     private notifService: NotificationService,
     public carburantService: CarburantService) {
     this.cardType = new CardType();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 650) {
+      this.width =  1;
+    } else {
+      this.width =  2;
+    }
   }
 
   addCardType() {
@@ -31,7 +45,10 @@ export class CardTypeAddComponent implements OnInit {
           this.dialogRef.close();
           this.notifService.success('Carte Bon Type ajouter avec succés');
         },
-        err => console.log(err)
+        err => {
+          this.notifService.warn('Error');
+          console.log(err);
+        }
       );
   }
 
@@ -45,6 +62,7 @@ export class CardTypeAddComponent implements OnInit {
 
   ngOnInit() {
     this.carburantService.getCarburantsList();
+    this.getScreenSize();
   }
 
 }

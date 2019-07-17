@@ -108,7 +108,6 @@ export class SessionPompisteListComponent implements OnInit {
         heures_pres: this.heures,
         indexs: this.responsibleIndexs
       };
-
       this.sessionService.addPompisteToSession(pompisteVM, this.session._id).subscribe(res => {
         const key = 'session';
         this.session = res[key];
