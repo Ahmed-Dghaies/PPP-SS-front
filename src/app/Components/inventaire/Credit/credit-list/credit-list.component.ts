@@ -3,7 +3,7 @@ import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { CreditService } from 'app/shared/services/credit.service';
 import { ConfirmDeleteComponent } from '@ComShared/confirm-delete/confirm-delete.component';
 import { CreditEditComponent } from './credit-edit/credit-edit.component';
-import { Credit } from 'app/shared/models/Credit.model';
+import { Credit } from 'app/shared/models/credit.model';
 import { CreditAddComponent } from './credit-add/credit-add.component';
 
 @Component({

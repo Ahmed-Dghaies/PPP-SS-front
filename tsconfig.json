@@ -33,7 +33,8 @@
       "@ComCarteBon/*": ["app/Components/inventaire/Carte Bon/card-bon-list/*"],
       "@ComBonValeur/*": ["app/Components/inventaire/Bon valeur/bon-valeur-list/*"],
       "@ComShowDet/*": ["app/Components/check-current-session/Recette/show-details/*"],
-      "@ComRecetteCarteBMD/*": ["app/Components/check-current-session/Recette/show-details/recette-carte-bon/recette-carte-bon-more-details/*"]
+      "@ComRecetteCarteBMD/*": ["app/Components/check-current-session/Recette/show-details/recette-carte-bon/recette-carte-bon-more-details/*"],
+      "@ComRecetteChequeMD/*": ["app/Components/check-current-session/Recette/show-details/recette-cheque/recette-cheque-more-details/*"]
     }
   }
 }

@@ -75,10 +75,10 @@ import { RecetteCarteBonEditComponent } from '@ComShowDet/recette-carte-bon/rece
 import { RecetteCarteBonMoreDetailsComponent } from '@ComRecetteCarteBMD/recette-carte-bon-more-details.component';
 import { RecetteBonValeurAddComponent } from '@ComShowDet/recette-bon-valeur/recette-bon-valeur-add/recette-bon-valeur-add.component';
 import { RecetteBonValeurEditComponent } from '@ComShowDet/recette-bon-valeur/recette-bon-valeur-edit/recette-bon-valeur-edit.component';
-import { RecetteChequeMoreDetailsComponent } from './Components/check-current-session/Recette/show-details/recette-cheque/recette-cheque-more-details/recette-cheque-more-details.component';
-import { RecetteCreditsComponent } from './Components/check-current-session/Recette/show-details/recette-credits/recette-credits.component';
-import { RecetteCreditsAddComponent } from './Components/check-current-session/Recette/show-details/recette-credits/recette-credits-add/recette-credits-add.component';
-import { RecetteCreditsEditComponent } from './Components/check-current-session/Recette/show-details/recette-credits/recette-credits-edit/recette-credits-edit.component';
+import { RecetteChequeMoreDetailsComponent } from '@ComRecetteChequeMD/recette-cheque-more-details.component';
+import { RecetteCreditsComponent } from '@ComShowDet/recette-credits/recette-credits.component';
+import { RecetteCreditsAddComponent } from '@ComShowDet/recette-credits/recette-credits-add/recette-credits-add.component';
+import { RecetteCreditsEditComponent } from '@ComShowDet/recette-credits/recette-credits-edit/recette-credits-edit.component';
 import { CreditListComponent } from './Components/inventaire/Credit/credit-list/credit-list.component';
 import { CreditAddComponent } from './Components/inventaire/Credit/credit-list/credit-add/credit-add.component';
 import { CreditEditComponent } from './Components/inventaire/Credit/credit-list/credit-edit/credit-edit.component';

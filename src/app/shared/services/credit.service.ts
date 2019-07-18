@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Credit } from '../models/Credit.model';
+import { Credit } from '../models/credit.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

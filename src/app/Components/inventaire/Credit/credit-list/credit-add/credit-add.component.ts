@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Credit } from 'app/shared/models/Credit.model';
+import { Credit } from 'app/shared/models/credit.model';
 import { MatDialogRef } from '@angular/material';
 import { CreditService } from 'app/shared/services/credit.service';
 import { NotificationService } from 'app/shared/services/notification.service';
