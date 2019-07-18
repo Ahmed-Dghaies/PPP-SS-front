@@ -1,0 +1,73 @@
+<div class="search-div">
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput placeholder="Search" autocomplete="off" [(ngModel)]="search" (keyup)="filter()">
+    <button *ngIf="search" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="bonValeurService.bonValeursMatTab" matSort>
+    <ng-container matColumnDef="cardValue">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.cardValue}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef>Recette bons valeur</mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="numberOfCards">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de bons</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.numberOfCards}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de livraison</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Affectation</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.state}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="totalValue">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur totale</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.totalValue}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button class="position" mat-icon-button matTooltip="Editer" color="primary"
+          (click)="updateBonValeurDialog(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="position" mat-icon-button matTooltip="Supprimer" color="warn"
+          (click)="deleteBonValeurDialog(row._id, 'bonValeur')">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data ...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="displayedColumns"
+      [ngClass]="{'hide':bonValeurService.bonValeursMatTab!=null && bonValeurService.bonValeursMatTab.data.length==0}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':bonValeurService.bonValeursMatTab!=null}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hide':!(bonValeurService.bonValeursMatTab!=null && bonValeurService.bonValeursMatTab.data.length==0)}">
+    </mat-footer-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

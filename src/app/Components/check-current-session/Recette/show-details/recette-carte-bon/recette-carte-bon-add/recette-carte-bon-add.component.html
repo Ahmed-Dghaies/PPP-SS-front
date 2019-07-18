@@ -1,0 +1,58 @@
+<mat-toolbar>
+  <span>Ajouter Carte Bon</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="2" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Produit de carburant</mat-label>
+          <mat-select required name="cardType" [(ngModel)]="carteBon.cardType"
+            (selectionChange)="getCarburantPrices(carteBon.cardType)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let c of carteBonTypeService.cardTypes" [value]="c.cardCode">
+              {{c.cardCode}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Produit de carburant est obligatoire.</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" name="cardValue"
+          [(ngModel)]="carteBon.cardValue">
+          <mat-radio-button class="example-radio-button" *ngFor="let price of prices" [value]="price">
+            {{price}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre de bons" required type="number" name="numberOfCards"
+            [(ngModel)]="carteBon.numberOfCards">
+          <mat-error>Nombre de bons est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Date Livraison" required type="text" name="date" [(ngModel)]="carteBon.date">
+          <mat-error>Date Livraison est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addCarteBon()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

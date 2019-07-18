@@ -1,0 +1,55 @@
+<mat-toolbar>
+  <span>Ajouter Credit</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Numéro du client" required type="text" maxlength="4" name="clientNumber" (change)="getClient(credit.clientNumber)"
+            [(ngModel)]="credit.clientNumber">
+          <mat-error *ngIf="lengthError">le numéro de client doit être composé de 4 chiffres</mat-error>
+          <mat-error *ngIf="notFoundError">ce n'est pas un numéro de client</mat-error>
+          <mat-error>Numéro du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom du client" required disabled type="text" name="clientName"
+            [(ngModel)]="credit.clientName">
+          <mat-error>Nom du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="date d'endettement" required disabled type="text" name="date"
+            [(ngModel)]="credit.date">
+          <mat-error>date d'endettement est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Valeur initial du crédit" required type="number" name="creditOriginalValue"
+            [(ngModel)]="credit.creditOriginalValue">
+          <mat-error>Valeur initial du crédit est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addCredit()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

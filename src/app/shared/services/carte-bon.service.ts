@@ -44,6 +44,28 @@ export class CarteBonService {
       });
   }
 
+  // get carteBons list by session id
+  getCarteBonsListById(sessionId: string, sort?: MatSort, paginator?: MatPaginator): void {
+    this.http.get<CarteBon[]>(`${this.uri}/list`).subscribe(res => {
+      const key = 'carteBons';
+      this.carteBons = res[key];
+      this.carteBons = this.carteBons.reverse();
+      this.carteBons = this.carteBons.filter(x => x.sessionId === sessionId);
+      this.carteBonsMatTab.data = this.carteBons;
+      if (sort) {
+        this.carteBonsMatTab.sort = sort;
+      }
+      if (paginator) {
+        this.carteBonsMatTab.paginator = paginator;
+      }
+
+
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   // add new carteBon
   addCarteBon(carteBon: CarteBon): Observable<any> {
     const request = { carteBon };

@@ -21,7 +21,7 @@ export class ClientListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public clientService: ClientService, private dialog: MatDialog) {
-    this.displayedColumns = ['name', 'matFisc', 'state', 'actions'];
+    this.displayedColumns = ['number', 'name', 'matFisc', 'state', 'actions'];
   }
 
   ngOnInit() {
@@ -31,12 +31,10 @@ export class ClientListComponent implements OnInit {
   seeMoreDialog(client): void {
     this.dialog.open(MoreDetailsComponent, {
       panelClass: 'full-width-dialog',
-      height: '500px',
       data: { client }
     });
 
   }
-
 
   addClientDialog(): void {
     this.dialog.open(AddClientComponent, {

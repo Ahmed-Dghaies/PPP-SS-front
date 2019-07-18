@@ -30,8 +30,10 @@
       "@ComCarburant/*": ["app/Components/parameters/prixCarburant/prix-carburant-list/*"],
       "@ComRecette/*": ["app/Components/check-current-session/Recette/*"],
       "@ComSession/*": ["app/Components/check-current-session/*"],
-      "@ComCarteBon/*": ["app/Components/parameters/Carte Bon/card-bon-list/*"],
-      "@ComBonValeur/*": ["app/Components/parameters/Bon valeur/bon-valeur-list/*"]
+      "@ComCarteBon/*": ["app/Components/inventaire/Carte Bon/card-bon-list/*"],
+      "@ComBonValeur/*": ["app/Components/inventaire/Bon valeur/bon-valeur-list/*"],
+      "@ComShowDet/*": ["app/Components/check-current-session/Recette/show-details/*"],
+      "@ComRecetteCarteBMD/*": ["app/Components/check-current-session/Recette/show-details/recette-carte-bon/recette-carte-bon-more-details/*"]
     }
   }
 }

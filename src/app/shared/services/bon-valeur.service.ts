@@ -44,6 +44,28 @@ export class BonValeurService {
       });
   }
 
+  // get bons Valeur list by session id
+  getBonValeursListById(sessionId: string, sort?: MatSort, paginator?: MatPaginator): void {
+    this.http.get<BonValeur[]>(`${this.uri}/list`).subscribe(res => {
+      const key = 'bonValeurs';
+      this.bonValeurs = res[key];
+      this.bonValeurs = this.bonValeurs.reverse();
+      this.bonValeurs = this.bonValeurs.filter(x => x.sessionId === sessionId);
+      this.bonValeursMatTab.data = this.bonValeurs;
+      if (sort) {
+        this.bonValeursMatTab.sort = sort;
+      }
+      if (paginator) {
+        this.bonValeursMatTab.paginator = paginator;
+      }
+
+
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   // add new bon Valeur
   addBonValeur(bonValeur: BonValeur): Observable<any> {
     const request = { bonValeur };

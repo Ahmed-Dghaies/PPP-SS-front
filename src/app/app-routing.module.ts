@@ -6,6 +6,7 @@ import { LoginComponent } from './Components/Authentification/login/login.compon
 import { HomeComponent } from './Components/home/home.component';
 import { AuthGuard } from './shared/Guards/auth.guard';
 import { CheckCurrentSessionComponent } from './Components/check-current-session/check-current-session.component';
+import { InventaireComponent } from './Components/inventaire/inventaire.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'session',
     component: CheckCurrentSessionComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'inventaire',
+    component: InventaireComponent,
     canActivate: [AuthGuard]
   }
 ];

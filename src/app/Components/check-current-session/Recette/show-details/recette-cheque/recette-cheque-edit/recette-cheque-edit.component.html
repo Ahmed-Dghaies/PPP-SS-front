@@ -1,0 +1,63 @@
+<mat-toolbar>
+  <span>Modifier Cheque</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+        <mat-grid-tile>
+            <mat-form-field>
+              <input matInput placeholder="Nom du bénéficiaire" required type="text" name="payeeName"
+                [(ngModel)]="cheque.payeeName">
+              <mat-error>Nom du bénéficiaire est obligatoire</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Jour d'encaissement" required type="text" name="date"
+              [(ngModel)]="cheque.date">
+            <mat-error>Jour d'encaissement est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Numéro du cheque" required type="text" name="chequeNumber"
+              [(ngModel)]="cheque.chequeNumber">
+            <mat-error>Numéro du cheque est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Nom du bank" required type="text" name="bankName"
+              [(ngModel)]="cheque.bankName">
+            <mat-error>Nom du bank est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Montant du chèque" required type="number" name="chequeValue"
+              [(ngModel)]="cheque.chequeValue">
+            <mat-error>Montant du chèque est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="updateCheque()"
+        [disabled]="angForm.pristine || angForm.invalid">Modifier
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>
+
+

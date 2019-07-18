@@ -1,6 +1,7 @@
 export class Client {
     constructor() {
         this.name = '';
+        this.number = '';
         this.email = '';
         this.type = '';
         this.state = 'actif';
@@ -16,6 +17,7 @@ export class Client {
     }
     public _id?: string;
     public name: string;
+    public number: string;
     public email: string;
     public type: string;
     public state: string;

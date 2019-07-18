@@ -1,0 +1,29 @@
+<div mat-dialog-content>
+    <mat-list>
+      <mat-list-item>
+        <h4>Nom du bénéficiaire: </h4>&nbsp;&nbsp;{{cheque.payeeName}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4>Numéro du chèque: </h4>&nbsp;&nbsp;{{cheque.chequeNumber}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4>Nom du bank: </h4>&nbsp;&nbsp;{{cheque.bankName}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4>Montant du chèque: </h4>&nbsp;&nbsp;{{cheque.chequeValue}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h4>Jour d'encaissement: </h4>&nbsp;&nbsp;{{cheque.date}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+  <div mat-dialog-actions>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+    <span class="fill-remaining-space"></span>
+  </div>

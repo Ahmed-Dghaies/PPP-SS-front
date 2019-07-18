@@ -18,6 +18,7 @@ import { SessionService } from 'app/shared/services/session.service';
 import { CarteBonService } from 'app/shared/services/carte-bon.service';
 import { BonValeurService } from 'app/shared/services/bon-valeur.service';
 import { ChequeService } from 'app/shared/services/cheque.service';
+import { CreditService } from 'app/shared/services/credit.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -46,7 +47,8 @@ export class ConfirmDeleteComponent implements OnInit {
     private carburantService: CarburantService,
     private carteBonService: CarteBonService,
     private bonValeurService: BonValeurService,
-    private chequeService: ChequeService) {
+    private chequeService: ChequeService,
+    private creditService: CreditService) {
     this.id = data.id;
     this.msg = data.msg;
   }
@@ -81,6 +83,8 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteBonValeur();
     } else if (this.msg === 'cheque') {
       this.deleteCheque();
+    } else if (this.msg === 'credit') {
+      this.deleteCredit();
     }
   }
 
@@ -184,6 +188,17 @@ export class ConfirmDeleteComponent implements OnInit {
   deleteCheque(): void {
     this.chequeService.deleteCheque(this.id).subscribe(res => {
       this.chequeService.getChequesList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteCredit(): void {
+    this.creditService.deleteCredit(this.id).subscribe(res => {
+      this.creditService.getCreditsList();
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },

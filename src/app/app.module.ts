@@ -55,18 +55,33 @@ import { MatExpansionModule } from '@angular/material';
 import { ConfirmSessionCloserComponent } from './Components/check-current-session/confirm-session-closer/confirm-session-closer.component';
 import { ModifySessionComponent } from './Components/check-current-session/modify-session/modify-session.component';
 import { OpenSessionComponent } from './Components/check-current-session/open-session/open-session.component';
-import { ShowDetailsComponent } from './Components/check-current-session/Recette/show-details/show-details.component';
+import { ShowDetailsComponent } from '@ComShowDet/show-details.component';
 import { CardBonListComponent } from '@ComCarteBon/card-bon-list.component';
-import { CardBonAddComponent } from '@ComCarteBon/card-bon-add/card-bon-add.component';
 import { CardBonEditComponent } from '@ComCarteBon/card-bon-edit/card-bon-edit.component';
 import { CardBonMoreDetailsComponent } from '@ComCarteBon/card-bon-more-details/card-bon-more-details.component';
 import { BonValeurListComponent } from '@ComBonValeur/bon-valeur-list.component';
-import { BonValeurAddComponent } from '@ComBonValeur/bon-valeur-add/bon-valeur-add.component';
 import { BonValeurEditComponent } from '@ComBonValeur/bon-valeur-edit/bon-valeur-edit.component';
-import { ChequeListComponent } from './Components/parameters/Cheque/cheque-list/cheque-list.component';
-import { ChequeAddComponent } from './Components/parameters/Cheque/cheque-list/cheque-add/cheque-add.component';
-import { ChequeEditComponent } from './Components/parameters/Cheque/cheque-list/cheque-edit/cheque-edit.component';
+import { ChequeListComponent } from './Components/inventaire/Cheque/cheque-list/cheque-list.component';
+import { ChequeEditComponent } from './Components/inventaire/Cheque/cheque-list/cheque-edit/cheque-edit.component';
 import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
+import { InventaireComponent } from './Components/inventaire/inventaire.component';
+import { RecetteCarteBonComponent } from '@ComShowDet/recette-carte-bon/recette-carte-bon.component';
+import { RecetteBonValeurComponent } from '@ComShowDet/recette-bon-valeur/recette-bon-valeur.component';
+import { RecetteChequeComponent } from '@ComShowDet/recette-cheque/recette-cheque.component';
+import { RecetteChequeAddComponent } from '@ComShowDet/recette-cheque/recette-cheque-add/recette-cheque-add.component';
+import { RecetteChequeEditComponent } from '@ComShowDet/recette-cheque/recette-cheque-edit/recette-cheque-edit.component';
+import { RecetteCarteBonAddComponent } from '@ComShowDet/recette-carte-bon/recette-carte-bon-add/recette-carte-bon-add.component';
+import { RecetteCarteBonEditComponent } from '@ComShowDet/recette-carte-bon/recette-carte-bon-edit/recette-carte-bon-edit.component';
+import { RecetteCarteBonMoreDetailsComponent } from '@ComRecetteCarteBMD/recette-carte-bon-more-details.component';
+import { RecetteBonValeurAddComponent } from '@ComShowDet/recette-bon-valeur/recette-bon-valeur-add/recette-bon-valeur-add.component';
+import { RecetteBonValeurEditComponent } from '@ComShowDet/recette-bon-valeur/recette-bon-valeur-edit/recette-bon-valeur-edit.component';
+import { RecetteChequeMoreDetailsComponent } from './Components/check-current-session/Recette/show-details/recette-cheque/recette-cheque-more-details/recette-cheque-more-details.component';
+import { RecetteCreditsComponent } from './Components/check-current-session/Recette/show-details/recette-credits/recette-credits.component';
+import { RecetteCreditsAddComponent } from './Components/check-current-session/Recette/show-details/recette-credits/recette-credits-add/recette-credits-add.component';
+import { RecetteCreditsEditComponent } from './Components/check-current-session/Recette/show-details/recette-credits/recette-credits-edit/recette-credits-edit.component';
+import { CreditListComponent } from './Components/inventaire/Credit/credit-list/credit-list.component';
+import { CreditAddComponent } from './Components/inventaire/Credit/credit-list/credit-add/credit-add.component';
+import { CreditEditComponent } from './Components/inventaire/Credit/credit-list/credit-edit/credit-edit.component';
 
 @NgModule({
   declarations: [
@@ -115,15 +130,30 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
     OpenSessionComponent,
     ShowDetailsComponent,
     CardBonListComponent,
-    CardBonAddComponent,
     CardBonEditComponent,
     CardBonMoreDetailsComponent,
     BonValeurListComponent,
-    BonValeurAddComponent,
     BonValeurEditComponent,
     ChequeListComponent,
-    ChequeAddComponent,
-    ChequeEditComponent
+    ChequeEditComponent,
+    InventaireComponent,
+    RecetteCarteBonComponent,
+    RecetteBonValeurComponent,
+    RecetteChequeComponent,
+    RecetteChequeAddComponent,
+    RecetteChequeEditComponent,
+    RecetteCarteBonAddComponent,
+    RecetteCarteBonEditComponent,
+    RecetteCarteBonMoreDetailsComponent,
+    RecetteBonValeurAddComponent,
+    RecetteBonValeurEditComponent,
+    RecetteChequeMoreDetailsComponent,
+    RecetteCreditsComponent,
+    RecetteCreditsAddComponent,
+    RecetteCreditsEditComponent,
+    CreditListComponent,
+    CreditAddComponent,
+    CreditEditComponent
   ],
   imports: [
     BrowserModule,
@@ -165,13 +195,19 @@ import { NgProgressModule, NgProgressInterceptor } from 'ngx-progressbar';
     ModifySessionComponent,
     OpenSessionComponent,
     ShowDetailsComponent,
-    CardBonAddComponent,
     CardBonEditComponent,
     CardBonMoreDetailsComponent,
-    BonValeurAddComponent,
     BonValeurEditComponent,
-    ChequeAddComponent,
-    ChequeEditComponent
+    ChequeEditComponent,
+    RecetteChequeAddComponent,
+    RecetteChequeEditComponent,
+    RecetteCarteBonAddComponent,
+    RecetteCarteBonEditComponent,
+    RecetteCarteBonMoreDetailsComponent,
+    RecetteBonValeurAddComponent,
+    RecetteBonValeurEditComponent,
+    CreditAddComponent,
+    CreditEditComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

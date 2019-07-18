@@ -27,6 +27,14 @@
 
       <mat-grid-tile>
         <mat-form-field>
+          <input matInput placeholder="Numéro du client (4 chiffres)" required type="text" maxlength="4" name="number"
+            [(ngModel)]="client.number">
+          <mat-error>Numéro du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
           <input matInput placeholder="Email" required email type="email" name="email" [(ngModel)]="client.email"
             #email="ngModel">
           <mat-error *ngIf="email.errors?.required">Email est obligatoire</mat-error>
@@ -92,9 +100,6 @@
         </mat-form-field>
       </mat-grid-tile>
 
-    </mat-grid-list>
-
-    <mat-grid-list cols="1" rowHeight="100px">
       <mat-grid-tile>
         <mat-form-field>
           <input matInput placeholder="Region" required type="text" name="region" [(ngModel)]="client.region">

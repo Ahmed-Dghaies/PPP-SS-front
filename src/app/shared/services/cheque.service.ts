@@ -44,6 +44,28 @@ export class ChequeService {
       });
   }
 
+  // get cheques list by session id
+  getChequesListById(sessionId: string, sort?: MatSort, paginator?: MatPaginator): void {
+    this.http.get<Cheque[]>(`${this.uri}/list`).subscribe(res => {
+      const key = 'cheques';
+      this.cheques = res[key];
+      this.cheques = this.cheques.reverse();
+      this.cheques = this.cheques.filter(x => x.sessionId === sessionId);
+      this.chequesMatTab.data = this.cheques;
+      if (sort) {
+        this.chequesMatTab.sort = sort;
+      }
+      if (paginator) {
+        this.chequesMatTab.paginator = paginator;
+      }
+
+
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   // add new cheque
   addCheque(cheque: Cheque): Observable<any> {
     const request = { cheque };

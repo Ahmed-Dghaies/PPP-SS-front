@@ -5,6 +5,8 @@ export class CarteBon {
     this.cardValue = 0;
     this.numberOfCards = 0;
     this.totalValue = 0;
+    this.sessionId = '';
+    this.state = '';
     this.date = '';
   }
 
@@ -13,5 +15,7 @@ export class CarteBon {
   public cardValue: number;
   public numberOfCards: number;
   public totalValue: number;
+  public sessionId: string;
+  public state: string;
   public date: string;
 }
