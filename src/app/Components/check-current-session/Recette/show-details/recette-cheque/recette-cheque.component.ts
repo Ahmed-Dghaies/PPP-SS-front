@@ -26,7 +26,7 @@ export class RecetteChequeComponent implements OnInit {
   constructor(public chequeService: ChequeService,
               private dialog: MatDialog,
               private sessionService: SessionService) {
-    this.displayedColumns = ['payeeName', 'chequeNumber', 'bankName', 'date', 'chequeValue', 'actions'];
+    this.displayedColumns = ['payeeName', 'bankName', 'date', 'chequeValue', 'actions'];
   }
 
   @HostListener('window:resize', ['$event'])
@@ -36,7 +36,7 @@ export class RecetteChequeComponent implements OnInit {
     if (this.screenWidth < 650) {
       this.displayedColumns = ['payeeName', 'bankName', 'chequeValue', 'actions'];
     } else {
-      this.displayedColumns = ['payeeName', 'chequeNumber', 'bankName', 'date', 'chequeValue', 'actions'];
+      this.displayedColumns = ['payeeName', 'bankName', 'date', 'chequeValue', 'actions'];
     }
   }
 

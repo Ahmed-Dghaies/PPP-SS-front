@@ -54,6 +54,7 @@ export class ConfirmDeleteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sessionService.getCurrentSession();
   }
 
   delete() {
@@ -85,6 +86,12 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteCheque();
     } else if (this.msg === 'credit') {
       this.deleteCredit();
+    } else if (this.msg === 'recette-carteBon') {
+      this.deleteRecetteCarteBon();
+    } else if (this.msg === 'recette-bonValeur') {
+      this.deleteRecetteBonValeur();
+    } else if (this.msg === 'recette-cheque') {
+      this.deleteRecetteCheque();
     }
   }
 
@@ -274,6 +281,39 @@ export class ConfirmDeleteComponent implements OnInit {
       this.notifService.warn('Erreur');
       this.dialogRef.close();
     });
+  }
+
+  deleteRecetteCarteBon(): void {
+    this.carteBonService.deleteCarteBon(this.id).subscribe(res => {
+      this.carteBonService.getCarteBonsListById(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteRecetteCheque(): void {
+    this.chequeService.deleteCheque(this.id).subscribe(res => {
+      this.chequeService.getChequesListById(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteRecetteBonValeur(): void {
+    this.bonValeurService.deleteBonValeur(this.id).subscribe(res => {
+      this.bonValeurService.getBonValeursListById(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
   }
 
 }

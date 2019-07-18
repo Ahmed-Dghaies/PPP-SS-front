@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ChequeService } from 'app/shared/services/cheque.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-recette-cheque-edit',
@@ -18,7 +19,8 @@ export class RecetteChequeEditComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RecetteChequeEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private chequeService: ChequeService,
-              private notifservice: NotificationService) {
+              private notifservice: NotificationService,
+              private sessionService: SessionService) {
     this.cheque = data.cheque;
     this.width = 2;
   }
@@ -39,7 +41,7 @@ export class RecetteChequeEditComponent implements OnInit {
 
   updateCheque(): void {
     this.chequeService.updateCheque(this.cheque._id, this.cheque).subscribe(res => {
-      this.chequeService.getChequesList();
+      this.chequeService.getChequesListById(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifservice.success('Cheque modifié avec succés');
     },

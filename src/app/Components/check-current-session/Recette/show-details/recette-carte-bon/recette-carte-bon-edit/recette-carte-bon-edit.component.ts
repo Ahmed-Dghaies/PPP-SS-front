@@ -5,6 +5,7 @@ import { CarteBonService } from 'app/shared/services/carte-bon.service';
 import { CarteBonTypeService } from 'app/shared/services/carte-bon-type.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-recette-carte-bon-edit',
@@ -20,7 +21,8 @@ export class RecetteCarteBonEditComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private carteBonService: CarteBonService,
               public carteBonTypeService: CarteBonTypeService,
-              private notifservice: NotificationService) {
+              private notifservice: NotificationService,
+              private sessionService: SessionService) {
     this.carteBon = data.carteBon;
     this.width = 2;
   }
@@ -43,7 +45,7 @@ export class RecetteCarteBonEditComponent implements OnInit {
   updateCarteBon(): void {
     this.carteBon.totalValue = parseFloat((this.carteBon.cardValue * this.carteBon.numberOfCards).toFixed(3));
     this.carteBonService.updateCarteBon(this.carteBon._id, this.carteBon).subscribe(res => {
-      this.carteBonService.getCarteBonsList();
+      this.carteBonService.getCarteBonsListById(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifservice.success('Carte Bon modifié avec succés');
     },

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { BonValeurService } from 'app/shared/services/bon-valeur.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-recette-bon-valeur-edit',
@@ -18,7 +19,8 @@ export class RecetteBonValeurEditComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RecetteBonValeurEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private bonValeurService: BonValeurService,
-              private notifservice: NotificationService) {
+              private notifservice: NotificationService,
+              private sessionService: SessionService) {
     this.bonValeur = data.bonValeur;
     this.width = 2;
   }
@@ -40,7 +42,7 @@ export class RecetteBonValeurEditComponent implements OnInit {
   updateBonValeur(): void {
     this.bonValeur.totalValue = this.bonValeur.cardValue * this.bonValeur.numberOfCards;
     this.bonValeurService.updateBonValeur(this.bonValeur._id, this.bonValeur).subscribe(res => {
-      this.bonValeurService.getBonValeursList();
+      this.bonValeurService.getBonValeursListById(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifservice.success('Bon Valeur modifié avec succés');
     },

@@ -16,11 +16,6 @@
       <mat-cell *matCellDef="let element">{{element.payeeName}}</mat-cell>
       <mat-footer-cell *matFooterCellDef>Recette Cheques</mat-footer-cell>
     </ng-container>
-    <ng-container matColumnDef="chequeNumber">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du chèque</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.chequeNumber}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
-    </ng-container>
     <ng-container matColumnDef="bankName">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du bank</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.bankName}}</mat-cell>
@@ -47,7 +42,7 @@
           <mat-icon>edit</mat-icon>
         </button>
         <button class="position" mat-icon-button matTooltip="Supprimer" color="warn"
-          (click)="deleteChequeDialog(row._id, 'cheque')">
+          (click)="deleteChequeDialog(row._id, 'recette-cheque')">
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-cell>

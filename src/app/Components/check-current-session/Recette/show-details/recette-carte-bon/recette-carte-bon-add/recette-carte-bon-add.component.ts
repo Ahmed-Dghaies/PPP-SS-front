@@ -83,7 +83,7 @@ export class RecetteCarteBonAddComponent implements OnInit {
     this.carteBon.sessionId = this.sessionService.sessions[0]._id;
     this.carteBon.totalValue = parseFloat((this.carteBon.cardValue * this.carteBon.numberOfCards).toFixed(3));
     this.carteBonService.addCarteBon(this.carteBon).subscribe(res => {
-      this.carteBonService.getCarteBonsList();
+      this.carteBonService.getCarteBonsListById(this.sessionService.currentSessionId);
       this.dialogMat.close();
       this.notifService.success('Carte Bon ajouter avec succés');
     },

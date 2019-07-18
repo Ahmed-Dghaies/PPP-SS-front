@@ -46,7 +46,7 @@ export class RecetteBonValeurAddComponent implements OnInit {
     this.bonValeur.state = 'Non';
     this.bonValeur.sessionId = this.sessionService.sessions[0]._id;
     this.bonValeurService.addBonValeur(this.bonValeur).subscribe(res => {
-      this.bonValeurService.getBonValeursList();
+      this.bonValeurService.getBonValeursListById(this.sessionService.currentSessionId);
       this.dialogMat.close();
       this.notifService.success('Bon Valeur ajouter avec succés');
     },

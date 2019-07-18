@@ -45,7 +45,7 @@ export class RecetteChequeAddComponent implements OnInit {
     this.cheque.state = 'Non';
     this.cheque.sessionId = this.sessionService.sessions[0]._id;
     this.chequeService.addCheque(this.cheque).subscribe(res => {
-      this.chequeService.getChequesList();
+      this.chequeService.getChequesListById(this.sessionService.currentSessionId);
       this.dialogMat.close();
       this.notifService.success('Cheque ajouter avec succés');
     },
