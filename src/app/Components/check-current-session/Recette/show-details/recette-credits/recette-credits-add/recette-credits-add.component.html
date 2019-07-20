@@ -1,3 +1,60 @@
-<p>
-  recette-credits-add works!
-</p>
+<mat-toolbar>
+  <span>Ajouter payement payementCredit</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <div mat-dialog-content>
+      <mat-grid-list [cols]="width" rowHeight="100px">
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Numéro du client" required type="text" maxlength="4" name="clientNumber"
+              (change)="getClient(payementCredit.clientNumber)" [(ngModel)]="payementCredit.clientNumber">
+            <mat-error>Numéro du client est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Nom du client" required disabled type="text" name="clientName"
+              [(ngModel)]="payementCredit.clientName">
+            <mat-error>Nom du client est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Valeur initial du crédit" required type="number" name="payementValue"
+              [(ngModel)]="payementCredit.payementValue">
+            <mat-error>Valeur initial du crédit est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="date de payement" required disabled type="text" name="date"
+              [(ngModel)]="payementCredit.date">
+            <mat-error>date de payement est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+      <div>
+        <span class="error-message" *ngIf="error">{{errorMessage}}</span>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <div class="button-row">
+        <button mat-raised-button color="primary" (click)="addPayementCredit()"
+          [disabled]="angForm.pristine || angForm.invalid">Ajouter
+        </button>
+        <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+      </div>
+    </div>
+  </div>
+</form>

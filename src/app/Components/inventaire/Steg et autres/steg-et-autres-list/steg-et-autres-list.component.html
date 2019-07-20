@@ -1,0 +1,78 @@
+<div class="search-div">
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput placeholder="Search" autocomplete="off" [(ngModel)]="search" (keyup)="filter()">
+    <button *ngIf="search" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="stegEtAutreService.stegEtAutresMatTab" matSort>
+    <ng-container matColumnDef="clientNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du client</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.clientNumber}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef>Recette Crédits</mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="clientName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du client</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.clientName}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="carburant">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Code Carburant</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.carburant}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="numberOfCards">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre des bons</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.numberOfCards}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="totalValue">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Total bons</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.totalValue}}</mat-cell>
+      <mat-footer-cell *matFooterCellDef>
+        <!--{{getTotalPrevue()}}-->
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button class="position" mat-icon-button matTooltip="Voir plus" (click)="seeMoreDialog(row)">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button class="position" mat-icon-button matTooltip="Editer" color="primary"
+          (click)="updateStegEtAutreDialog(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="position" mat-icon-button matTooltip="Supprimer" color="warn"
+          (click)="deleteStegEtAutreDialog(row._id, 'stegEtAutre')">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data ...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="displayedColumns"
+      [ngClass]="{'hide':stegEtAutreService.stegEtAutresMatTab!=null && stegEtAutreService.stegEtAutresMatTab.data.length==0}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':stegEtAutreService.stegEtAutresMatTab!=null}">
+    </mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']"
+      [ngClass]="{'hide':!(stegEtAutreService.stegEtAutresMatTab!=null && stegEtAutreService.stegEtAutresMatTab.data.length==0)}">
+    </mat-footer-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

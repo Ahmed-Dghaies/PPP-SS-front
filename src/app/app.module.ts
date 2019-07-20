@@ -82,6 +82,13 @@ import { RecetteCreditsEditComponent } from '@ComShowDet/recette-credits/recette
 import { CreditListComponent } from './Components/inventaire/Credit/credit-list/credit-list.component';
 import { CreditAddComponent } from './Components/inventaire/Credit/credit-list/credit-add/credit-add.component';
 import { CreditEditComponent } from './Components/inventaire/Credit/credit-list/credit-edit/credit-edit.component';
+import { RecetteStegEtAutresComponent } from '@ComRecetteSEA/recette-steg-et-autres.component';
+import { RecetteStegEtAutresAddComponent } from '@ComRecetteSEA/recette-steg-et-autres-add/recette-steg-et-autres-add.component';
+import { RecetteStegEtAutresEditComponent } from '@ComRecetteSEA/recette-steg-et-autres-edit/recette-steg-et-autres-edit.component';
+import { StegEtAutresListComponent } from '@ComSEA/steg-et-autres-list.component';
+import { StegEtAutresEditComponent } from '@ComSEA/steg-et-autres-edit/steg-et-autres-edit.component';
+import { StegEtAutresMoreDetailsComponent } from '@ComSEA/steg-et-autres-more-details/steg-et-autres-more-details.component';
+import { RecetteStegEtAutresMoreDetailsComponent } from '@ComSEAMD';
 
 @NgModule({
   declarations: [
@@ -153,7 +160,14 @@ import { CreditEditComponent } from './Components/inventaire/Credit/credit-list/
     RecetteCreditsEditComponent,
     CreditListComponent,
     CreditAddComponent,
-    CreditEditComponent
+    CreditEditComponent,
+    RecetteStegEtAutresComponent,
+    RecetteStegEtAutresAddComponent,
+    RecetteStegEtAutresEditComponent,
+    RecetteStegEtAutresMoreDetailsComponent,
+    StegEtAutresListComponent,
+    StegEtAutresEditComponent,
+    StegEtAutresMoreDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -207,7 +221,14 @@ import { CreditEditComponent } from './Components/inventaire/Credit/credit-list/
     RecetteBonValeurAddComponent,
     RecetteBonValeurEditComponent,
     CreditAddComponent,
-    CreditEditComponent
+    CreditEditComponent,
+    RecetteCreditsAddComponent,
+    RecetteCreditsEditComponent,
+    StegEtAutresEditComponent,
+    StegEtAutresMoreDetailsComponent,
+    RecetteStegEtAutresAddComponent,
+    RecetteStegEtAutresEditComponent,
+    RecetteStegEtAutresMoreDetailsComponent,
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

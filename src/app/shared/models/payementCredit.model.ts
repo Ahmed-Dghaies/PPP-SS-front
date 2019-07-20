@@ -4,6 +4,7 @@ export class PayementCredit {
     this.clientName = '';
     this.clientNumber = '';
     this.payementValue = 0;
+    this.sessionId = '';
     this.date = '';
   }
 
@@ -11,5 +12,6 @@ export class PayementCredit {
   public clientNumber: string;
   public clientName: string;
   public payementValue: number;
+  public sessionId: string;
   public date: string;
 }

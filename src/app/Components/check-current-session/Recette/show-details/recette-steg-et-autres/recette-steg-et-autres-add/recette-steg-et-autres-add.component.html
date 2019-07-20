@@ -1,0 +1,95 @@
+<mat-toolbar>
+  <span>Ajouter Bon</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Numéro du client" required type="text" name="clientNumber" maxlength="4"
+            (change)="getClient(stegEtAutre.clientNumber)" [(ngModel)]="stegEtAutre.clientNumber">
+          <mat-error>Numéro du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom du client" required disabled type="text" name="clientName"
+            [(ngModel)]="stegEtAutre.clientName">
+          <mat-error>Nom du client est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Chauffeur" required type="text" name="chauffeur"
+            [(ngModel)]="stegEtAutre.chauffeur">
+          <mat-error>Chauffeur est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Carburant</mat-label>
+          <mat-select required [(ngModel)]="stegEtAutre.carburant" name="carburant"
+            (selectionChange)="getCarburantPrices(stegEtAutre.carburant)">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id">{{p.ref}}</mat-option>
+          </mat-select>
+          <mat-error>Carburant est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre de litres" required type="number" name="numberOfLiters"
+            [(ngModel)]="stegEtAutre.numberOfLiters">
+          <mat-error>Nombre de litres est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Prix (L)</mat-label>
+          <mat-select required [(ngModel)]="stegEtAutre.literPrice" name="literPrice">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let p of prices" [value]="p">{{p}}</mat-option>
+          </mat-select>
+          <mat-error>Prix d'un litre est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre de bons" required type="number" name="numberOfCards"
+            [(ngModel)]="stegEtAutre.numberOfCards">
+          <mat-error>Nombre de cartes est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="date de livraison" required disabled type="text" name="date"
+            [(ngModel)]="stegEtAutre.date">
+          <mat-error>date de livraison est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+    <div>
+      <span class="error-message" *ngIf="error">{{errorMessage}}</span>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addStegEtAutre()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

@@ -1,27 +1,30 @@
 <mat-toolbar>
   <span>Ajouter prix carburant</span>
   <span class="fill-remaining-space"></span>
-  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
 </mat-toolbar>
 <form mat-dialog-content class="normal-form" #angForm="ngForm" (submit)="addCarburant()">
   <mat-grid-list cols="1" rowHeight="300px">
     <mat-grid-tile>
       <div class="controles-container">
-          <mat-form-field>
-              <mat-label>Carburant</mat-label>
-              <mat-select required [(ngModel)]="prixCarburant.carburant" name="carburant">
-                <mat-option>None</mat-option>
-                <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id">{{p.ref}}</mat-option>
-              </mat-select>
+        <mat-form-field>
+          <mat-label>Carburant</mat-label>
+          <mat-select required [(ngModel)]="prixCarburant.carburant" name="carburant">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let p of carburantService.carburants" [value]="p._id">{{p.ref}}</mat-option>
+          </mat-select>
 
-              <mat-error>Ce champ est obligatoire</mat-error>
-            </mat-form-field>
+          <mat-error>Ce champ est obligatoire</mat-error>
+        </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Prix" required type="number" name="prix" [(ngModel)]="prixCarburant.prix">
           <mat-error>Ce champ est obligatoire.</mat-error>
         </mat-form-field>
         <div class="button-row">
-          <button mat-raised-button color="primary" type="submit" [disabled]="angForm.pristine || angForm.invalid" >Ajouter Prix</button>
+          <button mat-raised-button color="primary" type="submit"
+            [disabled]="angForm.pristine || angForm.invalid">Ajouter Prix</button>
           <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
         </div>
       </div>

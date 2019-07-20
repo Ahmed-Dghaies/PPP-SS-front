@@ -19,6 +19,8 @@ import { CarteBonService } from 'app/shared/services/carte-bon.service';
 import { BonValeurService } from 'app/shared/services/bon-valeur.service';
 import { ChequeService } from 'app/shared/services/cheque.service';
 import { CreditService } from 'app/shared/services/credit.service';
+import { PayementCreditService } from 'app/shared/services/payement-credit.service';
+import { StegEtAutresService } from 'app/shared/services/steg-et-autres.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -48,7 +50,9 @@ export class ConfirmDeleteComponent implements OnInit {
     private carteBonService: CarteBonService,
     private bonValeurService: BonValeurService,
     private chequeService: ChequeService,
-    private creditService: CreditService) {
+    private creditService: CreditService,
+    private payementCreditService: PayementCreditService,
+    private stegEtAutreService: StegEtAutresService) {
     this.id = data.id;
     this.msg = data.msg;
   }
@@ -92,6 +96,10 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteRecetteBonValeur();
     } else if (this.msg === 'recette-cheque') {
       this.deleteRecetteCheque();
+    } else if (this.msg === 'Payement credit') {
+      this.deletePayementCredit();
+    } else if (this.msg === 'stegEtAutre') {
+      this.deleteStegEtAutre();
     }
   }
 
@@ -102,6 +110,17 @@ export class ConfirmDeleteComponent implements OnInit {
   deletePrixCarburant(): void {
     this.prixcarburantService.deletePrixCarburant(this.id).subscribe(res => {
       this.prixcarburantService.getCarburantList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteStegEtAutre(): void {
+    this.stegEtAutreService.deleteStegEtAutre(this.id).subscribe(res => {
+      this.stegEtAutreService.getStegEtAutresList();
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },
@@ -206,6 +225,17 @@ export class ConfirmDeleteComponent implements OnInit {
   deleteCredit(): void {
     this.creditService.deleteCredit(this.id).subscribe(res => {
       this.creditService.getCreditsList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deletePayementCredit(): void {
+    this.payementCreditService.deletePayementCredit(this.id).subscribe(res => {
+      this.payementCreditService.getPayementCreditsList(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },
