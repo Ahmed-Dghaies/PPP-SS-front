@@ -93,10 +93,11 @@ export class RecetteStegEtAutresAddComponent implements OnInit {
   }
 
   addStegEtAutre(): void {
+    this.stegEtAutre.sessionId = this.sessionService.currentSessionId;
     this.stegEtAutre.cardValue = parseFloat((this.stegEtAutre.literPrice * this.stegEtAutre.numberOfLiters).toFixed(3));
     this.stegEtAutre.totalValue = parseFloat((this.stegEtAutre.cardValue * this.stegEtAutre.numberOfCards).toFixed(3));
     this.stegEtAutreService.addStegEtAutre(this.stegEtAutre).subscribe(res => {
-      this.stegEtAutreService.getStegEtAutresList();
+      this.stegEtAutreService.getStegEtAutresListById(this.sessionService.currentSessionId);
       this.dialogMat.close();
       this.notifService.success('Bon ajouter avec succés');
     },

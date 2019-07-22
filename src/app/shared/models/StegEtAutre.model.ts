@@ -1,6 +1,7 @@
 export class StegEtAutre {
 
   constructor() {
+    this.cardNumber = '';
     this.clientName = '';
     this.clientNumber = '';
     this.carburant = '';
@@ -10,10 +11,12 @@ export class StegEtAutre {
     this.numberOfLiters = 0;
     this.cardValue = 0;
     this.totalValue = 0;
+    this.sessionId = '';
     this.date = '';
   }
 
   public _id?: string;
+  public cardNumber: string;
   public clientNumber: string;
   public clientName: string;
   public chauffeur: string;
@@ -23,5 +26,6 @@ export class StegEtAutre {
   public numberOfCards: number;
   public cardValue: number;
   public totalValue: number;
+  public sessionId: string;
   public date: string;
 }

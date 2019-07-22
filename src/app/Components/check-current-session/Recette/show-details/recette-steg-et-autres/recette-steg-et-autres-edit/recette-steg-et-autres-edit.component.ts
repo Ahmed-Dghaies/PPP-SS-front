@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { StegEtAutresService } from 'app/shared/services/steg-et-autres.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-recette-steg-et-autres-edit',
@@ -18,6 +19,7 @@ export class RecetteStegEtAutresEditComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RecetteStegEtAutresEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private stegEtAutreService: StegEtAutresService,
+              private sessionService: SessionService,
               private notifservice: NotificationService) {
     this.stegEtAutre = data.stegEtAutre;
     this.width = 2;
@@ -39,7 +41,7 @@ export class RecetteStegEtAutresEditComponent implements OnInit {
 
   updateStegEtAutre(): void {
     this.stegEtAutreService.updateStegEtAutre(this.stegEtAutre._id, this.stegEtAutre).subscribe(res => {
-      this.stegEtAutreService.getStegEtAutresList();
+      this.stegEtAutreService.getStegEtAutresListById(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifservice.success('Bon modifié avec succés');
     },

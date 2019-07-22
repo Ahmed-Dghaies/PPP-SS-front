@@ -1,49 +1,53 @@
 <div mat-dialog-content>
-    <mat-list>
-      <mat-list-item>
-        <h4>Code client: </h4>&nbsp;&nbsp;{{stegEtAutre.clientNumber}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Nom client: </h4>&nbsp;&nbsp;{{stegEtAutre.clientName}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Chauffeur: </h4>&nbsp;&nbsp;{{stegEtAutre.chauffeur}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>carburant: </h4>&nbsp;&nbsp;{{stegEtAutre.carburant}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Nombre de litres: </h4>&nbsp;&nbsp;{{stegEtAutre.numberOfLiters}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Prix par litre: </h4>&nbsp;&nbsp;{{stegEtAutre.literPrice}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Nombre de cartes: </h4>&nbsp;&nbsp;{{stegEtAutre.numberOfCards}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Valeur du carte: </h4>&nbsp;&nbsp;{{stegEtAutre.cardValue}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Valeur total: </h4>&nbsp;&nbsp;{{stegEtAutre.totalValue}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>
-        <h4>Date de livraison: </h4>&nbsp;&nbsp;{{stegEtAutre.date}}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </mat-list>
-  </div>
-  <div mat-dialog-actions>
-    <span class="fill-remaining-space"></span>
-    <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
-    <span class="fill-remaining-space"></span>
-  </div>
+  <mat-list>
+    <mat-list-item>
+      <h4>Numéro Bon: </h4>&nbsp;&nbsp;{{stegEtAutre.cardNumber}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Code client: </h4>&nbsp;&nbsp;{{stegEtAutre.clientNumber}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nom client: </h4>&nbsp;&nbsp;{{stegEtAutre.clientName}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Chauffeur: </h4>&nbsp;&nbsp;{{stegEtAutre.chauffeur}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>carburant: </h4>&nbsp;&nbsp;{{stegEtAutre.carburant}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nombre de litres: </h4>&nbsp;&nbsp;{{stegEtAutre.numberOfLiters}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Prix par litre: </h4>&nbsp;&nbsp;{{stegEtAutre.literPrice}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nombre de cartes: </h4>&nbsp;&nbsp;{{stegEtAutre.numberOfCards}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Valeur du carte: </h4>&nbsp;&nbsp;{{stegEtAutre.cardValue}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Valeur total: </h4>&nbsp;&nbsp;{{stegEtAutre.totalValue}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Date de livraison: </h4>&nbsp;&nbsp;{{stegEtAutre.date}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+  <span class="fill-remaining-space"></span>
+</div>

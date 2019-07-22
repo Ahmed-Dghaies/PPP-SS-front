@@ -100,6 +100,8 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deletePayementCredit();
     } else if (this.msg === 'stegEtAutre') {
       this.deleteStegEtAutre();
+    } else if (this.msg === 'recette-stegEtAutre') {
+      this.deleteRecetteStegEtAutre();
     }
   }
 
@@ -121,6 +123,17 @@ export class ConfirmDeleteComponent implements OnInit {
   deleteStegEtAutre(): void {
     this.stegEtAutreService.deleteStegEtAutre(this.id).subscribe(res => {
       this.stegEtAutreService.getStegEtAutresList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteRecetteStegEtAutre(): void {
+    this.stegEtAutreService.deleteStegEtAutre(this.id).subscribe(res => {
+      this.stegEtAutreService.getStegEtAutresListById(this.sessionService.currentSessionId);
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },

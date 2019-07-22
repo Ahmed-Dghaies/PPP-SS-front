@@ -6,6 +6,7 @@ import { RecetteStegEtAutresEditComponent } from './recette-steg-et-autres-edit/
 import { StegEtAutresService } from 'app/shared/services/steg-et-autres.service';
 import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { RecetteStegEtAutresMoreDetailsComponent } from '@ComSEAMD';
+import { SessionService } from 'app/shared/services/session.service';
 
 @Component({
   selector: 'app-recette-steg-et-autres',
@@ -23,7 +24,8 @@ export class RecetteStegEtAutresComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public stegEtAutreService: StegEtAutresService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private sessionService: SessionService) {
     this.displayedColumns = ['clientName', 'carburant', 'numberOfCards', 'totalValue', 'actions'];
   }
 
@@ -43,7 +45,7 @@ export class RecetteStegEtAutresComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stegEtAutreService.getStegEtAutresList(this.sort, this.paginator);
+    this.stegEtAutreService.getStegEtAutresListById(this.sessionService.currentSessionId, this.sort, this.paginator);
   }
 
   addStegEtAutreDialog(): void {

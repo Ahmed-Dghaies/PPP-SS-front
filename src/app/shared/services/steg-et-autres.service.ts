@@ -56,6 +56,37 @@ export class StegEtAutresService {
       });
   }
 
+  // get stegEtAutres list by session Id
+  getStegEtAutresListById(sessionId: string, sort?: MatSort, paginator?: MatPaginator): void {
+    this.http.get<StegEtAutre[]>(`${this.uri}/list`).subscribe(res => {
+      const key = 'stegEtAutres';
+      this.stegEtAutres = res[key];
+      if (this.stegEtAutres.length > 0) {
+        let carburant: Carburant;
+        this.stegEtAutres.forEach((element: StegEtAutre) => {
+          this.carburantService.getById(element.carburant).subscribe((carb: Carburant) => {
+            carburant = carb;
+            element.carburant = carburant.ref;
+          });
+        });
+        this.stegEtAutres = this.stegEtAutres.filter(s => s.sessionId === sessionId);
+        this.stegEtAutres = this.stegEtAutres.reverse();
+      }
+      this.stegEtAutresMatTab.data = this.stegEtAutres;
+      if (sort) {
+        this.stegEtAutresMatTab.sort = sort;
+      }
+      if (paginator) {
+        this.stegEtAutresMatTab.paginator = paginator;
+      }
+
+
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   // add new stegEtAutre
   addStegEtAutre(stegEtAutre: StegEtAutre): Observable<any> {
     const request = { stegEtAutre };

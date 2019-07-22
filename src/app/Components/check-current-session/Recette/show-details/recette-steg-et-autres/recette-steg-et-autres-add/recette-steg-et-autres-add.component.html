@@ -12,6 +12,14 @@
 
       <mat-grid-tile>
         <mat-form-field>
+          <input matInput placeholder="Numéro du bon" required type="text" name="cardNumber"
+            [(ngModel)]="stegEtAutre.cardNumber">
+          <mat-error>Numéro du bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
           <input matInput placeholder="Numéro du client" required type="text" name="clientNumber" maxlength="4"
             (change)="getClient(stegEtAutre.clientNumber)" [(ngModel)]="stegEtAutre.clientNumber">
           <mat-error>Numéro du client est obligatoire</mat-error>
