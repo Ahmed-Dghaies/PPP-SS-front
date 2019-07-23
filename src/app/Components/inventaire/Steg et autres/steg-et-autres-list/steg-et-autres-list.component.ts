@@ -51,11 +51,10 @@ export class StegEtAutresListComponent implements OnInit {
     });
   }
 
-  seeMoreDialog(carteBon): void {
+  seeMoreDialog(stegEtAutre): void {
     this.dialog.open(StegEtAutresMoreDetailsComponent, {
       panelClass: 'full-width-dialog',
-      height: '500px',
-      data: { carteBon }
+      data: { stegEtAutre }
     });
 
   }

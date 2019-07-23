@@ -1,81 +1,92 @@
 <ng-progress [positionUsing]="'marginLeft'" [direction]="'leftToRightIncreased'" [color]="'#4286f4'"
   [trickleSpeed]="500" [thick]="true" [ease]="'easeInSine'"></ng-progress>
 <div class="container">
-    <mat-accordion>
+  <mat-accordion>
 
-      <div class="margin-param">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <span color="primary">Carte Bon Types</span>
-          </mat-expansion-panel-header>
-          <app-card-type-list></app-card-type-list>
-        </mat-expansion-panel>
-      </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span color="primary">Carte Bon Types</span>
+        </mat-expansion-panel-header>
+        <app-card-type-list></app-card-type-list>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <span>Clients</span>
-          </mat-expansion-panel-header>
-          <div>
-            <app-client-list></app-client-list>
-          </div>
-        </mat-expansion-panel>
-      </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span>Clients</span>
+        </mat-expansion-panel-header>
+        <div>
+          <app-client-list></app-client-list>
+        </div>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <span>Citernes</span>
-          </mat-expansion-panel-header>
-          <app-citerne-list></app-citerne-list>
-        </mat-expansion-panel>
-      </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span>Citernes</span>
+        </mat-expansion-panel-header>
+        <app-citerne-list></app-citerne-list>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <span>Indexs</span>
-          </mat-expansion-panel-header>
-          <app-index-list></app-index-list>
-        </mat-expansion-panel>
-      </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span>Indexs</span>
+        </mat-expansion-panel-header>
+        <app-index-list></app-index-list>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <span>Distributeur</span>
-          </mat-expansion-panel-header>
-          <app-distributeur-list></app-distributeur-list>
-        </mat-expansion-panel>
-      </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span>Distributeur</span>
+        </mat-expansion-panel-header>
+        <app-distributeur-list></app-distributeur-list>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <span>Carburant</span>
-          </mat-expansion-panel-header>
-          <app-carburant></app-carburant>
-        </mat-expansion-panel>
-      </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span>Carburant</span>
+        </mat-expansion-panel-header>
+        <app-carburant></app-carburant>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-          <mat-expansion-panel>
-              <mat-expansion-panel-header>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
           <span>Prix carburant</span>
-          </mat-expansion-panel-header>
+        </mat-expansion-panel-header>
         <app-prix-carburant-list></app-prix-carburant-list>
-        </mat-expansion-panel>
-      </div>
+      </mat-expansion-panel>
+    </div>
 
-      <div class="margin-param">
-          <mat-expansion-panel>
-              <mat-expansion-panel-header>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
           <span>Pompiste</span>
         </mat-expansion-panel-header>
         <app-pompiste-list></app-pompiste-list>
-        </mat-expansion-panel>
-      </div>
-    </mat-accordion>
+      </mat-expansion-panel>
+    </div>
 
-  </div>
+    <div class="margin-param">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <span>Banques</span>
+        </mat-expansion-panel-header>
+        <div>
+          <app-bank-list></app-bank-list>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+
+</div>

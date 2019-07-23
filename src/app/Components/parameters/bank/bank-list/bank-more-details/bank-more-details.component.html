@@ -1,0 +1,54 @@
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item>
+      <h4>Nom du bank: </h4>&nbsp;&nbsp;{{bank.bankName}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Code bank: </h4>&nbsp;&nbsp;{{bank.bankCode}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Code agence: </h4>&nbsp;&nbsp;{{bank.agencyCode}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nom agence: </h4>&nbsp;&nbsp;{{bank.agencyName}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Comptoir: </h4>&nbsp;&nbsp;{{bank.comptoir}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Adress: </h4>&nbsp;&nbsp;{{bank.adress}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Tel: </h4>&nbsp;&nbsp;{{bank.tel}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nom du responsable: </h4>&nbsp;&nbsp;{{bank.responsibleName}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>D. agrem: </h4>&nbsp;&nbsp;{{bank.dAgrem}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>D. Ouv: </h4>&nbsp;&nbsp;{{bank.dOuv}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>D. Ferm: </h4>&nbsp;&nbsp;{{bank.dFerm}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+  <span class="fill-remaining-space"></span>
+</div>
+

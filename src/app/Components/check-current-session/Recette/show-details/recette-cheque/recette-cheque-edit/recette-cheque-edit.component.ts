@@ -5,6 +5,7 @@ import { ChequeService } from 'app/shared/services/cheque.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
 import { SessionService } from 'app/shared/services/session.service';
+import { BankService } from 'app/shared/services/bank.service';
 
 @Component({
   selector: 'app-recette-cheque-edit',
@@ -20,15 +21,25 @@ export class RecetteChequeEditComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private chequeService: ChequeService,
               private notifservice: NotificationService,
-              private sessionService: SessionService) {
+              private sessionService: SessionService,
+              private bankService: BankService) {
     this.cheque = data.cheque;
     this.width = 2;
+  }
+
+  getBankAgeny(rib: string) {
+    const bankCode = parseFloat(rib.slice(0, 2));
+    const agencyCode = parseFloat(rib.slice(3, 6));
+    const res = this.bankService.banks.filter(b => b.bankCode === bankCode).filter(b => b.agencyCode === agencyCode);
+    this.cheque.bankName = res[0].bankName;
+    this.cheque.agency = res[0].agencyName;
   }
 
   ngOnInit() {
     if (document.body.clientWidth < 600) {
       this.width = 1;
     }
+    this.bankService.getBanksList();
   }
 
   onClose(): void {

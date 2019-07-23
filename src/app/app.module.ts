@@ -89,6 +89,10 @@ import { StegEtAutresListComponent } from '@ComSEA/steg-et-autres-list.component
 import { StegEtAutresEditComponent } from '@ComSEA/steg-et-autres-edit/steg-et-autres-edit.component';
 import { StegEtAutresMoreDetailsComponent } from '@ComSEA/steg-et-autres-more-details/steg-et-autres-more-details.component';
 import { RecetteStegEtAutresMoreDetailsComponent } from '@ComSEAMD';
+import { BankListComponent } from './Components/parameters/bank/bank-list/bank-list.component';
+import { BankAddComponent } from './Components/parameters/bank/bank-list/bank-add/bank-add.component';
+import { BankEditComponent } from './Components/parameters/bank/bank-list/bank-edit/bank-edit.component';
+import { BankMoreDetailsComponent } from './Components/parameters/bank/bank-list/bank-more-details/bank-more-details.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +172,10 @@ import { RecetteStegEtAutresMoreDetailsComponent } from '@ComSEAMD';
     StegEtAutresListComponent,
     StegEtAutresEditComponent,
     StegEtAutresMoreDetailsComponent,
+    BankListComponent,
+    BankAddComponent,
+    BankEditComponent,
+    BankMoreDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -229,6 +237,9 @@ import { RecetteStegEtAutresMoreDetailsComponent } from '@ComSEAMD';
     RecetteStegEtAutresAddComponent,
     RecetteStegEtAutresEditComponent,
     RecetteStegEtAutresMoreDetailsComponent,
+    BankAddComponent,
+    BankEditComponent,
+    BankMoreDetailsComponent,
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

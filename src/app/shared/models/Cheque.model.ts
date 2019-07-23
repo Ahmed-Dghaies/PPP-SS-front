@@ -15,6 +15,8 @@ export class Cheque {
   public chequeValue: number;
   public sessionId: string;
   public state: string;
+  public rib: string;
+  public agency: string;
   public date: string;
 
 

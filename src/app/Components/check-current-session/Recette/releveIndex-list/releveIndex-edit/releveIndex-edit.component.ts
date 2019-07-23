@@ -24,6 +24,13 @@ export class ReleveIndexEditComponent implements OnInit {
     this.releveIndex = data.index;
   }
 
+  onChange(arrive: number) {
+    if (arrive < this.releveIndex.depart) {
+      this.releveIndex.arrive = this.releveIndex.depart;
+      this.notifservice.warn('valeur d\'arrivé ne peut pas être moins que la valeur de départ');
+    }
+  }
+
   updateReleveIndex(): void {
     // set name for pompiste after id change
     this.releveIndexService.pompistes.forEach(p => {

@@ -1,0 +1,111 @@
+<mat-toolbar>
+  <span>Modifier Bank</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Code bank" required type="text" name="bankCode"
+            [(ngModel)]="bank.bankCode">
+          <mat-error>Code bank est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom bank" required type="text" name="bankName"
+            [(ngModel)]="bank.bankName">
+          <mat-error>Nom bank est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Code agence" required type="text" name="agencyCode"
+            [(ngModel)]="bank.agencyCode">
+          <mat-error>Code agence est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom de l'agence" required type="text" name="agencName"
+            [(ngModel)]="bank.agencyName">
+          <mat-error>Nom du l'agence est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Comptoir" type="number" name="comptoir"
+            [(ngModel)]="bank.comptoir">
+          <mat-error>Comptoir est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Adress" type="number" name="adress"
+            [(ngModel)]="bank.adress">
+          <mat-error>Adress est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Tel" type="number" name="tel"
+            [(ngModel)]="bank.tel">
+          <mat-error>Tel est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom du responsable" type="number" name="responsibleName"
+            [(ngModel)]="bank.responsibleName">
+          <mat-error>Nom du responsable est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="D. agrem" type="number" name="dAgrem"
+            [(ngModel)]="bank.dAgem">
+          <mat-error>D. agrem est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="D. Ouv" type="number" name="dOuv"
+            [(ngModel)]="bank.dOuv">
+          <mat-error>D. Ouv est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="D. Ferm" type="text" name="dFerm"
+            [(ngModel)]="bank.dFerm">
+          <mat-error>D. Ferm est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="updateBank()"
+        [disabled]="angForm.pristine || angForm.invalid">Modifier
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>
+

@@ -28,6 +28,22 @@
 
         <mat-grid-tile>
           <mat-form-field>
+            <input matInput placeholder="Rib du cheque" required type="text" name="rib" (change)="getBankAgency(cheque.rib)"
+              [(ngModel)]="cheque.rib">
+            <mat-error>Rib du cheque est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Nom de l'agence" required type="text" name="agency"
+              [(ngModel)]="cheque.agency">
+            <mat-error>Nom de l'agence est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
             <input matInput placeholder="Numéro du cheque" required type="text" name="chequeNumber"
               [(ngModel)]="cheque.chequeNumber">
             <mat-error>Numéro du cheque est obligatoire</mat-error>

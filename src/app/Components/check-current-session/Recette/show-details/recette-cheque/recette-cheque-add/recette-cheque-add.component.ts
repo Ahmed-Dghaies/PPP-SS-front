@@ -5,6 +5,7 @@ import { ChequeService } from 'app/shared/services/cheque.service';
 import { NotificationService } from 'app/shared/services/notification.service';
 import { NgForm } from '@angular/forms';
 import { SessionService } from 'app/shared/services/session.service';
+import { BankService } from 'app/shared/services/bank.service';
 
 @Component({
   selector: 'app-recette-cheque-add',
@@ -19,9 +20,21 @@ export class RecetteChequeAddComponent implements OnInit {
   constructor(private dialogMat: MatDialogRef<RecetteChequeAddComponent>,
               private chequeService: ChequeService,
               private sessionService: SessionService,
-              private notifService: NotificationService) {
+              private notifService: NotificationService,
+              private bankService: BankService) {
     this.cheque = new Cheque();
     this.width = 2;
+  }
+
+  getBankAgency(rib: string) {
+    console.log('here');
+    const bankCode = parseFloat(rib.slice(0, 2));
+    const agencyCode = parseFloat(rib.slice(3, 6));
+    const res = this.bankService.banks.filter(b => b.bankCode === bankCode).filter(b => b.agencyCode === agencyCode);7
+    if (res.length > 0) {
+      this.cheque.bankName = res[0].bankName;
+      this.cheque.agency = res[0].agencyName;
+    }
   }
 
   ngOnInit() {
@@ -31,6 +44,7 @@ export class RecetteChequeAddComponent implements OnInit {
     const datetime = new Date();
     const date = datetime.toISOString().slice(0, 10);
     this.cheque.date = date;
+    this.bankService.getBanksList();
   }
 
   onClose(): void {
