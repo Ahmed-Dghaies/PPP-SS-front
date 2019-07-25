@@ -27,7 +27,7 @@ export class RecetteChequeEditComponent implements OnInit {
     this.width = 2;
   }
 
-  getBankAgeny(rib: string) {
+  getBankAgency(rib: string) {
     const bankCode = parseFloat(rib.slice(0, 2));
     const agencyCode = parseFloat(rib.slice(3, 6));
     const res = this.bankService.banks.filter(b => b.bankCode === bankCode).filter(b => b.agencyCode === agencyCode);

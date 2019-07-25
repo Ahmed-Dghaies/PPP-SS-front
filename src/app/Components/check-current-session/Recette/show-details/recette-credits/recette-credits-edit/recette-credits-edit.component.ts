@@ -39,7 +39,7 @@ export class RecetteCreditsEditComponent implements OnInit {
     form.reset();
   }
 
-  updateCredit(): void {
+  updatePayementCredit(): void {
     this.payementCreditService.updatePayementCredit(this.payementCredit._id, this.payementCredit).subscribe(res => {
       this.payementCreditService.getPayementCreditsList(this.sessionService.currentSessionId);
       this.dialogRef.close();

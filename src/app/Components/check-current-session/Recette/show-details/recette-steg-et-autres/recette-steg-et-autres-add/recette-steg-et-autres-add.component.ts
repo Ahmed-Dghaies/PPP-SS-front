@@ -28,7 +28,7 @@ export class RecetteStegEtAutresAddComponent implements OnInit {
               private sessionService: SessionService,
               private clientService: ClientService,
               private notifService: NotificationService,
-              private carburantService: CarburantService,
+              public carburantService: CarburantService,
               private prixCarburantService: PrixCarburantService) {
     this.stegEtAutre = new StegEtAutre();
     this.width = 2;
