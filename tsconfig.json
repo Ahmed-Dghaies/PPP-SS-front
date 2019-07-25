@@ -36,8 +36,9 @@
       "@ComRecetteCarteBMD/*": ["app/Components/check-current-session/Recette/show-details/recette-carte-bon/recette-carte-bon-more-details/*"],
       "@ComRecetteChequeMD/*": ["app/Components/check-current-session/Recette/show-details/recette-cheque/recette-cheque-more-details/*"],
       "@ComRecetteSEA/*": ["app/Components/check-current-session/Recette/show-details/recette-steg-et-autres/*"],
-      "@ComSEA/*": ["app/Components/inventaire/Steg et autres/Steg-et-autres-list/*"],
-      "@ComSEAMD": ["app/Components/check-current-session/Recette/show-details/recette-steg-et-autres/recette-steg-et-autres-more-details/recette-steg-et-autres-more-details.component"]
+      "@ComStegEtAutre/*": ["app/Components/inventaire/Steg et autres/Steg-et-autres-list/*"],
+      "@ComSEAMD": ["app/Components/check-current-session/Recette/show-details/recette-steg-et-autres/recette-steg-et-autres-more-details/recette-steg-et-autres-more-details.component"],
+      "@ComRecetteEspece/*": ["app/Components/check-current-session/Recette/show-details/recette-espece/*"]
     }
   }
 }

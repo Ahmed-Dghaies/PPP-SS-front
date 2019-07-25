@@ -3,6 +3,7 @@ import { WeatherService } from 'app/shared/services/weather.service';
 import { Weather } from 'app/shared/models/weather.model';
 import { ReleveIndexService } from 'app/shared/services/releveIndex.service';
 import { PompisteService } from 'app/shared/services/pompiste.service';
+import { CiterneService } from 'app/shared/services/citerne.service';
 
 @Component({
   selector: 'app-home',
@@ -24,12 +25,13 @@ export class HomeComponent implements OnInit {
 
   constructor(public weatherService: WeatherService,
               public releveIndexService: ReleveIndexService,
-              public pompisteService: PompisteService) {
-
+              public pompisteService: PompisteService,
+              public tankService: CiterneService) {
   }
 
 
   ngOnInit() {
+    this.tankService.getCiternesList();
     this.weatherService.getWeather().subscribe(res => {
       this.weather = res;
       this.imgSrc = 'https://ppp-ss.herokuapp.com/event/weather-img/' + this.weather.weather[0].icon + '.png';

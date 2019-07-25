@@ -30,7 +30,7 @@ export class RecetteChequeAddComponent implements OnInit {
     console.log('here');
     const bankCode = parseFloat(rib.slice(0, 2));
     const agencyCode = parseFloat(rib.slice(3, 6));
-    const res = this.bankService.banks.filter(b => b.bankCode === bankCode).filter(b => b.agencyCode === agencyCode);7
+    const res = this.bankService.banks.filter(b => b.bankCode === bankCode).filter(b => b.agencyCode === agencyCode);
     if (res.length > 0) {
       this.cheque.bankName = res[0].bankName;
       this.cheque.agency = res[0].agencyName;

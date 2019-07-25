@@ -85,14 +85,20 @@ import { CreditEditComponent } from './Components/inventaire/Credit/credit-list/
 import { RecetteStegEtAutresComponent } from '@ComRecetteSEA/recette-steg-et-autres.component';
 import { RecetteStegEtAutresAddComponent } from '@ComRecetteSEA/recette-steg-et-autres-add/recette-steg-et-autres-add.component';
 import { RecetteStegEtAutresEditComponent } from '@ComRecetteSEA/recette-steg-et-autres-edit/recette-steg-et-autres-edit.component';
-import { StegEtAutresListComponent } from '@ComSEA/steg-et-autres-list.component';
-import { StegEtAutresEditComponent } from '@ComSEA/steg-et-autres-edit/steg-et-autres-edit.component';
-import { StegEtAutresMoreDetailsComponent } from '@ComSEA/steg-et-autres-more-details/steg-et-autres-more-details.component';
+import { StegEtAutresListComponent } from '@ComStegEtAutre/steg-et-autres-list.component';
+import { StegEtAutresEditComponent } from '@ComStegEtAutre/steg-et-autres-edit/steg-et-autres-edit.component';
+import { StegEtAutresMoreDetailsComponent } from '@ComStegEtAutre/steg-et-autres-more-details/steg-et-autres-more-details.component';
 import { RecetteStegEtAutresMoreDetailsComponent } from '@ComSEAMD';
 import { BankListComponent } from './Components/parameters/bank/bank-list/bank-list.component';
 import { BankAddComponent } from './Components/parameters/bank/bank-list/bank-add/bank-add.component';
 import { BankEditComponent } from './Components/parameters/bank/bank-list/bank-edit/bank-edit.component';
 import { BankMoreDetailsComponent } from './Components/parameters/bank/bank-list/bank-more-details/bank-more-details.component';
+import { TanksComponent } from './Components/home/tanks/tanks.component';
+import { EspeceListComponent } from './Components/inventaire/Espece/espece-list/espece-list.component';
+import { EspeceEditComponent } from './Components/inventaire/Espece/espece-list/espece-edit/espece-edit.component';
+import { RecetteEspeceComponent } from '@ComRecetteEspece/recette-espece.component';
+import { RecetteEspeceAddComponent } from '@ComRecetteEspece/recette-espece-add/recette-espece-add.component';
+import { RecetteEspeceEditComponent } from '@ComRecetteEspece/recette-espece-edit/recette-espece-edit.component';
 
 @NgModule({
   declarations: [
@@ -176,6 +182,12 @@ import { BankMoreDetailsComponent } from './Components/parameters/bank/bank-list
     BankAddComponent,
     BankEditComponent,
     BankMoreDetailsComponent,
+    TanksComponent,
+    EspeceListComponent,
+    EspeceEditComponent,
+    RecetteEspeceComponent,
+    RecetteEspeceAddComponent,
+    RecetteEspeceEditComponent,
   ],
   imports: [
     BrowserModule,

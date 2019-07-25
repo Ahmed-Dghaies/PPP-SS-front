@@ -1,0 +1,17 @@
+<button mat-raised-button (click)="setData()">
+  <mat-icon>refresh</mat-icon>Refresh
+</button>
+<mat-grid-list [cols]="cols">
+  <mat-grid-tile *ngFor="let tank of tanks">
+    <mat-label>Ref: {{tank.tankRef}}<br>
+      Carburant: {{tank.tankCarburant}}<br>
+    </mat-label>
+    <div id="tankContainer" [class.warningColor]="tank.warning">
+      <div id="glass">
+        <div id="water" [style.height.px]="tank.tankLevel">
+          <div id="level">{{tank.percentage}}%</div>
+        </div>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
