@@ -40,7 +40,7 @@
       "@ComSEAMD": ["app/Components/check-current-session/Recette/show-details/recette-steg-et-autres/recette-steg-et-autres-more-details/recette-steg-et-autres-more-details.component"],
       "@ComRecetteEspece/*": ["app/Components/check-current-session/Recette/show-details/recette-espece/*"],
       "@ComSubventionPeche/*": ["app/Components/inventaire/Subvention peche/subvention-peche-list/*"],
-      "@ComSubventionPecheMD/*": ["app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/*"],
+      "@ComSubventionPecheMD/*": ["app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/*"],
       "@ComRecetteSubP/*": ["app/Components/check-current-session/Recette/show-details/recette-subvention-peche/*"],
       "@ComRecetteSubPMD/*": ["app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche-more-details/*"]
     }
