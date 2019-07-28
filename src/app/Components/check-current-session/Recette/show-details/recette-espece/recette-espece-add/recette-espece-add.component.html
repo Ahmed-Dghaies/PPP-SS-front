@@ -1,3 +1,48 @@
-<p>
-  recette-espece-add works!
-</p>
+<mat-toolbar>
+  <span>Ajouter recette espece</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Valeur en TND</mat-label>
+          <mat-select required name="type" [(ngModel)]="espece.type">
+            <mat-option>None</mat-option>
+            <mat-option [value]="0.05">0.05</mat-option>
+            <mat-option [value]="0.1">0.1</mat-option>
+            <mat-option [value]="0.2">0.2</mat-option>
+            <mat-option [value]="0.5">0.5</mat-option>
+            <mat-option [value]="1">1</mat-option>
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="20">20</mat-option>
+            <mat-option [value]="50">50</mat-option>
+          </mat-select>
+          <mat-error>Valeur en TND est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Quantité" required type="number" name="quantity" [(ngModel)]="espece.quantity">
+          <mat-error>Quantité est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addEspece()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>

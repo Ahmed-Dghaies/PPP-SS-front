@@ -1,0 +1,48 @@
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item>
+      <h4>Numéro du bon: </h4>&nbsp;&nbsp;{{subventionPeche.cardNumber}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nom de bénéficiaire: </h4>&nbsp;&nbsp;{{subventionPeche.payeeName}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Puissance du moteur: </h4>&nbsp;&nbsp;{{subventionPeche.motorPower}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nom du bateau: </h4>&nbsp;&nbsp;{{subventionPeche.boatName}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Nombre de litres: </h4>&nbsp;&nbsp;{{subventionPeche.numberOfLitters}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Affecté: </h4>&nbsp;&nbsp;{{subventionPeche.state}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Valeur du bon: </h4>&nbsp;&nbsp;{{subventionPeche.cardValue}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Prix (L): </h4>&nbsp;&nbsp;{{subventionPeche.literPrice}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Date de livraison: </h4>&nbsp;&nbsp;{{subventionPeche.date}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+  <span class="fill-remaining-space"></span>
+</div>
+
+
+

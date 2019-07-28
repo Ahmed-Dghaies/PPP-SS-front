@@ -1,0 +1,86 @@
+<mat-toolbar>
+  <span>Ajouter bon subvention peche</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Numéro du bon" required type="number" name="cardNumber"
+            [(ngModel)]="subventionPeche.cardNumber">
+          <mat-error>Numéro du bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom de bénéficiaire" required type="text" name="payeeName"
+            [(ngModel)]="subventionPeche.payeeName">
+          <mat-error>Nom de bénéficiaire est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Puissance du moteur" required type="number" name="motorPower"
+            [(ngModel)]="subventionPeche.motorPower">
+          <mat-error>Puissance du moteur est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nom du bateau" required type="text" name="boatName"
+            [(ngModel)]="subventionPeche.boatName">
+          <mat-error>Nom du bateau est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre de litres" required type="number" name="numberOfLiters"
+            [(ngModel)]="subventionPeche.numberOfLiters">
+          <mat-error>Nombre de litres est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Valeur du bon" required type="number" name="cardValue"
+            [(ngModel)]="subventionPeche.cardValue">
+          <mat-error>Valeur du bon est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Prix (L)" required type="number" name="literPrice"
+            [(ngModel)]="subventionPeche.literPrice">
+          <mat-error>Prix (L) est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Date Livraison" required type="text" name="date" [(ngModel)]="subventionPeche.date">
+          <mat-error>Date Livraison est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addSubventionPeche()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>
+

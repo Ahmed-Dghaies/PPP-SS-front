@@ -9,6 +9,7 @@
 <div class="container">
   <mat-accordion>
     <mat-dialog-content>
+
       <div class="margin-param">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -68,6 +69,31 @@
           <app-recette-steg-et-autres></app-recette-steg-et-autres>
         </mat-expansion-panel>
       </div>
+
+      <div class="margin-param">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <span>Espèces</span>
+              <span class="fill-remaining-space"></span>
+              <span>Valeur Total: {{especeService.getTotalPrevue()}}</span>
+              <span class="fill-remaining-space"></span>
+            </mat-expansion-panel-header>
+            <app-recette-espece></app-recette-espece>
+          </mat-expansion-panel>
+        </div>
+
+        <div class="margin-param">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <span>Subvention pêche</span>
+              <span class="fill-remaining-space"></span>
+              <span>Valeur Total: {{subventionPecheService.getTotalPrevue()}}</span>
+              <span class="fill-remaining-space"></span>
+            </mat-expansion-panel-header>
+            <app-recette-subvention-peche></app-recette-subvention-peche>
+          </mat-expansion-panel>
+        </div>
+
     </mat-dialog-content>
 
     <div>

@@ -26,6 +26,7 @@ export class TanksComponent implements OnInit {
   }
 
   setDefault() {
+    this.tanks = [];
     for (let _i = 0; _i < 4; _i++) {
       this.tanks.push(this.tank);
     }
@@ -51,7 +52,6 @@ export class TanksComponent implements OnInit {
     let warningValue: boolean;
     let value: number;
     let percen: number;
-    console.log(this.tankService.citernes);
     this.tankService.citernes.forEach(citerne => {
       value = (citerne.stock * 300) / citerne.capacite;
       value = Math.floor(value);
@@ -72,7 +72,6 @@ export class TanksComponent implements OnInit {
 
   ngOnInit(): void {
     this.tankService.getCiternesList();
-    this.setData();
     this.setDefault();
   }
 }

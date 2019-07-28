@@ -99,6 +99,13 @@ import { EspeceEditComponent } from './Components/inventaire/Espece/espece-list/
 import { RecetteEspeceComponent } from '@ComRecetteEspece/recette-espece.component';
 import { RecetteEspeceAddComponent } from '@ComRecetteEspece/recette-espece-add/recette-espece-add.component';
 import { RecetteEspeceEditComponent } from '@ComRecetteEspece/recette-espece-edit/recette-espece-edit.component';
+import { SubventionPecheListComponent } from '@ComSubventionPeche/subvention-peche-list.component';
+import { SubventionPecheEditComponent } from '@ComSubventionPeche/subvention-peche-edit/subvention-peche-edit.component';
+import { SubventionPecheMoreDetailsComponent } from '@ComSubventionPecheMD/subvention-peche-more-details.component';
+import { RecetteSubventionPecheComponent } from '@ComRecetteSubP/recette-subvention-peche.component';
+import { RecetteSubventionPecheAddComponent } from '@ComRecetteSubP/recette-subvention-peche-add/recette-subvention-peche-add.component';
+import { RecetteSubventionPecheEditComponent } from '@ComRecetteSubP/recette-subvention-peche-edit/recette-subvention-peche-edit.component';
+import { RecetteSubventionPecheMoreDetailsComponent } from '@ComRecetteSubPMD/recette-subvention-peche-more-details.component';
 
 @NgModule({
   declarations: [
@@ -188,6 +195,13 @@ import { RecetteEspeceEditComponent } from '@ComRecetteEspece/recette-espece-edi
     StegEtAutresListComponent,
     StegEtAutresEditComponent,
     StegEtAutresMoreDetailsComponent,
+    SubventionPecheListComponent,
+    SubventionPecheEditComponent,
+    SubventionPecheMoreDetailsComponent,
+    RecetteSubventionPecheComponent,
+    RecetteSubventionPecheAddComponent,
+    RecetteSubventionPecheEditComponent,
+    RecetteSubventionPecheMoreDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -252,6 +266,14 @@ import { RecetteEspeceEditComponent } from '@ComRecetteEspece/recette-espece-edi
     BankAddComponent,
     BankEditComponent,
     BankMoreDetailsComponent,
+    RecetteEspeceAddComponent,
+    RecetteEspeceEditComponent,
+    EspeceEditComponent,
+    RecetteSubventionPecheAddComponent,
+    RecetteSubventionPecheEditComponent,
+    RecetteSubventionPecheMoreDetailsComponent,
+    SubventionPecheEditComponent,
+    SubventionPecheMoreDetailsComponent,
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {
