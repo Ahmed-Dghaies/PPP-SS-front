@@ -16,6 +16,8 @@ export class RecetteContreBonClientEditComponent implements OnInit {
 
   public contreBonClient: ContreBonClient;
   public width: number;
+  public error: boolean;
+  public errorMessage: string;
 
   constructor(public dialogRef: MatDialogRef<RecetteContreBonClientEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,6 +27,8 @@ export class RecetteContreBonClientEditComponent implements OnInit {
               public contreBonService: ContreBonService) {
     this.contreBonClient = data.contreBonClient;
     this.width = 2;
+    this.error = false;
+    this.errorMessage = '';
   }
 
   ngOnInit() {

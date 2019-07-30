@@ -12,9 +12,14 @@
 
       <mat-grid-tile>
         <mat-form-field>
-          <input matInput placeholder="Numéro du contre bon" required type="number" name="cardNumber"
-            [(ngModel)]="contreBonCaisse.cardNumber">
-          <mat-error>Numéro du contre bon est obligatoire</mat-error>
+          <mat-label>Numéro du contre bon</mat-label>
+          <mat-select required name="cardNumber" [(ngModel)]="contreBonCaisse.cardNumber">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let c of contreBonService.contreBons" [value]="c.cardNumber">
+              {{c.cardNumber}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Numéro du contre bon est obligatoire.</mat-error>
         </mat-form-field>
       </mat-grid-tile>
 
