@@ -16,6 +16,8 @@ export class ContreBonCaisseEditComponent implements OnInit {
 
   public contreBonCaisse: ContreBonCaisse;
   public width: number;
+  public error: boolean;
+  public errorMessage: string;
 
   constructor(public dialogRef: MatDialogRef<ContreBonCaisseEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,6 +27,8 @@ export class ContreBonCaisseEditComponent implements OnInit {
               public contreBonService: ContreBonService) {
     this.contreBonCaisse = data.contreBonCaisse;
     this.width = 2;
+    this.error = false;
+    this.errorMessage = '';
   }
 
   ngOnInit() {
