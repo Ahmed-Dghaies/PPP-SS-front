@@ -224,6 +224,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_shared_services_credit_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! app/shared/services/credit.service */ "./src/app/shared/services/credit.service.ts");
 /* harmony import */ var app_shared_services_payement_credit_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! app/shared/services/payement-credit.service */ "./src/app/shared/services/payement-credit.service.ts");
 /* harmony import */ var app_shared_services_steg_et_autres_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! app/shared/services/steg-et-autres.service */ "./src/app/shared/services/steg-et-autres.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+/* harmony import */ var app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/shared/services/subvention-peche.service */ "./src/app/shared/services/subvention-peche.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/shared/services/contre-bon-client.service */ "./src/app/shared/services/contre-bon-client.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/shared/services/contre-bon-caisse.service */ "./src/app/shared/services/contre-bon-caisse.service.ts");
+
+
+
+
 
 
 
@@ -246,7 +254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ConfirmDeleteComponent = /** @class */ (function () {
-    function ConfirmDeleteComponent(dialogRef, data, clientService, cardTypeService, releveIndexService, indexService, citerneService, distributeurService, sessionService, prixcarburantService, pompisteService, notifService, eventService, carburantService, carteBonService, bonValeurService, chequeService, creditService, payementCreditService, stegEtAutreService) {
+    function ConfirmDeleteComponent(dialogRef, data, clientService, cardTypeService, releveIndexService, indexService, citerneService, distributeurService, sessionService, prixcarburantService, pompisteService, notifService, eventService, carburantService, carteBonService, bonValeurService, chequeService, creditService, payementCreditService, stegEtAutreService, contreBonService, subventionPecheService, contreBonClientService, contreBonCaisseService) {
         this.dialogRef = dialogRef;
         this.data = data;
         this.clientService = clientService;
@@ -267,6 +275,10 @@ var ConfirmDeleteComponent = /** @class */ (function () {
         this.creditService = creditService;
         this.payementCreditService = payementCreditService;
         this.stegEtAutreService = stegEtAutreService;
+        this.contreBonService = contreBonService;
+        this.subventionPecheService = subventionPecheService;
+        this.contreBonClientService = contreBonClientService;
+        this.contreBonCaisseService = contreBonCaisseService;
         this.id = data.id;
         this.msg = data.msg;
     }
@@ -334,14 +346,92 @@ var ConfirmDeleteComponent = /** @class */ (function () {
         else if (this.msg === 'recette-stegEtAutre') {
             this.deleteRecetteStegEtAutre();
         }
+        else if (this.msg === 'contre bon') {
+            this.deleteContreBon();
+        }
+        else if (this.msg === 'recette-subventionPeche') {
+            this.deleteRecetteSubventionPeche();
+        }
+        else if (this.msg === 'subventionPeche') {
+            this.deleteSubventionPeche();
+        }
+        else if (this.msg === 'recette contre bon client') {
+            this.deleteRecetteContreBonClient();
+        }
+        else if (this.msg === 'recette contre bon caisse') {
+            this.deleteRecetteContreBonCaisse();
+        }
+        else if (this.msg === 'contre bon caisse') {
+            this.deleteContreBonCaisse();
+        }
     };
     ConfirmDeleteComponent.prototype.annuler = function () {
         this.dialogRef.close();
+    };
+    ConfirmDeleteComponent.prototype.deleteContreBon = function () {
+        var _this = this;
+        this.contreBonService.deleteContreBon(this.id).subscribe(function (res) {
+            _this.contreBonService.getContreBonsList();
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ConfirmDeleteComponent.prototype.deleteRecetteContreBonClient = function () {
+        var _this = this;
+        this.contreBonClientService.deleteContreBonClient(this.id).subscribe(function (res) {
+            _this.contreBonClientService.getContreBonClientListById(_this.sessionService.currentSessionId);
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ConfirmDeleteComponent.prototype.deleteRecetteContreBonCaisse = function () {
+        var _this = this;
+        this.contreBonCaisseService.deleteContreBonCaisse(this.id).subscribe(function (res) {
+            _this.contreBonCaisseService.getContreBonCaisseListById(_this.sessionService.currentSessionId);
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ConfirmDeleteComponent.prototype.deleteContreBonCaisse = function () {
+        var _this = this;
+        this.contreBonCaisseService.deleteContreBonCaisse(this.id).subscribe(function (res) {
+            _this.contreBonCaisseService.getContreBonCaisseList();
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
     };
     ConfirmDeleteComponent.prototype.deletePrixCarburant = function () {
         var _this = this;
         this.prixcarburantService.deletePrixCarburant(this.id).subscribe(function (res) {
             _this.prixcarburantService.getCarburantList();
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ConfirmDeleteComponent.prototype.deleteRecetteSubventionPeche = function () {
+        var _this = this;
+        this.subventionPecheService.deleteSubventionPeche(this.id).subscribe(function (res) {
+            _this.subventionPecheService.getSubventionPechesListById(_this.sessionService.currentSessionId);
+            _this.dialogRef.close();
+            _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ConfirmDeleteComponent.prototype.deleteSubventionPeche = function () {
+        var _this = this;
+        this.subventionPecheService.deleteSubventionPeche(this.id).subscribe(function (res) {
+            _this.subventionPecheService.getSubventionPechesList();
             _this.dialogRef.close();
             _this.notifService.success(_this.msg + " supprim\u00E9 avec succ\u00E9s");
         }, function (err) {
@@ -591,9 +681,114 @@ var ConfirmDeleteComponent = /** @class */ (function () {
             app_shared_services_cheque_service__WEBPACK_IMPORTED_MODULE_17__["ChequeService"],
             app_shared_services_credit_service__WEBPACK_IMPORTED_MODULE_18__["CreditService"],
             app_shared_services_payement_credit_service__WEBPACK_IMPORTED_MODULE_19__["PayementCreditService"],
-            app_shared_services_steg_et_autres_service__WEBPACK_IMPORTED_MODULE_20__["StegEtAutresService"]])
+            app_shared_services_steg_et_autres_service__WEBPACK_IMPORTED_MODULE_20__["StegEtAutresService"],
+            app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_21__["ContreBonService"],
+            app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_22__["SubventionPecheService"],
+            app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_23__["ContreBonClientService"],
+            app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_24__["ContreBonCaisseService"]])
     ], ConfirmDeleteComponent);
     return ConfirmDeleteComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/recette.module.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/recette.module.ts ***!
+  \****************************************************************************/
+/*! exports provided: RecetteModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteModule", function() { return RecetteModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _ContreBonCaisseList_contre_bon_caisse_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ContreBonCaisseList/contre-bon-caisse-list.component */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.ts");
+/* harmony import */ var _ContreBonCaisseList_contre_bon_caisse_edit_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ContreBonCaisseList/contre-bon-caisse-edit/contre-bon-caisse-edit.component */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.ts");
+/* harmony import */ var _ComContreBonCaisse_recette_contre_bon_caisse_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ComContreBonCaisse/recette-contre-bon-caisse.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.ts");
+/* harmony import */ var _ComContreBonCaisseAdd_recette_contre_bon_caisse_add_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ComContreBonCaisseAdd/recette-contre-bon-caisse-add.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.ts");
+/* harmony import */ var _ComContreBonCaisseEdit_recette_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ComContreBonCaisseEdit/recette-contre-bon-caisse-edit.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.ts");
+/* harmony import */ var _ComContreBonClient_recette_contre_bon_client_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ComContreBonClient/recette-contre-bon-client.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.ts");
+/* harmony import */ var _ComContreBonClientAdd_recette_contre_bon_client_add_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ComContreBonClientAdd/recette-contre-bon-client-add.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.ts");
+/* harmony import */ var _ComContreBonClientEdit_recette_contre_bon_client_edit_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ComContreBonClientEdit/recette-contre-bon-client-edit.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.ts");
+/* harmony import */ var app_material_material_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! app/material/material.module */ "./src/app/material/material.module.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var app_app_routing_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! app/app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var ngx_progressbar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-progressbar */ "./node_modules/ngx-progressbar/modules/ngx-progressbar.es5.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var RecetteModule = /** @class */ (function () {
+    function RecetteModule() {
+    }
+    RecetteModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [
+                _ContreBonCaisseList_contre_bon_caisse_list_component__WEBPACK_IMPORTED_MODULE_3__["ContreBonCaisseListComponent"],
+                _ContreBonCaisseList_contre_bon_caisse_edit_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_4__["ContreBonCaisseEditComponent"],
+                _ComContreBonCaisse_recette_contre_bon_caisse_component__WEBPACK_IMPORTED_MODULE_5__["RecetteContreBonCaisseComponent"],
+                _ComContreBonCaisseAdd_recette_contre_bon_caisse_add_component__WEBPACK_IMPORTED_MODULE_6__["RecetteContreBonCaisseAddComponent"],
+                _ComContreBonCaisseEdit_recette_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_7__["RecetteContreBonCaisseEditComponent"],
+                _ComContreBonClient_recette_contre_bon_client_component__WEBPACK_IMPORTED_MODULE_8__["RecetteContreBonClientComponent"],
+                _ComContreBonClientAdd_recette_contre_bon_client_add_component__WEBPACK_IMPORTED_MODULE_9__["RecetteContreBonClientAddComponent"],
+                _ComContreBonClientEdit_recette_contre_bon_client_edit_component__WEBPACK_IMPORTED_MODULE_10__["RecetteContreBonClientEditComponent"]
+            ],
+            imports: [
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__["BrowserModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_14__["FormsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"],
+                app_app_routing_module__WEBPACK_IMPORTED_MODULE_16__["AppRoutingModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_14__["ReactiveFormsModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_17__["BrowserAnimationsModule"],
+                app_material_material_module__WEBPACK_IMPORTED_MODULE_11__["MaterialModule"],
+                ngx_progressbar__WEBPACK_IMPORTED_MODULE_18__["NgProgressModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_12__["MatExpansionModule"],
+            ],
+            entryComponents: [
+                _ComContreBonClientAdd_recette_contre_bon_client_add_component__WEBPACK_IMPORTED_MODULE_9__["RecetteContreBonClientAddComponent"],
+                _ComContreBonClientEdit_recette_contre_bon_client_edit_component__WEBPACK_IMPORTED_MODULE_10__["RecetteContreBonClientEditComponent"],
+                _ComContreBonCaisseAdd_recette_contre_bon_caisse_add_component__WEBPACK_IMPORTED_MODULE_6__["RecetteContreBonCaisseAddComponent"],
+                _ComContreBonCaisseEdit_recette_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_7__["RecetteContreBonCaisseEditComponent"],
+                _ContreBonCaisseList_contre_bon_caisse_edit_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_4__["ContreBonCaisseEditComponent"],
+            ],
+            exports: [
+                _ContreBonCaisseList_contre_bon_caisse_list_component__WEBPACK_IMPORTED_MODULE_3__["ContreBonCaisseListComponent"],
+                _ContreBonCaisseList_contre_bon_caisse_edit_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_4__["ContreBonCaisseEditComponent"],
+                _ComContreBonCaisse_recette_contre_bon_caisse_component__WEBPACK_IMPORTED_MODULE_5__["RecetteContreBonCaisseComponent"],
+                _ComContreBonCaisseAdd_recette_contre_bon_caisse_add_component__WEBPACK_IMPORTED_MODULE_6__["RecetteContreBonCaisseAddComponent"],
+                _ComContreBonCaisseEdit_recette_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_7__["RecetteContreBonCaisseEditComponent"],
+                _ComContreBonClient_recette_contre_bon_client_component__WEBPACK_IMPORTED_MODULE_8__["RecetteContreBonClientComponent"],
+                _ComContreBonClientAdd_recette_contre_bon_client_add_component__WEBPACK_IMPORTED_MODULE_9__["RecetteContreBonClientAddComponent"],
+                _ComContreBonClientEdit_recette_contre_bon_client_edit_component__WEBPACK_IMPORTED_MODULE_10__["RecetteContreBonClientEditComponent"]
+            ]
+        })
+    ], RecetteModule);
+    return RecetteModule;
 }());
 
 
@@ -2114,6 +2309,616 @@ var RecetteChequeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.css":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.css ***!
+  \***************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvY2hlY2stY3VycmVudC1zZXNzaW9uL1JlY2V0dGUvc2hvdy1kZXRhaWxzL3JlY2V0dGUtY29udHJlLWJvbi1jYWlzc2UvcmVjZXR0ZS1jb250cmUtYm9uLWNhaXNzZS1hZGQvcmVjZXR0ZS1jb250cmUtYm9uLWNhaXNzZS1hZGQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.html":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.html ***!
+  \****************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n    <span>Ajouter contre bon Caisse</span>\n    <span class=\"fill-remaining-space\"></span>\n    <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n      <mat-icon>clear</mat-icon>\n    </button>\n  </mat-toolbar>\n\n  <form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n    <div>\n      <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-label>Numéro du contre bon</mat-label>\n            <mat-select required name=\"cardNumber\" [(ngModel)]=\"contreBonCaisse.cardNumber\">\n              <mat-option>None</mat-option>\n              <mat-option *ngFor=\"let c of contreBonService.contreBons\" [value]=\"c.cardNumber\">\n                {{c.cardNumber}}\n              </mat-option>\n            </mat-select>\n            <mat-error>Numéro du contre bon est obligatoire.</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Valeur\" required type=\"number\" name=\"cardValue\"\n              [(ngModel)]=\"contreBonCaisse.cardValue\">\n            <mat-error>Valeur contre bon caisse est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Type\" required type=\"string\" name=\"type\"\n              [(ngModel)]=\"contreBonCaisse.type\">\n            <mat-error>type du contre bon est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Date de l'affectation\" required type=\"text\" name=\"date\"\n              [(ngModel)]=\"contreBonCaisse.date\">\n            <mat-error>Date de l'affectation est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n      </mat-grid-list>\n      <div>\n        <span class=\"error-message\" *ngIf=\"error\">{{errorMessage}}</span>\n      </div>\n      <div class=\"button-row\">\n        <button mat-raised-button color=\"primary\" (click)=\"addContreBonCaisse()\"\n          [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n        </button>\n        <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n      </div>\n    </div>\n  </form>\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.ts":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.ts ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: RecetteContreBonCaisseAddComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteContreBonCaisseAddComponent", function() { return RecetteContreBonCaisseAddComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_models_contreBonCaisse__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/contreBonCaisse */ "./src/app/shared/models/contreBonCaisse.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/contre-bon-caisse.service */ "./src/app/shared/services/contre-bon-caisse.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+
+
+
+
+
+
+
+
+var RecetteContreBonCaisseAddComponent = /** @class */ (function () {
+    function RecetteContreBonCaisseAddComponent(dialogMat, contreBonCaisseService, notifService, sessionService, contreBonService) {
+        this.dialogMat = dialogMat;
+        this.contreBonCaisseService = contreBonCaisseService;
+        this.notifService = notifService;
+        this.sessionService = sessionService;
+        this.contreBonService = contreBonService;
+        this.contreBonCaisse = new app_shared_models_contreBonCaisse__WEBPACK_IMPORTED_MODULE_2__["ContreBonCaisse"]();
+        this.width = 2;
+        this.prices = [];
+    }
+    RecetteContreBonCaisseAddComponent.prototype.ngOnInit = function () {
+        var datetime = new Date();
+        var date = datetime.toISOString().slice(0, 10);
+        this.contreBonCaisse.date = date;
+        this.contreBonService.getContreBonsList();
+    };
+    RecetteContreBonCaisseAddComponent.prototype.onClose = function () {
+        this.dialogMat.close();
+    };
+    RecetteContreBonCaisseAddComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    RecetteContreBonCaisseAddComponent.prototype.addContreBonCaisse = function () {
+        var _this = this;
+        this.contreBonCaisse.sessionId = this.sessionService.currentSessionId;
+        this.contreBonCaisseService.addContreBonCaisse(this.contreBonCaisse).subscribe(function (res) {
+            _this.contreBonCaisseService.getContreBonCaisseList();
+            _this.dialogMat.close();
+            _this.notifService.success('Contre bon Caisse ajouter avec succés');
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    RecetteContreBonCaisseAddComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recette-contre-bon-caisse-add',
+            template: __webpack_require__(/*! ./recette-contre-bon-caisse-add.component.html */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.html"),
+            styles: [__webpack_require__(/*! ./recette-contre-bon-caisse-add.component.css */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
+            app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_4__["ContreBonCaisseService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"],
+            app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"],
+            app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_7__["ContreBonService"]])
+    ], RecetteContreBonCaisseAddComponent);
+    return RecetteContreBonCaisseAddComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.css":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.css ***!
+  \*****************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvY2hlY2stY3VycmVudC1zZXNzaW9uL1JlY2V0dGUvc2hvdy1kZXRhaWxzL3JlY2V0dGUtY29udHJlLWJvbi1jYWlzc2UvcmVjZXR0ZS1jb250cmUtYm9uLWNhaXNzZS1lZGl0L3JlY2V0dGUtY29udHJlLWJvbi1jYWlzc2UtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.html":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.html ***!
+  \******************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n    <span>Modifier contre bon Caisse</span>\n    <span class=\"fill-remaining-space\"></span>\n    <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n      <mat-icon>clear</mat-icon>\n    </button>\n  </mat-toolbar>\n\n  <form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n    <div>\n      <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-label>Numéro du contre bon</mat-label>\n            <mat-select required name=\"cardNumber\" [(ngModel)]=\"contreBonCaisse.cardNumber\">\n              <mat-option>None</mat-option>\n              <mat-option *ngFor=\"let c of contreBonService.contreBons\" [value]=\"c.cardNumber\">\n                {{c.cardNumber}}\n              </mat-option>\n            </mat-select>\n            <mat-error>Numéro du contre bon est obligatoire.</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Valeur\" required type=\"number\" name=\"cardValue\"\n              [(ngModel)]=\"contreBonCaisse.cardValue\">\n            <mat-error>Valeur contre bon caisse est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Type\" required type=\"string\" name=\"type\"\n              [(ngModel)]=\"contreBonCaisse.type\">\n            <mat-error>Nombre des contre bons est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Date de l'affectation\" required type=\"text\" name=\"date\"\n              [(ngModel)]=\"contreBonCaisse.date\">\n            <mat-error>Date de l'affectation est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n      </mat-grid-list>\n      <div>\n        <span class=\"error-message\" *ngIf=\"error\">{{errorMessage}}</span>\n      </div>\n      <div class=\"button-row\">\n        <button mat-raised-button color=\"primary\" (click)=\"updateContreBonCaisse()\"\n          [disabled]=\"angForm.pristine || angForm.invalid\">Modifier\n        </button>\n        <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n      </div>\n    </div>\n  </form>\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.ts":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.ts ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: RecetteContreBonCaisseEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteContreBonCaisseEditComponent", function() { return RecetteContreBonCaisseEditComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/contre-bon-caisse.service */ "./src/app/shared/services/contre-bon-caisse.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+
+
+
+
+
+
+
+var RecetteContreBonCaisseEditComponent = /** @class */ (function () {
+    function RecetteContreBonCaisseEditComponent(dialogRef, data, contreBonCaisseService, notifservice, sessionService, contreBonService) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.contreBonCaisseService = contreBonCaisseService;
+        this.notifservice = notifservice;
+        this.sessionService = sessionService;
+        this.contreBonService = contreBonService;
+        this.contreBonCaisse = data.contreBonCaisse;
+        this.width = 2;
+    }
+    RecetteContreBonCaisseEditComponent.prototype.ngOnInit = function () {
+        this.contreBonService.getContreBonsList();
+    };
+    RecetteContreBonCaisseEditComponent.prototype.onClose = function () {
+        this.dialogRef.close();
+    };
+    RecetteContreBonCaisseEditComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    RecetteContreBonCaisseEditComponent.prototype.updateContreBonCaisse = function () {
+        var _this = this;
+        this.contreBonCaisseService.updateContreBonCaisse(this.contreBonCaisse._id, this.contreBonCaisse).subscribe(function (res) {
+            _this.contreBonCaisseService.getContreBonCaisseListById(_this.sessionService.currentSessionId);
+            _this.dialogRef.close();
+            _this.notifservice.success('Contre Bon Caisse modifié avec succés');
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    RecetteContreBonCaisseEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recette-contre-bon-caisse-edit',
+            template: __webpack_require__(/*! ./recette-contre-bon-caisse-edit.component.html */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.html"),
+            styles: [__webpack_require__(/*! ./recette-contre-bon-caisse-edit.component.css */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_3__["ContreBonCaisseService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"],
+            app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"],
+            app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_6__["ContreBonService"]])
+    ], RecetteContreBonCaisseEditComponent);
+    return RecetteContreBonCaisseEditComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.css":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.css ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvY2hlY2stY3VycmVudC1zZXNzaW9uL1JlY2V0dGUvc2hvdy1kZXRhaWxzL3JlY2V0dGUtY29udHJlLWJvbi1jYWlzc2UvcmVjZXR0ZS1jb250cmUtYm9uLWNhaXNzZS5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.html":
+/*!******************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.html ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addContreBonCaisseDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"contreBonCaisseService.contreBonCaisseMatTab\" matSort>\n    <ng-container matColumnDef=\"cardNumber\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro de debut</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardNumber}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"type\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.type}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"cardValue\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardValue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <mat-header-cell *matHeaderCellDef>Date d'affectation</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.date}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button class=\"position\" mat-icon-button matTooltip=\"Editer\" color=\"primary\"\n          (click)=\"updateContreBonCaisseDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\"\n          (click)=\"deleteContreBonCaisseDialog(row._id, 'recette contre bon caisse')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\"\n      [ngClass]=\"{'hide':contreBonCaisseService.contreBonCaisseMatTab!=null && contreBonCaisseService.contreBonCaisseMatTab.data.length==0}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\"\n      [ngClass]=\"{'hide':contreBonCaisseService.contreBonCaisseMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(contreBonCaisseService.contreBonCaisseMatTab!=null && contreBonCaisseService.contreBonCaisseMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.ts":
+/*!****************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.ts ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: RecetteContreBonCaisseComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteContreBonCaisseComponent", function() { return RecetteContreBonCaisseComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/contre-bon-caisse.service */ "./src/app/shared/services/contre-bon-caisse.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var _recette_contre_bon_caisse_add_recette_contre_bon_caisse_add_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/recette-contre-bon-caisse-add.component.ts");
+/* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var _recette_contre_bon_caisse_edit_recette_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/recette-contre-bon-caisse-edit.component.ts");
+
+
+
+
+
+
+
+
+var RecetteContreBonCaisseComponent = /** @class */ (function () {
+    function RecetteContreBonCaisseComponent(contreBonCaisseService, dialog, sessionService) {
+        this.contreBonCaisseService = contreBonCaisseService;
+        this.dialog = dialog;
+        this.sessionService = sessionService;
+        this.displayedColumns = ['cardNumber', 'type', 'cardValue', 'date', 'actions'];
+    }
+    RecetteContreBonCaisseComponent.prototype.getTotalPrevue = function () {
+        return this.contreBonCaisseService.getTotalPrevue();
+    };
+    RecetteContreBonCaisseComponent.prototype.ngOnInit = function () {
+        this.contreBonCaisseService.getContreBonCaisseListById(this.sessionService.currentSessionId, this.sort, this.paginator);
+    };
+    RecetteContreBonCaisseComponent.prototype.addContreBonCaisseDialog = function () {
+        this.dialog.open(_recette_contre_bon_caisse_add_recette_contre_bon_caisse_add_component__WEBPACK_IMPORTED_MODULE_5__["RecetteContreBonCaisseAddComponent"], {
+            panelClass: 'full-width-dialog'
+        });
+    };
+    RecetteContreBonCaisseComponent.prototype.deleteContreBonCaisseDialog = function (id, msg) {
+        this.dialog.open(_ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmDeleteComponent"], {
+            data: { id: id, msg: msg }
+        });
+    };
+    RecetteContreBonCaisseComponent.prototype.updateContreBonCaisseDialog = function (contreBonCaisse) {
+        this.dialog.open(_recette_contre_bon_caisse_edit_recette_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_7__["RecetteContreBonCaisseEditComponent"], {
+            panelClass: 'full-width-dialog',
+            data: { contreBonCaisse: Object.assign({}, contreBonCaisse) }
+        });
+    };
+    RecetteContreBonCaisseComponent.prototype.filter = function () {
+        this.contreBonCaisseService.contreBonCaisseMatTab.filter = this.search.trim().toLowerCase();
+    };
+    RecetteContreBonCaisseComponent.prototype.clearSearch = function () {
+        this.search = '';
+        this.filter();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSort"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSort"])
+    ], RecetteContreBonCaisseComponent.prototype, "sort", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"])
+    ], RecetteContreBonCaisseComponent.prototype, "paginator", void 0);
+    RecetteContreBonCaisseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recette-contre-bon-caisse',
+            template: __webpack_require__(/*! ./recette-contre-bon-caisse.component.html */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.html"),
+            styles: [__webpack_require__(/*! ./recette-contre-bon-caisse.component.css */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_2__["ContreBonCaisseService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"],
+            app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"]])
+    ], RecetteContreBonCaisseComponent);
+    return RecetteContreBonCaisseComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.css":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.css ***!
+  \***************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvY2hlY2stY3VycmVudC1zZXNzaW9uL1JlY2V0dGUvc2hvdy1kZXRhaWxzL3JlY2V0dGUtY29udHJlLWJvbi1jbGllbnQvcmVjZXR0ZS1jb250cmUtYm9uLWNsaWVudC1hZGQvcmVjZXR0ZS1jb250cmUtYm9uLWNsaWVudC1hZGQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.html":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.html ***!
+  \****************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n    <span>Ajouter contre bon client</span>\n    <span class=\"fill-remaining-space\"></span>\n    <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n      <mat-icon>clear</mat-icon>\n    </button>\n  </mat-toolbar>\n\n  <form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n    <div>\n      <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-label>Numéro du contre bon</mat-label>\n            <mat-select required name=\"cardNumber\" [(ngModel)]=\"contreBonClient.cardNumber\">\n              <mat-option>None</mat-option>\n              <mat-option *ngFor=\"let c of contreBonService.contreBons\" [value]=\"c.cardNumber\">\n                {{c.cardNumber}}\n              </mat-option>\n            </mat-select>\n            <mat-error>Numéro du contre bon est obligatoire.</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Valeur\" required type=\"number\" name=\"cardValue\"\n              [(ngModel)]=\"contreBonClient.cardValue\">\n            <mat-error>Valeur contre bon client est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Type\" required type=\"string\" name=\"type\"\n              [(ngModel)]=\"contreBonClient.type\">\n            <mat-error>type du contre bon est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Date de l'affectation\" required type=\"text\" name=\"date\"\n              [(ngModel)]=\"contreBonClient.date\">\n            <mat-error>Date de l'affectation est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n      </mat-grid-list>\n      <div>\n        <span class=\"error-message\" *ngIf=\"error\">{{errorMessage}}</span>\n      </div>\n      <div class=\"button-row\">\n        <button mat-raised-button color=\"primary\" (click)=\"addContreBonClient()\"\n          [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n        </button>\n        <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n      </div>\n    </div>\n  </form>\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.ts":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.ts ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: RecetteContreBonClientAddComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteContreBonClientAddComponent", function() { return RecetteContreBonClientAddComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_models_contreBonClient__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/models/contreBonClient */ "./src/app/shared/models/contreBonClient.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/contre-bon-client.service */ "./src/app/shared/services/contre-bon-client.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+
+
+
+
+
+
+
+
+var RecetteContreBonClientAddComponent = /** @class */ (function () {
+    function RecetteContreBonClientAddComponent(dialogMat, contreBonClientService, notifService, sessionService, contreBonService) {
+        this.dialogMat = dialogMat;
+        this.contreBonClientService = contreBonClientService;
+        this.notifService = notifService;
+        this.sessionService = sessionService;
+        this.contreBonService = contreBonService;
+        this.contreBonClient = new app_shared_models_contreBonClient__WEBPACK_IMPORTED_MODULE_2__["ContreBonClient"]();
+        this.width = 2;
+        this.prices = [];
+    }
+    RecetteContreBonClientAddComponent.prototype.ngOnInit = function () {
+        var datetime = new Date();
+        var date = datetime.toISOString().slice(0, 10);
+        this.contreBonClient.date = date;
+        this.contreBonService.getContreBonsList();
+    };
+    RecetteContreBonClientAddComponent.prototype.onClose = function () {
+        this.dialogMat.close();
+    };
+    RecetteContreBonClientAddComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    RecetteContreBonClientAddComponent.prototype.addContreBonClient = function () {
+        var _this = this;
+        this.contreBonClient.sessionId = this.sessionService.currentSessionId;
+        this.contreBonClientService.addContreBonClient(this.contreBonClient).subscribe(function (res) {
+            _this.contreBonClientService.getContreBonClientList();
+            _this.dialogMat.close();
+            _this.notifService.success('Contre bon client ajouter avec succés');
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    RecetteContreBonClientAddComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recette-contre-bon-client-add',
+            template: __webpack_require__(/*! ./recette-contre-bon-client-add.component.html */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.html"),
+            styles: [__webpack_require__(/*! ./recette-contre-bon-client-add.component.css */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
+            app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_4__["ContreBonClientService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"],
+            app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"],
+            app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_7__["ContreBonService"]])
+    ], RecetteContreBonClientAddComponent);
+    return RecetteContreBonClientAddComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.css":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.css ***!
+  \*****************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvY2hlY2stY3VycmVudC1zZXNzaW9uL1JlY2V0dGUvc2hvdy1kZXRhaWxzL3JlY2V0dGUtY29udHJlLWJvbi1jbGllbnQvcmVjZXR0ZS1jb250cmUtYm9uLWNsaWVudC1lZGl0L3JlY2V0dGUtY29udHJlLWJvbi1jbGllbnQtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.html":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.html ***!
+  \******************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n    <span>Modifier contre bon client</span>\n    <span class=\"fill-remaining-space\"></span>\n    <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n      <mat-icon>clear</mat-icon>\n    </button>\n  </mat-toolbar>\n\n  <form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n    <div>\n      <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-label>Numéro du contre bon</mat-label>\n            <mat-select required name=\"cardNumber\" [(ngModel)]=\"contreBonClient.cardNumber\">\n              <mat-option>None</mat-option>\n              <mat-option *ngFor=\"let c of contreBonService.contreBons\" [value]=\"c.cardNumber\">\n                {{c.cardNumber}}\n              </mat-option>\n            </mat-select>\n            <mat-error>Numéro du contre bon est obligatoire.</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Valeur\" required type=\"number\" name=\"cardValue\"\n              [(ngModel)]=\"contreBonClient.cardValue\">\n            <mat-error>Valeur contre bon client est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Type\" required type=\"string\" name=\"type\"\n              [(ngModel)]=\"contreBonClient.type\">\n            <mat-error>Nombre des contre bons est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n        <mat-grid-tile>\n          <mat-form-field>\n            <input matInput placeholder=\"Date de l'affectation\" required type=\"text\" name=\"date\"\n              [(ngModel)]=\"contreBonClient.date\">\n            <mat-error>Date de l'affectation est obligatoire</mat-error>\n          </mat-form-field>\n        </mat-grid-tile>\n\n      </mat-grid-list>\n      <div>\n        <span class=\"error-message\" *ngIf=\"error\">{{errorMessage}}</span>\n      </div>\n      <div class=\"button-row\">\n        <button mat-raised-button color=\"primary\" (click)=\"updateContreBonClient()\"\n          [disabled]=\"angForm.pristine || angForm.invalid\">Modifier\n        </button>\n        <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n      </div>\n    </div>\n  </form>\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.ts":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.ts ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: RecetteContreBonClientEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteContreBonClientEditComponent", function() { return RecetteContreBonClientEditComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/contre-bon-client.service */ "./src/app/shared/services/contre-bon-client.service.ts");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+
+
+
+
+
+
+
+var RecetteContreBonClientEditComponent = /** @class */ (function () {
+    function RecetteContreBonClientEditComponent(dialogRef, data, contreBonClientService, notifservice, sessionService, contreBonService) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.contreBonClientService = contreBonClientService;
+        this.notifservice = notifservice;
+        this.sessionService = sessionService;
+        this.contreBonService = contreBonService;
+        this.contreBonClient = data.contreBonClient;
+        this.width = 2;
+    }
+    RecetteContreBonClientEditComponent.prototype.ngOnInit = function () {
+        this.contreBonService.getContreBonsList();
+    };
+    RecetteContreBonClientEditComponent.prototype.onClose = function () {
+        this.dialogRef.close();
+    };
+    RecetteContreBonClientEditComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    RecetteContreBonClientEditComponent.prototype.updateContreBonClient = function () {
+        var _this = this;
+        this.contreBonClientService.updateContreBonClient(this.contreBonClient._id, this.contreBonClient).subscribe(function (res) {
+            _this.contreBonClientService.getContreBonClientListById(_this.sessionService.currentSessionId);
+            _this.dialogRef.close();
+            _this.notifservice.success('Contre Bon Client modifié avec succés');
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    RecetteContreBonClientEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recette-contre-bon-client-edit',
+            template: __webpack_require__(/*! ./recette-contre-bon-client-edit.component.html */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.html"),
+            styles: [__webpack_require__(/*! ./recette-contre-bon-client-edit.component.css */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_3__["ContreBonClientService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"],
+            app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"],
+            app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_6__["ContreBonService"]])
+    ], RecetteContreBonClientEditComponent);
+    return RecetteContreBonClientEditComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.css":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.css ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvY2hlY2stY3VycmVudC1zZXNzaW9uL1JlY2V0dGUvc2hvdy1kZXRhaWxzL3JlY2V0dGUtY29udHJlLWJvbi1jbGllbnQvcmVjZXR0ZS1jb250cmUtYm9uLWNsaWVudC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.html":
+/*!******************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.html ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addContreBonClientDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"contreBonClientService.contreBonClientMatTab\" matSort>\n    <ng-container matColumnDef=\"cardNumber\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardNumber}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"type\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.type}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"cardValue\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardValue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <mat-header-cell *matHeaderCellDef>Date d'affectation</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.date}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button class=\"position\" mat-icon-button matTooltip=\"Editer\" color=\"primary\"\n          (click)=\"updateContreBonClientDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\"\n          (click)=\"deleteContreBonClientDialog(row._id, 'recette contre bon client')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\"\n      [ngClass]=\"{'hide':contreBonClientService.contreBonClientMatTab!=null && contreBonClientService.contreBonClientMatTab.data.length==0}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\"\n      [ngClass]=\"{'hide':contreBonClientService.contreBonClientMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(contreBonClientService.contreBonClientMatTab!=null && contreBonClientService.contreBonClientMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.ts":
+/*!****************************************************************************************************************************************!*\
+  !*** ./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.ts ***!
+  \****************************************************************************************************************************************/
+/*! exports provided: RecetteContreBonClientComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecetteContreBonClientComponent", function() { return RecetteContreBonClientComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/contre-bon-client.service */ "./src/app/shared/services/contre-bon-client.service.ts");
+/* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var _recette_contre_bon_client_add_recette_contre_bon_client_add_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./recette-contre-bon-client-add/recette-contre-bon-client-add.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/recette-contre-bon-client-add.component.ts");
+/* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
+/* harmony import */ var _recette_contre_bon_client_edit_recette_contre_bon_client_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./recette-contre-bon-client-edit/recette-contre-bon-client-edit.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/recette-contre-bon-client-edit.component.ts");
+
+
+
+
+
+
+
+
+var RecetteContreBonClientComponent = /** @class */ (function () {
+    function RecetteContreBonClientComponent(contreBonClientService, dialog, sessionService) {
+        this.contreBonClientService = contreBonClientService;
+        this.dialog = dialog;
+        this.sessionService = sessionService;
+        this.displayedColumns = ['cardNumber', 'type', 'cardValue', 'date', 'actions'];
+    }
+    RecetteContreBonClientComponent.prototype.getTotalPrevue = function () {
+        return this.contreBonClientService.getTotalPrevue();
+    };
+    RecetteContreBonClientComponent.prototype.ngOnInit = function () {
+        this.contreBonClientService.getContreBonClientListById(this.sessionService.currentSessionId, this.sort, this.paginator);
+    };
+    RecetteContreBonClientComponent.prototype.addContreBonClientDialog = function () {
+        this.dialog.open(_recette_contre_bon_client_add_recette_contre_bon_client_add_component__WEBPACK_IMPORTED_MODULE_5__["RecetteContreBonClientAddComponent"], {
+            panelClass: 'full-width-dialog'
+        });
+    };
+    RecetteContreBonClientComponent.prototype.deleteContreBonClientDialog = function (id, msg) {
+        this.dialog.open(_ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmDeleteComponent"], {
+            data: { id: id, msg: msg }
+        });
+    };
+    RecetteContreBonClientComponent.prototype.updateContreBonClientDialog = function (contreBonClient) {
+        this.dialog.open(_recette_contre_bon_client_edit_recette_contre_bon_client_edit_component__WEBPACK_IMPORTED_MODULE_7__["RecetteContreBonClientEditComponent"], {
+            panelClass: 'full-width-dialog',
+            data: { contreBonClient: Object.assign({}, contreBonClient) }
+        });
+    };
+    RecetteContreBonClientComponent.prototype.filter = function () {
+        this.contreBonClientService.contreBonClientMatTab.filter = this.search.trim().toLowerCase();
+    };
+    RecetteContreBonClientComponent.prototype.clearSearch = function () {
+        this.search = '';
+        this.filter();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"])
+    ], RecetteContreBonClientComponent.prototype, "sort", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"])
+    ], RecetteContreBonClientComponent.prototype, "paginator", void 0);
+    RecetteContreBonClientComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-recette-contre-bon-client',
+            template: __webpack_require__(/*! ./recette-contre-bon-client.component.html */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.html"),
+            styles: [__webpack_require__(/*! ./recette-contre-bon-client.component.css */ "./src/app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_3__["ContreBonClientService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+            app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]])
+    ], RecetteContreBonClientComponent);
+    return RecetteContreBonClientComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/Components/check-current-session/Recette/show-details/recette-credits/recette-credits-add/recette-credits-add.component.css":
 /*!*********************************************************************************************************************************************!*\
   !*** ./src/app/Components/check-current-session/Recette/show-details/recette-credits/recette-credits-add/recette-credits-add.component.css ***!
@@ -3628,7 +4433,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n  <span>Détails recette</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n\n<div class=\"container\">\n  <mat-accordion>\n    <mat-dialog-content>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Carte Bon </span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{cardBonService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-carte-bon></app-recette-carte-bon>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Bon Valeur</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{bonValeurService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-bon-valeur></app-recette-bon-valeur>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Cheque</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{chequeService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-cheque></app-recette-cheque>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Crédit</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{payementCreditService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-credits></app-recette-credits>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>STEG et autres</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{stegEtAutreService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-steg-et-autres></app-recette-steg-et-autres>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n          <mat-expansion-panel>\n            <mat-expansion-panel-header>\n              <span>Espèces</span>\n              <span class=\"fill-remaining-space\"></span>\n              <span>Valeur Total: {{especeService.getTotalPrevue()}}</span>\n              <span class=\"fill-remaining-space\"></span>\n            </mat-expansion-panel-header>\n            <app-recette-espece></app-recette-espece>\n          </mat-expansion-panel>\n        </div>\n\n        <div class=\"margin-param\">\n          <mat-expansion-panel>\n            <mat-expansion-panel-header>\n              <span>Subvention pêche</span>\n              <span class=\"fill-remaining-space\"></span>\n              <span>Valeur Total: {{subventionPecheService.getTotalPrevue()}}</span>\n              <span class=\"fill-remaining-space\"></span>\n            </mat-expansion-panel-header>\n            <app-recette-subvention-peche></app-recette-subvention-peche>\n          </mat-expansion-panel>\n        </div>\n\n    </mat-dialog-content>\n\n    <div>\n      <span style=\"font-weight: bold\">Valeur prévue du recette: {{getTotalPrevue()}}</span>\n    </div>\n  </mat-accordion>\n</div>\n"
+module.exports = "<mat-toolbar>\n  <span>Détails recette</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n\n<div class=\"container\">\n  <mat-accordion>\n    <mat-dialog-content>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Carte Bon </span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{cardBonService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-carte-bon></app-recette-carte-bon>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Bon Valeur</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{bonValeurService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-bon-valeur></app-recette-bon-valeur>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Cheque</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{chequeService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-cheque></app-recette-cheque>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Crédit</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{payementCreditService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-credits></app-recette-credits>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>STEG et autres</span>\n            <span class=\"fill-remaining-space\"></span>\n            <span>Valeur Total: {{stegEtAutreService.getTotalPrevue()}}</span>\n            <span class=\"fill-remaining-space\"></span>\n          </mat-expansion-panel-header>\n          <app-recette-steg-et-autres></app-recette-steg-et-autres>\n        </mat-expansion-panel>\n      </div>\n\n      <div class=\"margin-param\">\n          <mat-expansion-panel>\n            <mat-expansion-panel-header>\n              <span>Espèces</span>\n              <span class=\"fill-remaining-space\"></span>\n              <span>Valeur Total: {{especeService.getTotalPrevue()}}</span>\n              <span class=\"fill-remaining-space\"></span>\n            </mat-expansion-panel-header>\n            <app-recette-espece></app-recette-espece>\n          </mat-expansion-panel>\n        </div>\n\n        <div class=\"margin-param\">\n          <mat-expansion-panel>\n            <mat-expansion-panel-header>\n              <span>Subvention pêche</span>\n              <span class=\"fill-remaining-space\"></span>\n              <span>Valeur Total: {{subventionPecheService.getTotalPrevue()}}</span>\n              <span class=\"fill-remaining-space\"></span>\n            </mat-expansion-panel-header>\n            <app-recette-subvention-peche></app-recette-subvention-peche>\n          </mat-expansion-panel>\n        </div>\n\n        <div class=\"margin-param\">\n            <mat-expansion-panel>\n              <mat-expansion-panel-header>\n                <span>Contre Bon Caisse</span>\n                <span class=\"fill-remaining-space\"></span>\n                <span>Valeur Total: {{contreBonCaisseService.getTotalPrevue()}}</span>\n                <span class=\"fill-remaining-space\"></span>\n              </mat-expansion-panel-header>\n              <app-recette-contre-bon-caisse></app-recette-contre-bon-caisse>\n            </mat-expansion-panel>\n          </div>\n\n          <div class=\"margin-param\">\n              <mat-expansion-panel>\n                <mat-expansion-panel-header>\n                  <span>Contre Bon Client</span>\n                  <span class=\"fill-remaining-space\"></span>\n                  <span>Valeur Total: {{contreBonClientService.getTotalPrevue()}}</span>\n                  <span class=\"fill-remaining-space\"></span>\n                </mat-expansion-panel-header>\n                <app-recette-contre-bon-client></app-recette-contre-bon-client>\n              </mat-expansion-panel>\n            </div>\n\n    </mat-dialog-content>\n\n    <div>\n      <span style=\"font-weight: bold\">Valeur prévue du recette: {{getTotalPrevue()}}</span>\n    </div>\n  </mat-accordion>\n</div>\n"
 
 /***/ }),
 
@@ -3652,6 +4457,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_shared_services_steg_et_autres_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/steg-et-autres.service */ "./src/app/shared/services/steg-et-autres.service.ts");
 /* harmony import */ var app_shared_services_espece_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/services/espece.service */ "./src/app/shared/services/espece.service.ts");
 /* harmony import */ var app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/shared/services/subvention-peche.service */ "./src/app/shared/services/subvention-peche.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! app/shared/services/contre-bon-client.service */ "./src/app/shared/services/contre-bon-client.service.ts");
+/* harmony import */ var app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! app/shared/services/contre-bon-caisse.service */ "./src/app/shared/services/contre-bon-caisse.service.ts");
+
+
 
 
 
@@ -3663,7 +4472,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ShowDetailsComponent = /** @class */ (function () {
-    function ShowDetailsComponent(dialogRef, cardBonService, bonValeurService, payementCreditService, stegEtAutreService, chequeService, especeService, subventionPecheService) {
+    function ShowDetailsComponent(dialogRef, cardBonService, bonValeurService, payementCreditService, stegEtAutreService, chequeService, especeService, subventionPecheService, contreBonClientService, contreBonCaisseService) {
         this.dialogRef = dialogRef;
         this.cardBonService = cardBonService;
         this.bonValeurService = bonValeurService;
@@ -3672,6 +4481,8 @@ var ShowDetailsComponent = /** @class */ (function () {
         this.chequeService = chequeService;
         this.especeService = especeService;
         this.subventionPecheService = subventionPecheService;
+        this.contreBonClientService = contreBonClientService;
+        this.contreBonCaisseService = contreBonCaisseService;
     }
     ShowDetailsComponent.prototype.ngOnInit = function () {
     };
@@ -3680,7 +4491,9 @@ var ShowDetailsComponent = /** @class */ (function () {
             parseFloat(this.cardBonService.getTotalPrevue()) +
             parseFloat(this.payementCreditService.getTotalPrevue()) +
             parseFloat(this.especeService.getTotalPrevue()) +
-            parseFloat(this.subventionPecheService.getTotalPrevue()) +
+            parseFloat(this.subventionPecheService.getTotalPrevue()) -
+            parseFloat(this.contreBonCaisseService.getTotalPrevue()) +
+            parseFloat(this.contreBonClientService.getTotalPrevue()) +
             parseFloat(this.chequeService.getTotalPrevue());
     };
     ShowDetailsComponent.prototype.onClose = function () {
@@ -3699,7 +4512,9 @@ var ShowDetailsComponent = /** @class */ (function () {
             app_shared_services_steg_et_autres_service__WEBPACK_IMPORTED_MODULE_7__["StegEtAutresService"],
             app_shared_services_cheque_service__WEBPACK_IMPORTED_MODULE_5__["ChequeService"],
             app_shared_services_espece_service__WEBPACK_IMPORTED_MODULE_8__["EspeceService"],
-            app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_9__["SubventionPecheService"]])
+            app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_9__["SubventionPecheService"],
+            app_shared_services_contre_bon_client_service__WEBPACK_IMPORTED_MODULE_10__["ContreBonClientService"],
+            app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_11__["ContreBonCaisseService"]])
     ], ShowDetailsComponent);
     return ShowDetailsComponent;
 }());
@@ -5406,6 +6221,160 @@ var ChequeListComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.css":
+/*!********************************************************************************************************************************************!*\
+  !*** ./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.css ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9Db250cmUgYm9uIGNhaXNzZS9jb250cmUtYm9uLWNhaXNzZS1saXN0L2NvbnRyZS1ib24tY2Fpc3NlLWVkaXQvY29udHJlLWJvbi1jYWlzc2UtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.html":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.html ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n  <span>Modifier contre bon Caisse</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n  <div>\n    <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Numéro du contre bon\" required type=\"number\" name=\"cardNumber\"\n            [(ngModel)]=\"contreBonCaisse.cardNumber\">\n          <mat-error>Numéro du contre bon est obligatoire</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Type\" required type=\"string\" name=\"type\" [(ngModel)]=\"contreBonCaisse.type\">\n          <mat-error>Nombre des contre bons est obligatoire</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Date de l'affectation\" required type=\"text\" name=\"date\"\n            [(ngModel)]=\"contreBonCaisse.date\">\n          <mat-error>Date de l'affectation est obligatoire</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n    <div>\n      <span class=\"error-message\" *ngIf=\"error\">{{errorMessage}}</span>\n    </div>\n    <div class=\"button-row\">\n      <button mat-raised-button color=\"primary\" (click)=\"updateContreBonCaisse()\"\n        [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n      </button>\n      <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n    </div>\n  </div>\n</form>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.ts":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.ts ***!
+  \*******************************************************************************************************************************************/
+/*! exports provided: ContreBonCaisseEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonCaisseEditComponent", function() { return ContreBonCaisseEditComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ContreBonCaisseEditComponent = /** @class */ (function () {
+    function ContreBonCaisseEditComponent() {
+    }
+    ContreBonCaisseEditComponent.prototype.ngOnInit = function () {
+    };
+    ContreBonCaisseEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-contre-bon-caisse-edit',
+            template: __webpack_require__(/*! ./contre-bon-caisse-edit.component.html */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.html"),
+            styles: [__webpack_require__(/*! ./contre-bon-caisse-edit.component.css */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ContreBonCaisseEditComponent);
+    return ContreBonCaisseEditComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.css":
+/*!*********************************************************************************************************************!*\
+  !*** ./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.css ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9Db250cmUgYm9uIGNhaXNzZS9jb250cmUtYm9uLWNhaXNzZS1saXN0L2NvbnRyZS1ib24tY2Fpc3NlLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.html":
+/*!**********************************************************************************************************************!*\
+  !*** ./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.html ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addContreBonCaisseDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"contreBonCaisseService.contreBonCaisseMatTab\" matSort>\n    <ng-container matColumnDef=\"cardNumber\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro de debut</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardNumber}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"type\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.type}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"cardValue\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardValue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <mat-header-cell *matHeaderCellDef>Date d'affectation</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.date}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button class=\"position\" mat-icon-button matTooltip=\"Editer\" color=\"primary\"\n          (click)=\"updateContreBonCaisseDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\"\n          (click)=\"deleteContreBonCaisseDialog(row._id, 'contre bon caisse')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\"\n      [ngClass]=\"{'hide':contreBonCaisseService.contreBonCaisseMatTab!=null && contreBonCaisseService.contreBonCaisseMatTab.data.length==0}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\"\n      [ngClass]=\"{'hide':contreBonCaisseService.contreBonCaisseMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(contreBonCaisseService.contreBonCaisseMatTab!=null && contreBonCaisseService.contreBonCaisseMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.ts":
+/*!********************************************************************************************************************!*\
+  !*** ./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.ts ***!
+  \********************************************************************************************************************/
+/*! exports provided: ContreBonCaisseListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonCaisseListComponent", function() { return ContreBonCaisseListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/contre-bon-caisse.service */ "./src/app/shared/services/contre-bon-caisse.service.ts");
+/* harmony import */ var _contre_bon_caisse_edit_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./contre-bon-caisse-edit/contre-bon-caisse-edit.component */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-edit/contre-bon-caisse-edit.component.ts");
+
+
+
+
+
+
+var ContreBonCaisseListComponent = /** @class */ (function () {
+    function ContreBonCaisseListComponent(contreBonCaisseService, dialog) {
+        this.contreBonCaisseService = contreBonCaisseService;
+        this.dialog = dialog;
+        this.displayedColumns = ['cardNumber', 'type', 'cardValue', 'date', 'actions'];
+    }
+    ContreBonCaisseListComponent.prototype.getTotalPrevue = function () {
+        return this.contreBonCaisseService.getTotalPrevue();
+    };
+    ContreBonCaisseListComponent.prototype.ngOnInit = function () {
+        this.contreBonCaisseService.getContreBonCaisseList(this.sort, this.paginator);
+    };
+    ContreBonCaisseListComponent.prototype.deleteContreBonCaisseDialog = function (id, msg) {
+        this.dialog.open(_ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_3__["ConfirmDeleteComponent"], {
+            data: { id: id, msg: msg }
+        });
+    };
+    ContreBonCaisseListComponent.prototype.updateContreBonCaisseDialog = function (contreBonCaisse) {
+        this.dialog.open(_contre_bon_caisse_edit_contre_bon_caisse_edit_component__WEBPACK_IMPORTED_MODULE_5__["ContreBonCaisseEditComponent"], {
+            panelClass: 'full-width-dialog',
+            data: { contreBonCaisse: Object.assign({}, contreBonCaisse) }
+        });
+    };
+    ContreBonCaisseListComponent.prototype.filter = function () {
+        this.contreBonCaisseService.contreBonCaisseMatTab.filter = this.search.trim().toLowerCase();
+    };
+    ContreBonCaisseListComponent.prototype.clearSearch = function () {
+        this.search = '';
+        this.filter();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"])
+    ], ContreBonCaisseListComponent.prototype, "sort", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"])
+    ], ContreBonCaisseListComponent.prototype, "paginator", void 0);
+    ContreBonCaisseListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-contre-bon-caisse-list',
+            template: __webpack_require__(/*! ./contre-bon-caisse-list.component.html */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.html"),
+            styles: [__webpack_require__(/*! ./contre-bon-caisse-list.component.css */ "./src/app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/contre-bon-caisse-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_contre_bon_caisse_service__WEBPACK_IMPORTED_MODULE_4__["ContreBonCaisseService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
+    ], ContreBonCaisseListComponent);
+    return ContreBonCaisseListComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/Components/inventaire/Credit/credit-list/credit-add/credit-add.component.css":
 /*!**********************************************************************************************!*\
   !*** ./src/app/Components/inventaire/Credit/credit-list/credit-add/credit-add.component.css ***!
@@ -6199,20 +7168,20 @@ var StegEtAutresMoreDetailsComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.css":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.css":
 /*!****************************************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.css ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.css ***!
   \****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9TdWJ2ZW50aW9uIFBlY2hlL3N1YnZlbnRpb24tcGVjaGUtbGlzdC9zdWJ2ZW50aW9uLXBlY2hlLWVkaXQvc3VidmVudGlvbi1wZWNoZS1lZGl0LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9TdWJ2ZW50aW9uIHBlY2hlL3N1YnZlbnRpb24tcGVjaGUtbGlzdC9zdWJ2ZW50aW9uLXBlY2hlLWVkaXQvc3VidmVudGlvbi1wZWNoZS1lZGl0LmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.html":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.html":
 /*!*****************************************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.html ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.html ***!
   \*****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -6221,9 +7190,9 @@ module.exports = "<mat-toolbar>\n  <span>Modifier subvention peche bon</span>\n 
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts":
 /*!***************************************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts ***!
   \***************************************************************************************************************************************/
 /*! exports provided: SubventionPecheEditComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -6277,8 +7246,8 @@ var SubventionPecheEditComponent = /** @class */ (function () {
     SubventionPecheEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-subvention-peche-edit',
-            template: __webpack_require__(/*! ./subvention-peche-edit.component.html */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.html"),
-            styles: [__webpack_require__(/*! ./subvention-peche-edit.component.css */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.css")]
+            template: __webpack_require__(/*! ./subvention-peche-edit.component.html */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.html"),
+            styles: [__webpack_require__(/*! ./subvention-peche-edit.component.css */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object, app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_3__["SubventionPecheService"],
@@ -6292,31 +7261,31 @@ var SubventionPecheEditComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.css":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.css":
 /*!******************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.css ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.css ***!
   \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9TdWJ2ZW50aW9uIFBlY2hlL3N1YnZlbnRpb24tcGVjaGUtbGlzdC9zdWJ2ZW50aW9uLXBlY2hlLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9TdWJ2ZW50aW9uIHBlY2hlL3N1YnZlbnRpb24tcGVjaGUtbGlzdC9zdWJ2ZW50aW9uLXBlY2hlLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.html":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.html":
 /*!*******************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.html ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.html ***!
   \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"search-div\">\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"subventionPecheService.subventionPechesMatTab\" matSort>\n\n    <ng-container matColumnDef=\"cardNumber\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardNumber}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette subvention peche</mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"payeeName\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Nom de bénéficiaire</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.payeeName}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cardValue\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardValue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"date\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de livraison</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.date}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button class=\"position\" mat-icon-button matTooltip=\"Voir plus\" (click)=\"seeMoreDialog(row)\">\n          <mat-icon>remove_red_eye</mat-icon>\n        </button>\n        <button class=\"position\" mat-icon-button matTooltip=\"Editer\" color=\"primary\" (click)=\"updateSubventionPecheDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button class=\"position\" mat-icon-button matTooltip=\"Supprimer\" color=\"warn\"\n          (click)=\"deleteSubventionPecheDialog(row._id, 'recette-subventionPeche')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\"\n      [ngClass]=\"{'hide':subventionPecheService.subventionPechesMatTab!=null && subventionPecheService.subventionPechesMatTab.data.length==0}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':subventionPecheService.subventionPechesMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(subventionPecheService.subventionPechesMatTab!=null && subventionPecheService.subventionPechesMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n\n\n"
+module.exports = "<div class=\"search-div\">\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"subventionPecheService.subventionPechesMatTab\" matSort>\n\n    <ng-container matColumnDef=\"cardNumber\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardNumber}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>Recette subvention peche</mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"payeeName\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Nom de bénéficiaire</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.payeeName}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"cardValue\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.cardValue}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"date\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de livraison</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\">{{element.date}}</mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\">\n        <button class=\"position\" mat-icon-button matTooltip=\"Voir plus\" (click)=\"seeMoreDialog(row)\">\n          <mat-icon>remove_red_eye</mat-icon>\n        </button>\n        <button class=\"position\" mat-icon-button matTooltip=\"Editer\" color=\"primary\" (click)=\"updateSubventionPecheDialog(row)\">\n          <mat-icon>edit</mat-icon>\n        </button>\n        <button class=\"position\" mat-icon-button matTooltip=\"Supprimer\" color=\"warn\"\n          (click)=\"deleteSubventionPecheDialog(row._id, 'subventionPeche')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n      <mat-footer-cell *matFooterCellDef></mat-footer-cell>\n    </ng-container>\n\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"displayedColumns\"\n      [ngClass]=\"{'hide':subventionPecheService.subventionPechesMatTab!=null && subventionPecheService.subventionPechesMatTab.data.length==0}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':subventionPecheService.subventionPechesMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(subventionPecheService.subventionPechesMatTab!=null && subventionPecheService.subventionPechesMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n\n\n"
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.ts":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.ts":
 /*!*****************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.ts ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.ts ***!
   \*****************************************************************************************************************/
 /*! exports provided: SubventionPecheListComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -6327,11 +7296,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _subvention_peche_more_details_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./subvention-peche-more-details/subvention-peche-more-details.component */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts");
+/* harmony import */ var _subvention_peche_more_details_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./subvention-peche-more-details/subvention-peche-more-details.component */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts");
 /* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
 /* harmony import */ var app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/subvention-peche.service */ "./src/app/shared/services/subvention-peche.service.ts");
 /* harmony import */ var app_shared_services_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/session.service */ "./src/app/shared/services/session.service.ts");
-/* harmony import */ var _subvention_peche_edit_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./subvention-peche-edit/subvention-peche-edit.component */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts");
+/* harmony import */ var _subvention_peche_edit_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./subvention-peche-edit/subvention-peche-edit.component */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts");
 
 
 
@@ -6389,8 +7358,8 @@ var SubventionPecheListComponent = /** @class */ (function () {
     SubventionPecheListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-subvention-peche-list',
-            template: __webpack_require__(/*! ./subvention-peche-list.component.html */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.html"),
-            styles: [__webpack_require__(/*! ./subvention-peche-list.component.css */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.css")]
+            template: __webpack_require__(/*! ./subvention-peche-list.component.html */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.html"),
+            styles: [__webpack_require__(/*! ./subvention-peche-list.component.css */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_subvention_peche_service__WEBPACK_IMPORTED_MODULE_5__["SubventionPecheService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
@@ -6403,31 +7372,31 @@ var SubventionPecheListComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.css":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.css":
 /*!********************************************************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.css ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.css ***!
   \********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9TdWJ2ZW50aW9uIFBlY2hlL3N1YnZlbnRpb24tcGVjaGUtbGlzdC9zdWJ2ZW50aW9uLXBlY2hlLW1vcmUtZGV0YWlscy9zdWJ2ZW50aW9uLXBlY2hlLW1vcmUtZGV0YWlscy5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvaW52ZW50YWlyZS9TdWJ2ZW50aW9uIHBlY2hlL3N1YnZlbnRpb24tcGVjaGUtbGlzdC9zdWJ2ZW50aW9uLXBlY2hlLW1vcmUtZGV0YWlscy9zdWJ2ZW50aW9uLXBlY2hlLW1vcmUtZGV0YWlscy5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.html":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.html":
 /*!*********************************************************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.html ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.html ***!
   \*********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div mat-dialog-content>\n  <mat-list>\n    <mat-list-item>\n      <h4>Numéro du bon: </h4>&nbsp;&nbsp;{{subventionPeche.cardNumber}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Nom de bénéficiaire: </h4>&nbsp;&nbsp;{{subventionPeche.payeeName}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Puissance du moteur: </h4>&nbsp;&nbsp;{{subventionPeche.motorPower}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Nom du bateau: </h4>&nbsp;&nbsp;{{subventionPeche.boatName}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Nombre de litres: </h4>&nbsp;&nbsp;{{subventionPeche.numberOfLitters}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Affecté: </h4>&nbsp;&nbsp;{{subventionPeche.state}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Valeur du bon: </h4>&nbsp;&nbsp;{{subventionPeche.cardValue}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Prix (L): </h4>&nbsp;&nbsp;{{subventionPeche.literPrice}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Date de livraison: </h4>&nbsp;&nbsp;{{subventionPeche.date}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n  </mat-list>\n</div>\n<div mat-dialog-actions>\n  <span class=\"fill-remaining-space\"></span>\n  <button mat-raised-button (click)=\"onNoClick()\" color=\"primary\">Fermer</button>\n  <span class=\"fill-remaining-space\"></span>\n</div>\n\n\n\n"
+module.exports = "<div mat-dialog-content>\n  <mat-list>\n    <mat-list-item>\n      <h4>Numéro du bon: </h4>&nbsp;&nbsp;{{subventionPeche.cardNumber}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Nom de bénéficiaire: </h4>&nbsp;&nbsp;{{subventionPeche.payeeName}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Puissance du moteur: </h4>&nbsp;&nbsp;{{subventionPeche.motorPower}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Nom du bateau: </h4>&nbsp;&nbsp;{{subventionPeche.boatName}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Nombre de litres: </h4>&nbsp;&nbsp;{{subventionPeche.numberOfLiters}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Affecté: </h4>&nbsp;&nbsp;{{subventionPeche.state}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Valeur du bon: </h4>&nbsp;&nbsp;{{subventionPeche.cardValue}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Prix (L): </h4>&nbsp;&nbsp;{{subventionPeche.literPrice}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Date de livraison: </h4>&nbsp;&nbsp;{{subventionPeche.date}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n  </mat-list>\n</div>\n<div mat-dialog-actions>\n  <span class=\"fill-remaining-space\"></span>\n  <button mat-raised-button (click)=\"onNoClick()\" color=\"primary\">Fermer</button>\n  <span class=\"fill-remaining-space\"></span>\n</div>\n\n\n\n"
 
 /***/ }),
 
-/***/ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts":
+/***/ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts":
 /*!*******************************************************************************************************************************************************!*\
-  !*** ./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts ***!
+  !*** ./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts ***!
   \*******************************************************************************************************************************************************/
 /*! exports provided: SubventionPecheMoreDetailsComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -6456,8 +7425,8 @@ var SubventionPecheMoreDetailsComponent = /** @class */ (function () {
     SubventionPecheMoreDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-subvention-peche-more-details',
-            template: __webpack_require__(/*! ./subvention-peche-more-details.component.html */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.html"),
-            styles: [__webpack_require__(/*! ./subvention-peche-more-details.component.css */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.css")]
+            template: __webpack_require__(/*! ./subvention-peche-more-details.component.html */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.html"),
+            styles: [__webpack_require__(/*! ./subvention-peche-more-details.component.css */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object])
@@ -6487,7 +7456,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-progress [positionUsing]=\"'marginLeft'\" [direction]=\"'leftToRightIncreased'\" [color]=\"'#4286f4'\"\n  [trickleSpeed]=\"500\" [thick]=\"true\" [ease]=\"'easeInSine'\"></ng-progress>\n<div class=\"container\">\n  <mat-accordion>\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Carte Bon </span>\n        </mat-expansion-panel-header>\n        <app-card-bon-list></app-card-bon-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Bon Valeur</span>\n        </mat-expansion-panel-header>\n        <app-bon-valeur-list></app-bon-valeur-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Cheque</span>\n        </mat-expansion-panel-header>\n        <app-cheque-list></app-cheque-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Credit</span>\n        </mat-expansion-panel-header>\n        <app-credit-list></app-credit-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>STEG et autres</span>\n        </mat-expansion-panel-header>\n        <app-steg-et-autres-list></app-steg-et-autres-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Espèces</span>\n        </mat-expansion-panel-header>\n        <app-espece-list></app-espece-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Subvention pêche</span>\n        </mat-expansion-panel-header>\n        <app-subvention-peche-list></app-subvention-peche-list>\n      </mat-expansion-panel>\n    </div>\n\n  </mat-accordion>\n</div>\n"
+module.exports = "<ng-progress [positionUsing]=\"'marginLeft'\" [direction]=\"'leftToRightIncreased'\" [color]=\"'#4286f4'\"\n  [trickleSpeed]=\"500\" [thick]=\"true\" [ease]=\"'easeInSine'\"></ng-progress>\n<div class=\"container\">\n  <mat-accordion>\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Carte Bon </span>\n        </mat-expansion-panel-header>\n        <app-card-bon-list></app-card-bon-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Bon Valeur</span>\n        </mat-expansion-panel-header>\n        <app-bon-valeur-list></app-bon-valeur-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Cheque</span>\n        </mat-expansion-panel-header>\n        <app-cheque-list></app-cheque-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Credit</span>\n        </mat-expansion-panel-header>\n        <app-credit-list></app-credit-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>STEG et autres</span>\n        </mat-expansion-panel-header>\n        <app-steg-et-autres-list></app-steg-et-autres-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Espèces</span>\n        </mat-expansion-panel-header>\n        <app-espece-list></app-espece-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <span>Subvention pêche</span>\n        </mat-expansion-panel-header>\n        <app-subvention-peche-list></app-subvention-peche-list>\n      </mat-expansion-panel>\n    </div>\n\n    <div class=\"margin-param\">\n        <mat-expansion-panel>\n          <mat-expansion-panel-header>\n            <span>Contre Bon Caisse</span>\n          </mat-expansion-panel-header>\n          <app-contre-bon-caisse-list></app-contre-bon-caisse-list>\n        </mat-expansion-panel>\n      </div>\n\n  </mat-accordion>\n</div>\n"
 
 /***/ }),
 
@@ -8294,6 +9263,267 @@ var UpdateClientComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.css":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.css ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9jb250cmUgYm9uL2NvbnRyZS1ib24tbGlzdC9jb250cmUtYm9uLWFkZC9jb250cmUtYm9uLWFkZC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.html":
+/*!***************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.html ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-toolbar>\n  <span>Ajouter contre bon</span>\n  <span class=\"fill-remaining-space\"></span>\n  <button class=\"btn-dialog-close\" mat-stroked-button (click)=\"onClose()\" tabIndex=\"-1\">\n    <mat-icon>clear</mat-icon>\n  </button>\n</mat-toolbar>\n\n<form mat-dialog-content class=\"normal-form\" #angForm=\"ngForm\">\n  <div>\n    <mat-grid-list [cols]=\"width\" rowHeight=\"100px\">\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Numéro du début\" required type=\"number\" name=\"cardNumber\" [(ngModel)]=\"contreBon.cardNumber\">\n          <mat-error>Numéro du début est obligatoire</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Nombre des contre bons\" required type=\"number\" name=\"numberOfCards\"\n            [(ngModel)]=\"numberOfCards\">\n          <mat-error>Nombre des contre bons est obligatoire</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile>\n        <mat-form-field>\n          <input matInput placeholder=\"Date de l'affectation\" required type=\"text\" name=\"date\"\n            [(ngModel)]=\"contreBon.date\">\n          <mat-error>Date de l'affectation est obligatoire</mat-error>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n    <div>\n      <span class=\"error-message\" *ngIf=\"error\">{{errorMessage}}</span>\n    </div>\n    <div class=\"button-row\">\n      <button mat-raised-button color=\"primary\" (click)=\"addContreBon()\"\n        [disabled]=\"angForm.pristine || angForm.invalid\">Ajouter\n      </button>\n      <button mat-raised-button color=\"warn\" (click)=\"onClear(angForm)\">Reset</button>\n    </div>\n  </div>\n</form>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.ts":
+/*!*************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.ts ***!
+  \*************************************************************************************************************/
+/*! exports provided: ContreBonAddComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonAddComponent", function() { return ContreBonAddComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+/* harmony import */ var app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/notification.service */ "./src/app/shared/services/notification.service.ts");
+/* harmony import */ var app_shared_models_contreBon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/models/contreBon */ "./src/app/shared/models/contreBon.ts");
+
+
+
+
+
+
+var ContreBonAddComponent = /** @class */ (function () {
+    function ContreBonAddComponent(dialogMat, contreBonService, notifService) {
+        this.dialogMat = dialogMat;
+        this.contreBonService = contreBonService;
+        this.notifService = notifService;
+        this.contreBon = new app_shared_models_contreBon__WEBPACK_IMPORTED_MODULE_5__["ContreBon"]();
+        this.width = 2;
+        this.prices = [];
+    }
+    ContreBonAddComponent.prototype.ngOnInit = function () {
+        var datetime = new Date();
+        var date = datetime.toISOString().slice(0, 10);
+        this.contreBon.date = date;
+    };
+    ContreBonAddComponent.prototype.onClose = function () {
+        this.dialogMat.close();
+    };
+    ContreBonAddComponent.prototype.onClear = function (form) {
+        form.reset();
+    };
+    ContreBonAddComponent.prototype.addContreBon = function () {
+        var _this = this;
+        this.contreBon.caisseState = 'Non';
+        this.contreBon.clientState = 'Non';
+        this.contreBon.color = 'rgba(255,0,0,0.2)';
+        this.contreBonService.addContreBon(this.contreBon, this.numberOfCards).subscribe(function (res) {
+            _this.contreBonService.getContreBonsList();
+            _this.dialogMat.close();
+            _this.notifService.success('Contre bon ajouter avec succés');
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ContreBonAddComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-contre-bon-add',
+            template: __webpack_require__(/*! ./contre-bon-add.component.html */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.html"),
+            styles: [__webpack_require__(/*! ./contre-bon-add.component.css */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"],
+            app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_3__["ContreBonService"],
+            app_shared_services_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+    ], ContreBonAddComponent);
+    return ContreBonAddComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.css":
+/*!************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.css ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9jb250cmUgYm9uL2NvbnRyZS1ib24tbGlzdC9jb250cmUtYm9uLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.html":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.html ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"search-div\">\n  <button mat-raised-button (click)=\"addContreBonDialog()\">\n    <mat-icon>add</mat-icon>Ajouter\n  </button>\n  <mat-form-field class=\"search-form-field\" floatLabel=\"never\">\n    <input matInput placeholder=\"Search\" autocomplete=\"off\" [(ngModel)]=\"search\" (keyup)=\"filter()\">\n    <button *ngIf=\"search\" mat-button matSuffix mat-icon-button aria-label=\"Clear\" (click)=\"clearSearch()\">\n      <mat-icon>close</mat-icon>\n    </button>\n  </mat-form-field>\n</div>\n<div class=\"mat-elevation-z8\">\n  <mat-table [dataSource]=\"contreBonService.contreBonsMatTab\" matSort>\n    <ng-container matColumnDef=\"cardNumber\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro de debut</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\" [style.background-color]=\"element.color\">{{element.cardNumber}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"type\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\" [style.background-color]=\"element.color\">{{element.type}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"caisseState\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Affecté (Caisse)</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\" [style.background-color]=\"element.color\">{{element.caisseState}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"clientState\">\n      <mat-header-cell *matHeaderCellDef mat-sort-header>Affecté (Client)</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\" [style.background-color]=\"element.color\">{{element.clientState}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <mat-header-cell *matHeaderCellDef>Date d'affectation</mat-header-cell>\n      <mat-cell *matCellDef=\"let element\" [style.background-color]=\"element.color\">{{element.date}}</mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"actions\">\n      <mat-header-cell *matHeaderCellDef></mat-header-cell>\n      <mat-cell *matCellDef=\"let row\" [style.background-color]=\"row.color\">\n        <button class=\"position\" mat-icon-button matTooltip=\"Voir plus\" (click)=\"seeMoreDialog(row)\">\n          <mat-icon>remove_red_eye</mat-icon>\n        </button>\n        <button mat-icon-button color=\"warn\" (click)=\"deleteContreBonDialog(row._id, 'contre bon')\">\n          <mat-icon>delete_outline</mat-icon>\n        </button>\n      </mat-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"loading\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        Loading data ...\n      </mat-footer-cell>\n    </ng-container>\n    <ng-container matColumnDef=\"noData\">\n      <mat-footer-cell *matFooterCellDef colspan=\"6\">\n        No data.\n      </mat-footer-cell>\n    </ng-container>\n    <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n    <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    <mat-footer-row *matFooterRowDef=\"['loading']\" [ngClass]=\"{'hide':contreBonService.contreBonsMatTab!=null}\">\n    </mat-footer-row>\n    <mat-footer-row *matFooterRowDef=\"['noData']\"\n      [ngClass]=\"{'hide':!(contreBonService.contreBonsMatTab!=null && contreBonService.contreBonsMatTab.data.length==0)}\">\n    </mat-footer-row>\n  </mat-table>\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\" [pageSize]=\"5\" showFirstLastButtons></mat-paginator>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: ContreBonListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonListComponent", function() { return ContreBonListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/contre-bon.service */ "./src/app/shared/services/contre-bon.service.ts");
+/* harmony import */ var _contre_bon_add_contre_bon_add_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./contre-bon-add/contre-bon-add.component */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.ts");
+/* harmony import */ var _ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ComShared/confirm-delete/confirm-delete.component */ "./src/app/Components/Shared/confirm-delete/confirm-delete.component.ts");
+/* harmony import */ var _contre_bon_more_details_contre_bon_more_details_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./contre-bon-more-details/contre-bon-more-details.component */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.ts");
+
+
+
+
+
+
+
+var ContreBonListComponent = /** @class */ (function () {
+    function ContreBonListComponent(contreBonService, dialog) {
+        this.contreBonService = contreBonService;
+        this.dialog = dialog;
+        this.displayedColumns = ['cardNumber', 'type', 'caisseState', 'clientState', 'date', 'actions'];
+    }
+    ContreBonListComponent.prototype.ngOnInit = function () {
+        this.contreBonService.getContreBonsList(this.sort, this.paginator);
+    };
+    ContreBonListComponent.prototype.seeMoreDialog = function (contreBon) {
+        this.dialog.open(_contre_bon_more_details_contre_bon_more_details_component__WEBPACK_IMPORTED_MODULE_6__["ContreBonMoreDetailsComponent"], {
+            panelClass: 'full-width-dialog',
+            data: { contreBon: contreBon }
+        });
+    };
+    ContreBonListComponent.prototype.addContreBonDialog = function () {
+        this.dialog.open(_contre_bon_add_contre_bon_add_component__WEBPACK_IMPORTED_MODULE_4__["ContreBonAddComponent"], {
+            panelClass: 'full-width-dialog'
+        });
+    };
+    ContreBonListComponent.prototype.deleteContreBonDialog = function (id, msg) {
+        this.dialog.open(_ComShared_confirm_delete_confirm_delete_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmDeleteComponent"], {
+            data: { id: id, msg: msg }
+        });
+    };
+    ContreBonListComponent.prototype.filter = function () {
+        this.contreBonService.contreBonsMatTab.filter = this.search.trim().toLowerCase();
+    };
+    ContreBonListComponent.prototype.clearSearch = function () {
+        this.search = '';
+        this.filter();
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSort"])
+    ], ContreBonListComponent.prototype, "sort", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatPaginator"])
+    ], ContreBonListComponent.prototype, "paginator", void 0);
+    ContreBonListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-contre-bon-list',
+            template: __webpack_require__(/*! ./contre-bon-list.component.html */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.html"),
+            styles: [__webpack_require__(/*! ./contre-bon-list.component.css */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_shared_services_contre_bon_service__WEBPACK_IMPORTED_MODULE_3__["ContreBonService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
+    ], ContreBonListComponent);
+    return ContreBonListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.css":
+/*!********************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.css ***!
+  \********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL0NvbXBvbmVudHMvcGFyYW1ldGVycy9jb250cmUgYm9uL2NvbnRyZS1ib24tbGlzdC9jb250cmUtYm9uLW1vcmUtZGV0YWlscy9jb250cmUtYm9uLW1vcmUtZGV0YWlscy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.html":
+/*!*********************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.html ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div mat-dialog-content>\n  <mat-list>\n    <mat-list-item>\n      <h4>Numéro de début: </h4>&nbsp;&nbsp;{{contreBon.cardNumber}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Valeur du contre bon: </h4>&nbsp;&nbsp;{{contreBon.cardValue}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Type: </h4>&nbsp;&nbsp;{{contreBon.type}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Affecté: </h4>&nbsp;&nbsp;{{contreBon.state}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n    <mat-list-item>\n      <h4>Date d'affectation: </h4>&nbsp;&nbsp;{{contreBon.date}}\n    </mat-list-item>\n    <mat-divider></mat-divider>\n  </mat-list>\n</div>\n<div mat-dialog-actions>\n  <span class=\"fill-remaining-space\"></span>\n  <button mat-raised-button (click)=\"onNoClick()\" color=\"primary\">Fermer</button>\n  <span class=\"fill-remaining-space\"></span>\n</div>\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.ts":
+/*!*******************************************************************************************************************************!*\
+  !*** ./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.ts ***!
+  \*******************************************************************************************************************************/
+/*! exports provided: ContreBonMoreDetailsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonMoreDetailsComponent", function() { return ContreBonMoreDetailsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+
+
+
+var ContreBonMoreDetailsComponent = /** @class */ (function () {
+    function ContreBonMoreDetailsComponent(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.contreBon = data.contreBon;
+    }
+    ContreBonMoreDetailsComponent.prototype.ngOnInit = function () {
+    };
+    ContreBonMoreDetailsComponent.prototype.onNoClick = function () {
+        this.dialogRef.close();
+    };
+    ContreBonMoreDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-contre-bon-more-details',
+            template: __webpack_require__(/*! ./contre-bon-more-details.component.html */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.html"),
+            styles: [__webpack_require__(/*! ./contre-bon-more-details.component.css */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], Object])
+    ], ContreBonMoreDetailsComponent);
+    return ContreBonMoreDetailsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.css":
 /*!**********************************************************************************************************************!*\
   !*** ./src/app/Components/parameters/distributeur/distributeur-list/distributeur-add/distributeur-add.component.css ***!
@@ -9042,7 +10272,7 @@ module.exports = "\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-progress [positionUsing]=\"'marginLeft'\" [direction]=\"'leftToRightIncreased'\" [color]=\"'#4286f4'\"\r\n  [trickleSpeed]=\"500\" [thick]=\"true\" [ease]=\"'easeInSine'\"></ng-progress>\r\n<div class=\"container\">\r\n  <mat-accordion>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span color=\"primary\">Carte Bon Types</span>\r\n        </mat-expansion-panel-header>\r\n        <app-card-type-list></app-card-type-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Clients</span>\r\n        </mat-expansion-panel-header>\r\n        <div>\r\n          <app-client-list></app-client-list>\r\n        </div>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Citernes</span>\r\n        </mat-expansion-panel-header>\r\n        <app-citerne-list></app-citerne-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Indexs</span>\r\n        </mat-expansion-panel-header>\r\n        <app-index-list></app-index-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Distributeur</span>\r\n        </mat-expansion-panel-header>\r\n        <app-distributeur-list></app-distributeur-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Carburant</span>\r\n        </mat-expansion-panel-header>\r\n        <app-carburant></app-carburant>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Prix carburant</span>\r\n        </mat-expansion-panel-header>\r\n        <app-prix-carburant-list></app-prix-carburant-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Pompiste</span>\r\n        </mat-expansion-panel-header>\r\n        <app-pompiste-list></app-pompiste-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Banques</span>\r\n        </mat-expansion-panel-header>\r\n        <div>\r\n          <app-bank-list></app-bank-list>\r\n        </div>\r\n      </mat-expansion-panel>\r\n    </div>\r\n  </mat-accordion>\r\n\r\n</div>\r\n"
+module.exports = "<ng-progress [positionUsing]=\"'marginLeft'\" [direction]=\"'leftToRightIncreased'\" [color]=\"'#4286f4'\"\r\n  [trickleSpeed]=\"500\" [thick]=\"true\" [ease]=\"'easeInSine'\"></ng-progress>\r\n<div class=\"container\">\r\n  <mat-accordion>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span color=\"primary\">Carte Bon Types</span>\r\n        </mat-expansion-panel-header>\r\n        <app-card-type-list></app-card-type-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span color=\"primary\">Contre bons</span>\r\n        </mat-expansion-panel-header>\r\n        <app-contre-bon-list></app-contre-bon-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Clients</span>\r\n        </mat-expansion-panel-header>\r\n        <div>\r\n          <app-client-list></app-client-list>\r\n        </div>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Citernes</span>\r\n        </mat-expansion-panel-header>\r\n        <app-citerne-list></app-citerne-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Indexs</span>\r\n        </mat-expansion-panel-header>\r\n        <app-index-list></app-index-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Distributeur</span>\r\n        </mat-expansion-panel-header>\r\n        <app-distributeur-list></app-distributeur-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Carburant</span>\r\n        </mat-expansion-panel-header>\r\n        <app-carburant></app-carburant>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Prix carburant</span>\r\n        </mat-expansion-panel-header>\r\n        <app-prix-carburant-list></app-prix-carburant-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Pompiste</span>\r\n        </mat-expansion-panel-header>\r\n        <app-pompiste-list></app-pompiste-list>\r\n      </mat-expansion-panel>\r\n    </div>\r\n\r\n    <div class=\"margin-param\">\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <span>Banques</span>\r\n        </mat-expansion-panel-header>\r\n        <div>\r\n          <app-bank-list></app-bank-list>\r\n        </div>\r\n      </mat-expansion-panel>\r\n    </div>\r\n  </mat-accordion>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -9913,13 +11143,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ComRecetteEspece_recette_espece_component__WEBPACK_IMPORTED_MODULE_98__ = __webpack_require__(/*! @ComRecetteEspece/recette-espece.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-espece/recette-espece.component.ts");
 /* harmony import */ var _ComRecetteEspece_recette_espece_add_recette_espece_add_component__WEBPACK_IMPORTED_MODULE_99__ = __webpack_require__(/*! @ComRecetteEspece/recette-espece-add/recette-espece-add.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-espece/recette-espece-add/recette-espece-add.component.ts");
 /* harmony import */ var _ComRecetteEspece_recette_espece_edit_recette_espece_edit_component__WEBPACK_IMPORTED_MODULE_100__ = __webpack_require__(/*! @ComRecetteEspece/recette-espece-edit/recette-espece-edit.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-espece/recette-espece-edit/recette-espece-edit.component.ts");
-/* harmony import */ var _ComSubventionPeche_subvention_peche_list_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! @ComSubventionPeche/subvention-peche-list.component */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-list.component.ts");
-/* harmony import */ var _ComSubventionPeche_subvention_peche_edit_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! @ComSubventionPeche/subvention-peche-edit/subvention-peche-edit.component */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts");
-/* harmony import */ var _ComSubventionPecheMD_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! @ComSubventionPecheMD/subvention-peche-more-details.component */ "./src/app/Components/inventaire/Subvention Peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts");
+/* harmony import */ var _ComSubventionPeche_subvention_peche_list_component__WEBPACK_IMPORTED_MODULE_101__ = __webpack_require__(/*! @ComSubventionPeche/subvention-peche-list.component */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-list.component.ts");
+/* harmony import */ var _ComSubventionPeche_subvention_peche_edit_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_102__ = __webpack_require__(/*! @ComSubventionPeche/subvention-peche-edit/subvention-peche-edit.component */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-edit/subvention-peche-edit.component.ts");
+/* harmony import */ var _ComSubventionPecheMD_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_103__ = __webpack_require__(/*! @ComSubventionPecheMD/subvention-peche-more-details.component */ "./src/app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/subvention-peche-more-details.component.ts");
 /* harmony import */ var _ComRecetteSubP_recette_subvention_peche_component__WEBPACK_IMPORTED_MODULE_104__ = __webpack_require__(/*! @ComRecetteSubP/recette-subvention-peche.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche.component.ts");
 /* harmony import */ var _ComRecetteSubP_recette_subvention_peche_add_recette_subvention_peche_add_component__WEBPACK_IMPORTED_MODULE_105__ = __webpack_require__(/*! @ComRecetteSubP/recette-subvention-peche-add/recette-subvention-peche-add.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche-add/recette-subvention-peche-add.component.ts");
 /* harmony import */ var _ComRecetteSubP_recette_subvention_peche_edit_recette_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_106__ = __webpack_require__(/*! @ComRecetteSubP/recette-subvention-peche-edit/recette-subvention-peche-edit.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche-edit/recette-subvention-peche-edit.component.ts");
 /* harmony import */ var _ComRecetteSubPMD_recette_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_107__ = __webpack_require__(/*! @ComRecetteSubPMD/recette-subvention-peche-more-details.component */ "./src/app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche-more-details/recette-subvention-peche-more-details.component.ts");
+/* harmony import */ var _ComContreBonMD_contre_bon_more_details_component__WEBPACK_IMPORTED_MODULE_108__ = __webpack_require__(/*! @ComContreBonMD/contre-bon-more-details.component */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/contre-bon-more-details.component.ts");
+/* harmony import */ var _Components_parameters_contre_bon_contre_bon_list_contre_bon_list_component__WEBPACK_IMPORTED_MODULE_109__ = __webpack_require__(/*! ./Components/parameters/contre bon/contre-bon-list/contre-bon-list.component */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-list.component.ts");
+/* harmony import */ var _Components_parameters_contre_bon_contre_bon_list_contre_bon_add_contre_bon_add_component__WEBPACK_IMPORTED_MODULE_110__ = __webpack_require__(/*! ./Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component */ "./src/app/Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component.ts");
+/* harmony import */ var _ComRecette_recette_module__WEBPACK_IMPORTED_MODULE_111__ = __webpack_require__(/*! @ComRecette/recette.module */ "./src/app/Components/check-current-session/Recette/recette.module.ts");
+
+
+
+
 
 
 
@@ -10128,6 +11366,9 @@ var AppModule = /** @class */ (function () {
                 _ComRecetteSubP_recette_subvention_peche_add_recette_subvention_peche_add_component__WEBPACK_IMPORTED_MODULE_105__["RecetteSubventionPecheAddComponent"],
                 _ComRecetteSubP_recette_subvention_peche_edit_recette_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_106__["RecetteSubventionPecheEditComponent"],
                 _ComRecetteSubPMD_recette_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_107__["RecetteSubventionPecheMoreDetailsComponent"],
+                _Components_parameters_contre_bon_contre_bon_list_contre_bon_list_component__WEBPACK_IMPORTED_MODULE_109__["ContreBonListComponent"],
+                _Components_parameters_contre_bon_contre_bon_list_contre_bon_add_contre_bon_add_component__WEBPACK_IMPORTED_MODULE_110__["ContreBonAddComponent"],
+                _ComContreBonMD_contre_bon_more_details_component__WEBPACK_IMPORTED_MODULE_108__["ContreBonMoreDetailsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -10139,7 +11380,8 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_18__["BrowserAnimationsModule"],
                 _material_material_module__WEBPACK_IMPORTED_MODULE_19__["MaterialModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_53__["MatExpansionModule"],
-                ngx_progressbar__WEBPACK_IMPORTED_MODULE_65__["NgProgressModule"]
+                ngx_progressbar__WEBPACK_IMPORTED_MODULE_65__["NgProgressModule"],
+                _ComRecette_recette_module__WEBPACK_IMPORTED_MODULE_111__["RecetteModule"]
             ],
             entryComponents: [
                 _ComCardType_card_type_add_card_type_add_component__WEBPACK_IMPORTED_MODULE_16__["CardTypeAddComponent"],
@@ -10200,6 +11442,8 @@ var AppModule = /** @class */ (function () {
                 _ComRecetteSubPMD_recette_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_107__["RecetteSubventionPecheMoreDetailsComponent"],
                 _ComSubventionPeche_subvention_peche_edit_subvention_peche_edit_component__WEBPACK_IMPORTED_MODULE_102__["SubventionPecheEditComponent"],
                 _ComSubventionPecheMD_subvention_peche_more_details_component__WEBPACK_IMPORTED_MODULE_103__["SubventionPecheMoreDetailsComponent"],
+                _Components_parameters_contre_bon_contre_bon_list_contre_bon_add_contre_bon_add_component__WEBPACK_IMPORTED_MODULE_110__["ContreBonAddComponent"],
+                _ComContreBonMD_contre_bon_more_details_component__WEBPACK_IMPORTED_MODULE_108__["ContreBonMoreDetailsComponent"]
             ],
             providers: [_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_12__["AuthService"], _shared_Guards_auth_guard__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"], _ComIndex_index_list_component__WEBPACK_IMPORTED_MODULE_33__["IndexListComponent"],
                 {
@@ -10641,6 +11885,83 @@ var Client = /** @class */ (function () {
         this.region = '';
     }
     return Client;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/models/contreBon.ts":
+/*!********************************************!*\
+  !*** ./src/app/shared/models/contreBon.ts ***!
+  \********************************************/
+/*! exports provided: ContreBon */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBon", function() { return ContreBon; });
+var ContreBon = /** @class */ (function () {
+    function ContreBon() {
+        this.cardNumber = 0;
+        this.cardValue = 0;
+        this.type = '';
+        this.caisseState = '';
+        this.clientState = '';
+        this.date = '';
+        this.color = '';
+    }
+    return ContreBon;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/models/contreBonCaisse.ts":
+/*!**************************************************!*\
+  !*** ./src/app/shared/models/contreBonCaisse.ts ***!
+  \**************************************************/
+/*! exports provided: ContreBonCaisse */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonCaisse", function() { return ContreBonCaisse; });
+var ContreBonCaisse = /** @class */ (function () {
+    function ContreBonCaisse() {
+        this.cardNumber = 0;
+        this.cardValue = 0;
+        this.type = '';
+        this.sessionId = '';
+        this.date = '';
+    }
+    return ContreBonCaisse;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/models/contreBonClient.ts":
+/*!**************************************************!*\
+  !*** ./src/app/shared/models/contreBonClient.ts ***!
+  \**************************************************/
+/*! exports provided: ContreBonClient */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonClient", function() { return ContreBonClient; });
+var ContreBonClient = /** @class */ (function () {
+    function ContreBonClient() {
+        this.cardNumber = 0;
+        this.cardValue = 0;
+        this.type = '';
+        this.sessionId = '';
+        this.date = '';
+    }
+    return ContreBonClient;
 }());
 
 
@@ -11589,6 +12910,264 @@ var ClientService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], ClientService);
     return ClientService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/contre-bon-caisse.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/shared/services/contre-bon-caisse.service.ts ***!
+  \**************************************************************/
+/*! exports provided: ContreBonCaisseService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonCaisseService", function() { return ContreBonCaisseService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+
+
+
+
+var ContreBonCaisseService = /** @class */ (function () {
+    function ContreBonCaisseService(http) {
+        this.http = http;
+        this.uri = 'https://ppp-ss.herokuapp.com/contreBonCaisse';
+        this.contreBonCaisse = [];
+        this.contreBonCaisseMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](this.contreBonCaisse);
+    }
+    ContreBonCaisseService.prototype.getTotalPrevue = function () {
+        return this.contreBonCaisse.map(function (c) { return c.cardValue; }).reduce(function (acc, value) { return acc + value; }, 0).toFixed(3);
+    };
+    // get contreBons list
+    ContreBonCaisseService.prototype.getContreBonCaisseList = function (sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (res) {
+            var key = 'contreBonCaisses';
+            _this.contreBonCaisse = res[key];
+            _this.contreBonCaisse = _this.contreBonCaisse.reverse();
+            _this.contreBonCaisseMatTab.data = _this.contreBonCaisse;
+            if (sort) {
+                _this.contreBonCaisseMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.contreBonCaisseMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ContreBonCaisseService.prototype.getContreBonCaisseListById = function (sessionId, sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (res) {
+            var key = 'contreBonCaisses';
+            _this.contreBonCaisse = res[key];
+            _this.contreBonCaisse = _this.contreBonCaisse.reverse();
+            _this.contreBonCaisse = _this.contreBonCaisse.filter(function (c) { return c.sessionId === sessionId; });
+            _this.contreBonCaisseMatTab.data = _this.contreBonCaisse;
+            if (sort) {
+                _this.contreBonCaisseMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.contreBonCaisseMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    // add new contreBon
+    ContreBonCaisseService.prototype.addContreBonCaisse = function (contreBonCaisse) {
+        var request = { contreBonCaisse: contreBonCaisse };
+        return this.http.post(this.uri + "/add", request);
+    };
+    // delete contreBon
+    ContreBonCaisseService.prototype.deleteContreBonCaisse = function (id) {
+        return this.http.delete(this.uri + "/delete/" + id);
+    };
+    // update contreBon
+    ContreBonCaisseService.prototype.updateContreBonCaisse = function (id, contreBonCaisse) {
+        var request = {
+            contreBonCaisse: contreBonCaisse
+        };
+        return this.http.put(this.uri + "/update/" + id, request);
+    };
+    ContreBonCaisseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], ContreBonCaisseService);
+    return ContreBonCaisseService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/contre-bon-client.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/shared/services/contre-bon-client.service.ts ***!
+  \**************************************************************/
+/*! exports provided: ContreBonClientService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonClientService", function() { return ContreBonClientService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var ContreBonClientService = /** @class */ (function () {
+    function ContreBonClientService(http) {
+        this.http = http;
+        this.uri = 'https://ppp-ss.herokuapp.com/contreBonClient';
+        this.contreBonClient = [];
+        this.contreBonClientMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.contreBonClient);
+    }
+    ContreBonClientService.prototype.getTotalPrevue = function () {
+        return this.contreBonClient.map(function (c) { return c.cardValue; }).reduce(function (acc, value) { return acc + value; }, 0).toFixed(3);
+    };
+    // get contreBons list
+    ContreBonClientService.prototype.getContreBonClientList = function (sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (res) {
+            var key = 'contreBonClients';
+            _this.contreBonClient = res[key];
+            _this.contreBonClient = _this.contreBonClient.reverse();
+            _this.contreBonClientMatTab.data = _this.contreBonClient;
+            if (sort) {
+                _this.contreBonClientMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.contreBonClientMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ContreBonClientService.prototype.getContreBonClientListById = function (sessionId, sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (res) {
+            var key = 'contreBonClients';
+            _this.contreBonClient = res[key];
+            _this.contreBonClient = _this.contreBonClient.reverse();
+            _this.contreBonClient = _this.contreBonClient.filter(function (c) { return c.sessionId === sessionId; });
+            _this.contreBonClientMatTab.data = _this.contreBonClient;
+            if (sort) {
+                _this.contreBonClientMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.contreBonClientMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    // add new contreBon
+    ContreBonClientService.prototype.addContreBonClient = function (contreBonClient) {
+        var request = { contreBonClient: contreBonClient };
+        return this.http.post(this.uri + "/add", request);
+    };
+    // delete contreBon
+    ContreBonClientService.prototype.deleteContreBonClient = function (id) {
+        return this.http.delete(this.uri + "/delete/" + id);
+    };
+    // update contreBon
+    ContreBonClientService.prototype.updateContreBonClient = function (id, contreBonClient) {
+        var request = {
+            contreBonClient: contreBonClient
+        };
+        return this.http.put(this.uri + "/update/" + id, request);
+    };
+    ContreBonClientService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], ContreBonClientService);
+    return ContreBonClientService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/contre-bon.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/shared/services/contre-bon.service.ts ***!
+  \*******************************************************/
+/*! exports provided: ContreBonService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContreBonService", function() { return ContreBonService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
+var ContreBonService = /** @class */ (function () {
+    function ContreBonService(http) {
+        this.http = http;
+        this.uri = 'https://ppp-ss.herokuapp.com/contreBon';
+        this.contreBons = [];
+        this.contreBonsMatTab = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](this.contreBons);
+    }
+    // get contreBons list
+    ContreBonService.prototype.getContreBonsList = function (sort, paginator) {
+        var _this = this;
+        this.http.get(this.uri + "/list").subscribe(function (res) {
+            var key = 'contreBons';
+            _this.contreBons = res[key];
+            _this.contreBons = _this.contreBons.reverse();
+            _this.contreBonsMatTab.data = _this.contreBons;
+            if (sort) {
+                _this.contreBonsMatTab.sort = sort;
+            }
+            if (paginator) {
+                _this.contreBonsMatTab.paginator = paginator;
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    // add new contreBon
+    ContreBonService.prototype.addContreBon = function (contreBon, numberOfCards) {
+        var request = { contreBon: contreBon };
+        return this.http.post(this.uri + "/add/" + numberOfCards, request);
+    };
+    // delete contreBon
+    ContreBonService.prototype.deleteContreBon = function (id) {
+        return this.http.delete(this.uri + "/delete/" + id);
+    };
+    // update contreBon
+    ContreBonService.prototype.updateContreBon = function (id, contreBon) {
+        var request = {
+            contreBon: contreBon
+        };
+        return this.http.put(this.uri + "/update/" + id, request);
+    };
+    ContreBonService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], ContreBonService);
+    return ContreBonService;
 }());
 
 

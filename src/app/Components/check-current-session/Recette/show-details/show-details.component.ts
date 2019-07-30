@@ -7,6 +7,8 @@ import { PayementCreditService } from 'app/shared/services/payement-credit.servi
 import { StegEtAutresService } from 'app/shared/services/steg-et-autres.service';
 import { EspeceService } from 'app/shared/services/espece.service';
 import { SubventionPecheService } from 'app/shared/services/subvention-peche.service';
+import { ContreBonClientService } from 'app/shared/services/contre-bon-client.service';
+import { ContreBonCaisseService } from 'app/shared/services/contre-bon-caisse.service';
 
 @Component({
   selector: 'app-show-details',
@@ -23,7 +25,9 @@ export class ShowDetailsComponent implements OnInit {
     public stegEtAutreService: StegEtAutresService,
     public chequeService: ChequeService,
     public especeService: EspeceService,
-    public subventionPecheService: SubventionPecheService) { }
+    public subventionPecheService: SubventionPecheService,
+    public contreBonClientService: ContreBonClientService,
+    public contreBonCaisseService: ContreBonCaisseService) { }
 
   ngOnInit() {
   }
@@ -33,7 +37,9 @@ export class ShowDetailsComponent implements OnInit {
             parseFloat(this.cardBonService.getTotalPrevue()) +
             parseFloat(this.payementCreditService.getTotalPrevue()) +
             parseFloat(this.especeService.getTotalPrevue()) +
-            parseFloat(this.subventionPecheService.getTotalPrevue()) +
+            parseFloat(this.subventionPecheService.getTotalPrevue()) -
+            parseFloat(this.contreBonCaisseService.getTotalPrevue()) +
+            parseFloat(this.contreBonClientService.getTotalPrevue()) +
             parseFloat(this.chequeService.getTotalPrevue());
   }
 

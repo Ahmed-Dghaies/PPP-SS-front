@@ -106,6 +106,10 @@ import { RecetteSubventionPecheComponent } from '@ComRecetteSubP/recette-subvent
 import { RecetteSubventionPecheAddComponent } from '@ComRecetteSubP/recette-subvention-peche-add/recette-subvention-peche-add.component';
 import { RecetteSubventionPecheEditComponent } from '@ComRecetteSubP/recette-subvention-peche-edit/recette-subvention-peche-edit.component';
 import { RecetteSubventionPecheMoreDetailsComponent } from '@ComRecetteSubPMD/recette-subvention-peche-more-details.component';
+import { ContreBonMoreDetailsComponent } from '@ComContreBonMD/contre-bon-more-details.component';
+import { ContreBonListComponent } from './Components/parameters/contre bon/contre-bon-list/contre-bon-list.component';
+import { ContreBonAddComponent } from './Components/parameters/contre bon/contre-bon-list/contre-bon-add/contre-bon-add.component';
+import { RecetteModule } from '@ComRecette/recette.module';
 
 @NgModule({
   declarations: [
@@ -202,6 +206,9 @@ import { RecetteSubventionPecheMoreDetailsComponent } from '@ComRecetteSubPMD/re
     RecetteSubventionPecheAddComponent,
     RecetteSubventionPecheEditComponent,
     RecetteSubventionPecheMoreDetailsComponent,
+    ContreBonListComponent,
+    ContreBonAddComponent,
+    ContreBonMoreDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -213,7 +220,8 @@ import { RecetteSubventionPecheMoreDetailsComponent } from '@ComRecetteSubPMD/re
     BrowserAnimationsModule,
     MaterialModule,
     MatExpansionModule,
-    NgProgressModule
+    NgProgressModule,
+    RecetteModule
   ],
   entryComponents: [
     CardTypeAddComponent,
@@ -274,6 +282,8 @@ import { RecetteSubventionPecheMoreDetailsComponent } from '@ComRecetteSubPMD/re
     RecetteSubventionPecheMoreDetailsComponent,
     SubventionPecheEditComponent,
     SubventionPecheMoreDetailsComponent,
+    ContreBonAddComponent,
+    ContreBonMoreDetailsComponent
   ],
   providers: [AuthService, AuthGuard, IndexListComponent,
     {

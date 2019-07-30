@@ -1,4 +1,7 @@
 <div class="search-div">
+  <button mat-raised-button (click)="addContreBonClientDialog()">
+    <mat-icon>add</mat-icon>Ajouter
+  </button>
   <mat-form-field class="search-form-field" floatLabel="never">
     <input matInput placeholder="Search" autocomplete="off" [(ngModel)]="search" (keyup)="filter()">
     <button *ngIf="search" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
@@ -7,49 +10,41 @@
   </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="subventionPecheService.subventionPechesMatTab" matSort>
-
+  <mat-table [dataSource]="contreBonClientService.contreBonClientMatTab" matSort>
     <ng-container matColumnDef="cardNumber">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro du bon</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.cardNumber}}</mat-cell>
-      <mat-footer-cell *matFooterCellDef>Recette subvention peche</mat-footer-cell>
+      <mat-footer-cell *matFooterCellDef>Recette</mat-footer-cell>
     </ng-container>
-
-    <ng-container matColumnDef="payeeName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Nom de bénéficiaire</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.payeeName}}</mat-cell>
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.type}}</mat-cell>
       <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     </ng-container>
-
     <ng-container matColumnDef="cardValue">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Valeur du bon</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.cardValue}}</mat-cell>
       <mat-footer-cell *matFooterCellDef>{{getTotalPrevue()}}</mat-footer-cell>
     </ng-container>
-
     <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de livraison</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Date d'affectation</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
       <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     </ng-container>
-
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button class="position" mat-icon-button matTooltip="Voir plus" (click)="seeMoreDialog(row)">
-          <mat-icon>remove_red_eye</mat-icon>
-        </button>
-        <button class="position" mat-icon-button matTooltip="Editer" color="primary" (click)="updateSubventionPecheDialog(row)">
+        <button class="position" mat-icon-button matTooltip="Editer" color="primary"
+          (click)="updateContreBonClientDialog(row)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button class="position" mat-icon-button matTooltip="Supprimer" color="warn"
-          (click)="deleteSubventionPecheDialog(row._id, 'subventionPeche')">
+        <button mat-icon-button color="warn"
+          (click)="deleteContreBonClientDialog(row._id, 'recette contre bon client')">
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-cell>
       <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     </ng-container>
-
     <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="6">
         Loading data ...
@@ -63,15 +58,14 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     <mat-footer-row *matFooterRowDef="displayedColumns"
-      [ngClass]="{'hide':subventionPecheService.subventionPechesMatTab!=null && subventionPecheService.subventionPechesMatTab.data.length==0}">
+      [ngClass]="{'hide':contreBonClientService.contreBonClientMatTab!=null && contreBonClientService.contreBonClientMatTab.data.length==0}">
     </mat-footer-row>
-    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':subventionPecheService.subventionPechesMatTab!=null}">
+    <mat-footer-row *matFooterRowDef="['loading']"
+      [ngClass]="{'hide':contreBonClientService.contreBonClientMatTab!=null}">
     </mat-footer-row>
     <mat-footer-row *matFooterRowDef="['noData']"
-      [ngClass]="{'hide':!(subventionPecheService.subventionPechesMatTab!=null && subventionPecheService.subventionPechesMatTab.data.length==0)}">
+      [ngClass]="{'hide':!(contreBonClientService.contreBonClientMatTab!=null && contreBonClientService.contreBonClientMatTab.data.length==0)}">
     </mat-footer-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
-
-

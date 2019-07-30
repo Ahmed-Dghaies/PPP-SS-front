@@ -1,0 +1,63 @@
+<mat-toolbar>
+    <span>Ajouter contre bon Caisse</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <form mat-dialog-content class="normal-form" #angForm="ngForm">
+    <div>
+      <mat-grid-list [cols]="width" rowHeight="100px">
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Numéro du contre bon</mat-label>
+            <mat-select required name="cardNumber" [(ngModel)]="contreBonCaisse.cardNumber">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let c of contreBonService.contreBons" [value]="c.cardNumber">
+                {{c.cardNumber}}
+              </mat-option>
+            </mat-select>
+            <mat-error>Numéro du contre bon est obligatoire.</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Valeur" required type="number" name="cardValue"
+              [(ngModel)]="contreBonCaisse.cardValue">
+            <mat-error>Valeur contre bon caisse est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Type" required type="string" name="type"
+              [(ngModel)]="contreBonCaisse.type">
+            <mat-error>type du contre bon est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Date de l'affectation" required type="text" name="date"
+              [(ngModel)]="contreBonCaisse.date">
+            <mat-error>Date de l'affectation est obligatoire</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+      <div>
+        <span class="error-message" *ngIf="error">{{errorMessage}}</span>
+      </div>
+      <div class="button-row">
+        <button mat-raised-button color="primary" (click)="addContreBonCaisse()"
+          [disabled]="angForm.pristine || angForm.invalid">Ajouter
+        </button>
+        <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+      </div>
+    </div>
+  </form>
+
+

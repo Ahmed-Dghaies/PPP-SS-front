@@ -1,0 +1,48 @@
+<mat-toolbar>
+  <span>Ajouter contre bon</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form mat-dialog-content class="normal-form" #angForm="ngForm">
+  <div>
+    <mat-grid-list [cols]="width" rowHeight="100px">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Numéro du début" required type="number" name="cardNumber" [(ngModel)]="contreBon.cardNumber">
+          <mat-error>Numéro du début est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Nombre des contre bons" required type="number" name="numberOfCards"
+            [(ngModel)]="numberOfCards">
+          <mat-error>Nombre des contre bons est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Date de l'affectation" required type="text" name="date"
+            [(ngModel)]="contreBon.date">
+          <mat-error>Date de l'affectation est obligatoire</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+    <div>
+      <span class="error-message" *ngIf="error">{{errorMessage}}</span>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button color="primary" (click)="addContreBon()"
+        [disabled]="angForm.pristine || angForm.invalid">Ajouter
+      </button>
+      <button mat-raised-button color="warn" (click)="onClear(angForm)">Reset</button>
+    </div>
+  </div>
+</form>
+

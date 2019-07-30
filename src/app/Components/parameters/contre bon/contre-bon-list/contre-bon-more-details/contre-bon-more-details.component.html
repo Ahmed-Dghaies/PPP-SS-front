@@ -1,0 +1,31 @@
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item>
+      <h4>Numéro de début: </h4>&nbsp;&nbsp;{{contreBon.cardNumber}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Valeur du contre bon: </h4>&nbsp;&nbsp;{{contreBon.cardValue}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Type: </h4>&nbsp;&nbsp;{{contreBon.type}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Affecté: </h4>&nbsp;&nbsp;{{contreBon.state}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h4>Date d'affectation: </h4>&nbsp;&nbsp;{{contreBon.date}}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button (click)="onNoClick()" color="primary">Fermer</button>
+  <span class="fill-remaining-space"></span>
+</div>
+
+

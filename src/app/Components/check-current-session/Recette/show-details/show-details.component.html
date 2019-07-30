@@ -94,6 +94,30 @@
           </mat-expansion-panel>
         </div>
 
+        <div class="margin-param">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <span>Contre Bon Caisse</span>
+                <span class="fill-remaining-space"></span>
+                <span>Valeur Total: {{contreBonCaisseService.getTotalPrevue()}}</span>
+                <span class="fill-remaining-space"></span>
+              </mat-expansion-panel-header>
+              <app-recette-contre-bon-caisse></app-recette-contre-bon-caisse>
+            </mat-expansion-panel>
+          </div>
+
+          <div class="margin-param">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <span>Contre Bon Client</span>
+                  <span class="fill-remaining-space"></span>
+                  <span>Valeur Total: {{contreBonClientService.getTotalPrevue()}}</span>
+                  <span class="fill-remaining-space"></span>
+                </mat-expansion-panel-header>
+                <app-recette-contre-bon-client></app-recette-contre-bon-client>
+              </mat-expansion-panel>
+            </div>
+
     </mat-dialog-content>
 
     <div>

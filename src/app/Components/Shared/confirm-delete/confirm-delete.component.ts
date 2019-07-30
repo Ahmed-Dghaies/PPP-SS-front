@@ -21,6 +21,10 @@ import { ChequeService } from 'app/shared/services/cheque.service';
 import { CreditService } from 'app/shared/services/credit.service';
 import { PayementCreditService } from 'app/shared/services/payement-credit.service';
 import { StegEtAutresService } from 'app/shared/services/steg-et-autres.service';
+import { ContreBonService } from 'app/shared/services/contre-bon.service';
+import { SubventionPecheService } from 'app/shared/services/subvention-peche.service';
+import { ContreBonClientService } from 'app/shared/services/contre-bon-client.service';
+import { ContreBonCaisseService } from 'app/shared/services/contre-bon-caisse.service';
 
 @Component({
   selector: 'app-confirm-delete',
@@ -52,7 +56,11 @@ export class ConfirmDeleteComponent implements OnInit {
     private chequeService: ChequeService,
     private creditService: CreditService,
     private payementCreditService: PayementCreditService,
-    private stegEtAutreService: StegEtAutresService) {
+    private stegEtAutreService: StegEtAutresService,
+    private contreBonService: ContreBonService,
+    private subventionPecheService: SubventionPecheService,
+    private contreBonClientService: ContreBonClientService,
+    private contreBonCaisseService: ContreBonCaisseService) {
     this.id = data.id;
     this.msg = data.msg;
   }
@@ -102,6 +110,18 @@ export class ConfirmDeleteComponent implements OnInit {
       this.deleteStegEtAutre();
     } else if (this.msg === 'recette-stegEtAutre') {
       this.deleteRecetteStegEtAutre();
+    } else if (this.msg === 'contre bon') {
+      this.deleteContreBon();
+    } else if (this.msg === 'recette-subventionPeche') {
+      this.deleteRecetteSubventionPeche();
+    } else if (this.msg === 'subventionPeche') {
+      this.deleteSubventionPeche();
+    } else if (this.msg === 'recette contre bon client') {
+      this.deleteRecetteContreBonClient();
+    } else if (this.msg === 'recette contre bon caisse') {
+      this.deleteRecetteContreBonCaisse();
+    } else if (this.msg === 'contre bon caisse') {
+      this.deleteContreBonCaisse();
     }
   }
 
@@ -109,9 +129,75 @@ export class ConfirmDeleteComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  deleteContreBon(): void {
+    this.contreBonService.deleteContreBon(this.id).subscribe(res => {
+      this.contreBonService.getContreBonsList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteRecetteContreBonClient(): void {
+    this.contreBonClientService.deleteContreBonClient(this.id).subscribe(res => {
+      this.contreBonClientService.getContreBonClientListById(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteRecetteContreBonCaisse(): void {
+    this.contreBonCaisseService.deleteContreBonCaisse(this.id).subscribe(res => {
+      this.contreBonCaisseService.getContreBonCaisseListById(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteContreBonCaisse(): void {
+    this.contreBonCaisseService.deleteContreBonCaisse(this.id).subscribe(res => {
+      this.contreBonCaisseService.getContreBonCaisseList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
   deletePrixCarburant(): void {
     this.prixcarburantService.deletePrixCarburant(this.id).subscribe(res => {
       this.prixcarburantService.getCarburantList();
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteRecetteSubventionPeche(): void {
+    this.subventionPecheService.deleteSubventionPeche(this.id).subscribe(res => {
+      this.subventionPecheService.getSubventionPechesListById(this.sessionService.currentSessionId);
+      this.dialogRef.close();
+      this.notifService.success(`${this.msg} supprimé avec succés`);
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteSubventionPeche(): void {
+    this.subventionPecheService.deleteSubventionPeche(this.id).subscribe(res => {
+      this.subventionPecheService.getSubventionPechesList();
       this.dialogRef.close();
       this.notifService.success(`${this.msg} supprimé avec succés`);
     },

@@ -42,7 +42,15 @@
       "@ComSubventionPeche/*": ["app/Components/inventaire/Subvention peche/subvention-peche-list/*"],
       "@ComSubventionPecheMD/*": ["app/Components/inventaire/Subvention peche/subvention-peche-list/subvention-peche-more-details/*"],
       "@ComRecetteSubP/*": ["app/Components/check-current-session/Recette/show-details/recette-subvention-peche/*"],
-      "@ComRecetteSubPMD/*": ["app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche-more-details/*"]
+      "@ComRecetteSubPMD/*": ["app/Components/check-current-session/Recette/show-details/recette-subvention-peche/recette-subvention-peche-more-details/*"],
+      "@ComContreBonMD/*": ["app/Components/parameters/contre bon/contre-bon-list/contre-bon-more-details/*"],
+      "@ComContreBonClient/*": ["app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/*"],
+      "@ComContreBonClientAdd/*": ["app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-add/*"],
+      "@ComContreBonClientEdit/*": ["app/Components/check-current-session/Recette/show-details/recette-contre-bon-client/recette-contre-bon-client-edit/*"],
+      "@ComContreBonCaisse/*": ["app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/*"],
+      "@ComContreBonCaisseAdd/*": ["app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-add/*"],
+      "@ComContreBonCaisseEdit/*": ["app/Components/check-current-session/Recette/show-details/recette-contre-bon-caisse/recette-contre-bon-caisse-edit/*"],
+      "@ContreBonCaisseList/*": ["app/Components/inventaire/Contre bon caisse/contre-bon-caisse-list/*"]
     }
   }
 }
